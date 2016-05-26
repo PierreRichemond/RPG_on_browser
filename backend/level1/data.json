@@ -1,0 +1,12 @@
+{
+  "documents": [
+    { "id": 1, "price": 39000 },
+    { "id": 2, "price": 29000 },
+    { "id": 3, "price": 69000 }
+  ],
+  "orders": [
+    { "id": 1, "document_id": 1 },
+    { "id": 2, "document_id": 3 },
+    { "id": 3, "document_id": 2 }
+  ]
+}
