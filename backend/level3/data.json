@@ -1,0 +1,18 @@
+{
+  "documents": [
+    { "id": 1, "price": 69000, "service_fee": 10000 },
+    { "id": 2, "price": 79000, "service_fee": 25000 },
+    { "id": 3, "price": 39000, "service_fee": 20000 }
+  ],
+  "orders": [
+    { "id": 1, "document_id": 1, "promotion_id": null },
+    { "id": 2, "document_id": 2, "promotion_id": null },
+    { "id": 3, "document_id": 1, "promotion_id": 1 },
+    { "id": 4, "document_id": 1, "promotion_id": 2 },
+    { "id": 5, "document_id": 3, "promotion_id": 1 }
+  ],
+  "promotions": [
+    { "id": 1, "reduction": 10, "reduction_fixe": 0 },
+    { "id": 2, "reduction": 0, "reduction_fixe": 15000 }
+  ]
+}

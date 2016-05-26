@@ -1,0 +1,49 @@
+{
+  "orders": [
+    {
+      "id": 1,
+      "price": 69000,
+      "transfers": {
+        "client_fee": -69000,
+        "lawyer_fee": 69000,
+        "captain_fee": 10000
+      }
+    },
+    {
+      "id": 2,
+      "price": 79000,
+      "transfers": {
+        "client_fee": -79000,
+        "lawyer_fee": 79000,
+        "captain_fee": 25000
+      }
+    },
+    {
+      "id": 3,
+      "price": 62100,
+      "transfers": {
+        "client_fee": -62100,
+        "lawyer_fee": 62100,
+        "captain_fee": 3100
+      }
+    },
+    {
+      "id": 4,
+      "price": 54000,
+      "transfers": {
+        "client_fee": -54000,
+        "lawyer_fee": 54000,
+        "captain_fee": 0
+      }
+    },
+    {
+      "id": 5,
+      "price": 35100,
+      "transfers": {
+        "client_fee": -35100,
+        "lawyer_fee": 35100,
+        "captain_fee": 16100
+      }
+    }
+  ]
+}
