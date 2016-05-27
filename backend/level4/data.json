@@ -1,0 +1,37 @@
+{
+  "documents": [
+    { "id": 1, "price": 69000, "service_fee": 10000 },
+    { "id": 2, "price": 79000, "service_fee": 25000 },
+    { "id": 3, "price": 39000, "service_fee": 20000 }
+  ],
+  "products": [
+    { "id": 1, "price": 0, "service_fee": 10000 },
+    { "id": 2, "price": 0, "service_fee": 30000 }
+  ],
+  "order_documents": [
+    { "id": 1, "document_id": 1, "order_id": 1 },
+    { "id": 2, "document_id": 2, "order_id": 2 },
+    { "id": 3, "document_id": 1, "order_id": 3 },
+    { "id": 4, "document_id": 1, "order_id": 4 },
+    { "id": 5, "document_id": 3, "order_id": 5 }
+  ],
+  "order_products": [
+    { "id": 1, "product_id": 2, "order_id": 2 },
+    { "id": 2, "product_id": 1, "order_id": 5 },
+    { "id": 3, "product_id": 2, "order_id": 5 },
+    { "id": 4, "product_id": 1, "order_id": 6 },
+    { "id": 5, "product_id": 2, "order_id": 6 }
+  ],
+  "orders": [
+    { "id": 1, "promotion_id": null },
+    { "id": 2, "promotion_id": null },
+    { "id": 3, "promotion_id": 1 },
+    { "id": 4, "promotion_id": 2 },
+    { "id": 5, "promotion_id": 1 },
+    { "id": 6, "promotion_id": null }
+  ],
+  "promotions": [
+    { "id": 1, "reduction": 10, "reduction_fixe": 0 },
+    { "id": 2, "reduction": 0, "reduction_fixe": 15000 }
+  ]
+}

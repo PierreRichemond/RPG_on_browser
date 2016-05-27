@@ -9,4 +9,5 @@ The payment work like this:
   2. The money goes to the `lawyer wallet` when the order is completed
   3. And then a service fee is sent to `Captain Contrat wallet` from the `lawyer wallet`
 
+We want to know how much money must be debited/credited for each actor.
 Compute the amount collected from the customer, the part that belongs to the lawyer and to us.

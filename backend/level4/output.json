@@ -1,0 +1,184 @@
+{
+  "orders": [
+    {
+      "id": 1,
+      "price": 69000,
+      "transfers": [
+        {
+          "type": "pay_in",
+          "from": "client",
+          "to": "order",
+          "amount": 69000
+        },
+        {
+          "type": "transfer",
+          "from": "order",
+          "to": "lawyer",
+          "amount": 69000
+        },
+        {
+          "type": "transfer",
+          "from": "lawyer",
+          "to": "captain",
+          "amount": 10000
+        },
+        {
+          "type": "transfer",
+          "from": "order",
+          "to": "captain",
+          "amount": 0
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "price": 109000,
+      "transfers": [
+        {
+          "type": "pay_in",
+          "from": "client",
+          "to": "order",
+          "amount": 109000
+        },
+        {
+          "type": "transfer",
+          "from": "order",
+          "to": "lawyer",
+          "amount": 79000
+        },
+        {
+          "type": "transfer",
+          "from": "lawyer",
+          "to": "captain",
+          "amount": 25000
+        },
+        {
+          "type": "transfer",
+          "from": "order",
+          "to": "captain",
+          "amount": 30000
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "price": 62100,
+      "transfers": [
+        {
+          "type": "pay_in",
+          "from": "client",
+          "to": "order",
+          "amount": 62100
+        },
+        {
+          "type": "transfer",
+          "from": "order",
+          "to": "lawyer",
+          "amount": 62100
+        },
+        {
+          "type": "transfer",
+          "from": "lawyer",
+          "to": "captain",
+          "amount": 3100
+        },
+        {
+          "type": "transfer",
+          "from": "order",
+          "to": "captain",
+          "amount": 0
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "price": 54000,
+      "transfers": [
+        {
+          "type": "pay_in",
+          "from": "client",
+          "to": "order",
+          "amount": 54000
+        },
+        {
+          "type": "transfer",
+          "from": "order",
+          "to": "lawyer",
+          "amount": 54000
+        },
+        {
+          "type": "transfer",
+          "from": "lawyer",
+          "to": "captain",
+          "amount": 0
+        },
+        {
+          "type": "transfer",
+          "from": "order",
+          "to": "captain",
+          "amount": 0
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "price": 75100,
+      "transfers": [
+        {
+          "type": "pay_in",
+          "from": "client",
+          "to": "order",
+          "amount": 75100
+        },
+        {
+          "type": "transfer",
+          "from": "order",
+          "to": "lawyer",
+          "amount": 35100
+        },
+        {
+          "type": "transfer",
+          "from": "lawyer",
+          "to": "captain",
+          "amount": 16100
+        },
+        {
+          "type": "transfer",
+          "from": "order",
+          "to": "captain",
+          "amount": 40000
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "price": 40000,
+      "transfers": [
+        {
+          "type": "pay_in",
+          "from": "client",
+          "to": "order",
+          "amount": 40000
+        },
+        {
+          "type": "transfer",
+          "from": "order",
+          "to": "lawyer",
+          "amount": 0
+        },
+        {
+          "type": "transfer",
+          "from": "lawyer",
+          "to": "captain",
+          "amount": 0
+        },
+        {
+          "type": "transfer",
+          "from": "order",
+          "to": "captain",
+          "amount": 40000
+        }
+      ]
+    }
+  ]
+}
