@@ -62,19 +62,19 @@
     },
     {
       "id": 3,
-      "price": 69000,
+      "price": 79000,
       "transfers": [
         {
           "type": "pay_in",
           "from": "client",
           "to": "order",
-          "amount": 69000
+          "amount": 79000
         },
         {
           "type": "transfer",
           "from": "order",
           "to": "lawyer",
-          "amount": 69000
+          "amount": 79000
         },
         {
           "type": "transfer",
@@ -92,13 +92,13 @@
     },
     {
       "id": 4,
-      "price": 71100,
+      "price": 101100,
       "transfers": [
         {
           "type": "pay_in",
           "from": "client",
           "to": "order",
-          "amount": 71100
+          "amount": 101100
         },
         {
           "type": "transfer",
@@ -116,7 +116,7 @@
           "type": "transfer",
           "from": "order",
           "to": "captain",
-          "amount": 0
+          "amount": 30000
         }
       ]
     },
