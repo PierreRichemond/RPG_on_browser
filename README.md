@@ -1,26 +1,26 @@
-# Captain Clash Challenge
+# Captain Challenge
 
 Bienvenue jeune moussaillon !
 
 Pour intégrer le navire Captain Contrat, tu dois créer une arène où deux héros pourront s'affronter !
 
-# Résultat attendu
+## Résultat attendu
 
 Le but de ce challenge est de tester ta capacité à monter une petite application proprement.  
 On te propose plusieurs étapes, avec des bonus facultatifs. Tu peux t'arrêter quand tu veux.  
 Tiens-nous régulièrement informés de ta progression.
 
-Nous nous intéresserons tout particulièrement aux choix de conception que tu feras, comment tu abordes les fonctionnalités à développer et ta connaissance des outils que tu utilises. Nous aimons aussi particulièrement lire les instructions d'installation dans le readme d'un projet.
+Nous nous intéresserons tout particulièrement aux choix de conception que tu feras, comment tu abordes les fonctionnalités à développer et ta connaissance des outils que tu utilises.
 
-# Tes armes
+## Tes armes
 
 - Ruby
 - Rails
 - git
 
-# Étapes
+## Étapes
 
-## 1. Page d'accueil statique
+### 1. Page d'accueil statique
 
 C'est l'accueil de l'arène, d'où nous pourrons lancer les combats.  
 Le but est donc de créer l'application et d'afficher une page dans un navigateur.
@@ -29,7 +29,7 @@ Bonus :
 - Un petit texte d'introduction de ton cru. C'est plus fun.
 - Joli design (mais n'y perd pas trop de temps non plus)
 
-## 2. Pouvoir créer un personnage
+### 2. Pouvoir créer un personnage
 
 Données requises :
 
@@ -46,7 +46,7 @@ Bonus :
 - Crud complet des personnages
 - Ajouter d'autres caractéristiques aux personnages
 
-## 3. READY? FIGHT!
+### 3. READY? FIGHT!
 
 Pouvoir choisir deux personnages et les faire combattre, puis afficher le gagnant avec un récapitulatif du combat.
 
@@ -56,7 +56,7 @@ Bonus :
 - Ajout de points d'expérience (mais pourquoi faire ?)
 - Statistiques des combats : taux de victoire par perso et tout ça
 
-## 4. Des armes
+### 4. Des armes
 
 Pouvoir assigner une arme aux personnages avant le combat.
 
