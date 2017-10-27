@@ -4,12 +4,6 @@ Bienvenue jeune moussaillon !
 
 Pour intégrer le navire Captain Contrat, tu dois créer une arène où deux héros pourront s'affronter !
 
-# Tes armes
-
-- Ruby
-- Rails
-- git
-
 # Résultat attendu
 
 Le but de ce challenge est de tester ta capacité à monter une petite application proprement.  
@@ -17,6 +11,12 @@ On te propose plusieurs étapes, avec des bonus facultatifs. Tu peux t'arrêter 
 Tiens-nous régulièrement informés de ta progression.
 
 Nous nous intéresserons tout particulièrement aux choix de conception que tu feras, comment tu abordes les fonctionnalités à développer et ta connaissance des outils que tu utilises. Nous aimons aussi particulièrement lire les instructions d'installation dans le readme d'un projet.
+
+# Tes armes
+
+- Ruby
+- Rails
+- git
 
 # Étapes
 
