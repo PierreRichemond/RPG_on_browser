@@ -1,4 +1,5 @@
-Ce fichier contient le sujet du test que passent les candidats à un poste de dévelopeur chez Captain Contrat. Plus d'infos sur [notre page jobs](https://jobs.captaincontrat.com/)
+Ce fichier contient le sujet du test que passent les candidats à un poste de dévelopeur chez Captain Contrat.  
+Plus d'infos sur [notre page jobs](https://jobs.captaincontrat.com/)
 
 # Captain Challenge
 
@@ -8,7 +9,7 @@ Pour intégrer le navire Captain Contrat, tu dois créer une arène où deux hé
 
 ## Résultat attendu
 
-Le but de ce challenge est de tester ta capacité à monter une petite application proprement.  
+Le but de ce challenge est de tester ta capacité à monter une petite application [dans le respect des bonnes pratiques](https://medium.com/captain-contrat-tech).  
 On te propose plusieurs étapes, avec des bonus facultatifs. Tu peux t'arrêter quand tu veux.  
 Tiens-nous régulièrement informés de ta progression.
 
