@@ -1,0 +1,68 @@
+# rubocop --auto-gen-config
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 2.6.2
+  Exclude:
+    - bin/**/*
+    - db/schema.rb
+    - docs/**/*
+    - node_modules/**/*
+
+Style/Documentation:
+  Enabled: false
+
+Rails:
+  Enabled: true
+
+Rails/ApplicationRecord:
+  Enabled: false
+
+Rails/RequestReferer:
+  EnforcedStyle: referrer
+
+Rails/HttpPositionalArguments:
+  Exclude:
+    - spec/controllers/**/* # rspec uses a different syntax
+
+Metrics/BlockLength:
+  Exclude:
+    - Rakefile
+    - '**/*.rake'
+    - db/migrate/*.rb
+    - spec/**/*.rb
+  ExcludedMethods: [class_methods]
+
+Metrics/LineLength:
+  Enabled: true
+  Max: 120
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/RegexpLiteral:
+  Enabled: false
+
+Layout/EmptyLineAfterMagicComment:
+  Enabled: false
+
+Naming/RescuedExceptionsVariableName:
+  PreferredName: error
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/PredicateMatcher:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 4
+
+RSpec/LetSetup:
+  Enabled: false

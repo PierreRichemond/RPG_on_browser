@@ -1,11 +1,14 @@
-Ce fichier contient le sujet du test que passent les candidats à un poste de dévelopeur chez Captain Contrat.  
-Plus d'infos sur [notre page jobs](https://jobs.captaincontrat.com/)
+Ce repo contient le squelette d'une application à compléter dans le cadre du processus de recrutement des développeurs.
+
+Plus d'infos à propos du poste de développeur chez Captain Contrat sur [notre page jobs](https://jobs.captaincontrat.com/)
 
 # Captain Challenge
 
 Bienvenue jeune moussaillon !
 
 Pour intégrer le navire Captain Contrat, tu dois créer une arène où deux héros pourront s'affronter !
+
+Pour ce faire, nous avons mis à ta dispostion une appli vide qu'il te faudra compléter.
 
 ## Résultat attendu
 
@@ -23,10 +26,14 @@ Nous nous intéresserons tout particulièrement aux choix de conception que tu f
 
 ## Étapes
 
+### 0. ~~Forker~~ Cloner ce repo
+
+Pour commencer, il faudra cloner (ne *PAS* forker) ce repo afin d'y ajouter tes modifications.
+
 ### 1. Page d'accueil statique
 
 C'est l'accueil de l'arène, d'où nous pourrons lancer les combats.  
-Le but est donc de créer l'application et d'afficher une page dans un navigateur.
+Le but est donc de modifier (ou supprimer/remplacer) la page d'accueil existante.
 
 Bonus :
 - Un petit texte d'introduction de ton cru. C'est plus fun.
@@ -47,7 +54,7 @@ Bonus :
 - L'arène n'est pas vide au premier démarrage de l'appli.
 - Les persos ont une photo de profil (ou de face)
 - Crud complet des personnages
-- Ajouter d'autres caractéristiques aux personnages
+- Ajouter d'autres caractéristiques de ton choix aux personnages
 
 ### 3. READY? FIGHT!
 
