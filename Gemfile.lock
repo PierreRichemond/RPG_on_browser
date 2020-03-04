@@ -112,7 +112,7 @@ GEM
     parallel (1.18.0)
     parser (2.6.5.0)
       ast (~> 2.4.0)
-    puma (3.12.3)
+    puma (3.12.4)
     rack (2.0.8)
     rack-proxy (0.6.5)
       rack
