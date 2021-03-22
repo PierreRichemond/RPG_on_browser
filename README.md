@@ -53,23 +53,23 @@ Pouvoir choisir deux personnages et les faire combattre, puis afficher le gagnan
 
 Pouvoir assigner une arme aux personnages avant le combat.
 
-### 5. Bonus
+## 5. Bonus
 
-#### En général
+### En général
 - Un petit texte d'introduction de ton cru. C'est plus fun.
 - Joli design (mais n'y perd pas trop de temps non plus).
 
-#### Les persos
+### Les persos
 - L'arène n'est pas vide au premier démarrage de l'appli.
 - Les persos ont une photo de profil (ou de face).
 - Crud complet des personnages.
 - Ajouter d'autres caractéristiques de ton choix aux personnages.
 
-#### Les combats
+### Les combats
 - Historique des combats qui ont eu lieu.
 - Ajout de points d'expérience (mais pourquoi faire ?).
 - Statistiques des combats : taux de victoire par perso et tout ça.
 
-#### Les armes
+### Les armes
 - Il n'y a pas que les armes dans la vie, il y a des boucliers aussi.
 - Pouvoir utiliser plusieurs équipements.
