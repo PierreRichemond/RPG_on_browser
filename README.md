@@ -13,8 +13,7 @@ Pour ce faire, nous avons mis à ta disposition une appli vide qu'il te faudra c
 ## Résultat attendu
 
 Le but de ce challenge est de tester ta capacité à monter une petite application [dans le respect des bonnes pratiques](https://medium.com/captain-contrat-tech).  
-On te propose plusieurs étapes, avec une partie bonus à la fin, si tu les as toutes complétées. Tu peux t'arrêter quand tu veux.  
-Tiens-nous régulièrement informés de ta progression.
+On te propose plusieurs étapes, avec une partie bonus à la fin, si tu les as toutes complétées. Tiens-nous régulièrement informés de ta progression.
 
 Nous nous intéresserons tout particulièrement aux choix de conception que tu feras, comment tu abordes les fonctionnalités à développer et ta connaissance des outils que tu utilises.
 
