@@ -53,7 +53,7 @@ Pouvoir choisir deux personnages et les faire combattre, puis afficher le gagnan
 
 Pouvoir assigner une arme aux personnages avant le combat.
 
-## 5. Bonus
+## Bonus
 
 ### En général
 - Un petit texte d'introduction de ton cru. C'est plus fun.
