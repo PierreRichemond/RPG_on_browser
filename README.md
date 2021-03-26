@@ -13,7 +13,7 @@ Pour ce faire, nous avons mis à ta disposition une appli vide qu'il te faudra c
 ## Résultat attendu
 
 Le but de ce challenge est de tester ta capacité à monter une petite application [dans le respect des bonnes pratiques](https://medium.com/captain-contrat-tech).  
-On te propose plusieurs étapes, avec une partie bonus à la fin, si tu les as toutes complétées. Tiens-nous régulièrement informés de ta progression.
+On te propose quatre étapes clés, avec des bonus facultatifs.
 
 Nous nous intéresserons tout particulièrement aux choix de conception que tu feras, comment tu abordes les fonctionnalités à développer et ta connaissance des outils que tu utilises.
 
@@ -34,6 +34,11 @@ Pour commencer, il faudra cloner (ne *PAS* forker) ce repo afin d'y ajouter tes 
 C'est l'accueil de l'arène, d'où nous pourrons lancer les combats.  
 Le but est donc de modifier (ou supprimer/remplacer) la page d'accueil existante.
 
+Bonus :
+
+- Un petit texte d'introduction de ton cru. C'est plus fun.
+- Joli design (mais n'y perd pas trop de temps non plus)
+
 ### 2. Pouvoir créer un personnage
 
 Données requises :
@@ -44,31 +49,28 @@ Données requises :
 
 Assure-toi qu'il n'y ait pas de grand déséquilibre entre combattants.  
 
+Bonus :
+
+- L'arène n'est pas vide au premier démarrage de l'appli.
+- Les persos ont une photo de profil (ou de face)
+- Crud complet des personnages
+- Ajouter d'autres caractéristiques de ton choix aux personnages
+
 ### 3. READY? FIGHT!
 
 Pouvoir choisir deux personnages et les faire combattre, puis afficher le gagnant avec un récapitulatif du combat.
+
+Bonus :
+
+- Historique des combats qui ont eu lieu
+- Ajout de points d'expérience (mais pourquoi faire ?)
+- Statistiques des combats : taux de victoire par perso et tout ça
 
 ### 4. Des armes
 
 Pouvoir assigner une arme aux personnages avant le combat.
 
-## Bonus
+Bonus :
 
-### En général
-- Un petit texte d'introduction de ton cru. C'est plus fun.
-- Joli design (mais n'y perd pas trop de temps non plus).
-
-### Les persos
-- L'arène n'est pas vide au premier démarrage de l'appli.
-- Les persos ont une photo de profil (ou de face).
-- Crud complet des personnages.
-- Ajouter d'autres caractéristiques de ton choix aux personnages.
-
-### Les combats
-- Historique des combats qui ont eu lieu.
-- Ajout de points d'expérience (mais pourquoi faire ?).
-- Statistiques des combats : taux de victoire par perso et tout ça.
-
-### Les armes
-- Il n'y a pas que les armes dans la vie, il y a des boucliers aussi.
-- Pouvoir utiliser plusieurs équipements.
+- Il n'y a pas que les armes dans la vie, il y a des boucliers aussi
+- Pouvoir utiliser plusieurs équipements

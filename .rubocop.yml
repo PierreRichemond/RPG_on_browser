@@ -34,7 +34,7 @@ Metrics/BlockLength:
     - '**/*.rake'
     - db/migrate/*.rb
     - spec/**/*.rb
-  ExcludedMethods: [class_methods]
+  IgnoredMethods: [class_methods]
 
 Metrics/LineLength:
   Enabled: true
