@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fight: one
+  fighter: one
+  turns: 1
+  winner: false
+
+two:
+  fight: two
+  fighter: two
+  turns: 1
+  winner: false

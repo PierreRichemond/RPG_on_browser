@@ -1,0 +1,19 @@
+<div class="container">
+<h1 class="text-center"> Welcome to the Arena!</h1>
+<h2 class="text-center">Here you will have a lots of fun for a while</h2>
+<h3 class="text-center">Select existing character or create one then have them fight! <br>
+each character have a different attack, defence, speed. <br>
+Try to fight a bit, characters can also increase level and get gears!</h3>
+
+
+<div class= form_box>
+    <h1 class='text-center'>Select the two players</h1>
+      <div class="form-login">
+        <%= simple_form_for @fight do |f| %>
+          <%= f.select :first_fighter, @fighters.map { |fighter| fighter.name }, class: 'mt-5' %>
+          <%= f.select :second_fighter, @fighters.map { |fighter| fighter.name }, class: 'mt-5' %>
+          <%= f.submit 'Start a Fight', class: 'btn btn-success my-3 px-5', style: "border-radius: 20px;" %>
+        <% end %>
+      </div>
+    </div>
+</div>

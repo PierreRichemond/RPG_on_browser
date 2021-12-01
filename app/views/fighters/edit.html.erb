@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-5 col-sm-offset-4 mx-auto">
+      <div class= form_box>
+        <h1 class='text-center'>Editing page of <%= @fighter.name %></h1>
+        <div class="form-login">
+        <%= simple_form_for @fighter do |f| %>
+          <%= f.input :photo, as: :file, input_html: { class: 'd-none', id: 'photo-input' },
+            label_html: {class: "upload-photo" }, label: 'Upload Profile 📷 '  %>
+          <%= f.input :name, class: 'mt-5' %>
+          <%= f.submit 'Edit your Warrior', class: 'btn btn-success my-3 px-5', style: "border-radius: 20px;" %>
+        <% end %>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

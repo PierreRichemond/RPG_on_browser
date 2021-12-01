@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-5 col-sm-offset-4 mx-auto">
+    <div class= form_box>
+    <h1 class='text-center'>Create a new challenger</h1>
+      <div class="form-login">
+        <%= simple_form_for @fighter do |f| %>
+          <%= f.input :photo, as: :file, input_html: { class: 'd-none', id: 'photo-input' },
+            label_html: {class: "upload-photo" }, label: 'Upload Profile 📷 '  %>
+          <%= f.input :name, class: 'mt-5' %>
+          <%= f.input :health_point, :as => :hidden, :input_html => { :value => [19, 20, 21].sample}  %>
+          <%= f.input :attack, :as => :hidden, :input_html => { :value => [4, 5, 6].sample }  %>
+          <%= f.input :defence, :as => :hidden, :input_html => { :value => [0, 1, 2].sample }  %>
+          <%= f.input :speed_attack, :as => :hidden, :input_html => { :value => [10, 11, 12].sample }  %>
+          <%= f.input :level, :as => :hidden, :input_html => { :value => 0 } %>
+          <%= f.input :experience, :as => :hidden, :input_html => { :value => 0 } %>
+          <%= f.submit 'Create a new Warrior', class: 'btn btn-success my-3 px-5', style: "border-radius: 20px;" %>
+        <% end %>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>

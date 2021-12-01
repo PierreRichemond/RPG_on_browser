@@ -1,0 +1,38 @@
+<div class="container">
+  <h1 class="text-center">Welcome to the Hall of Heroes</h1>
+
+  <div class="row">
+  <% @fighters.each do |fighter| %>
+    <div class="col-12 col-lg-6">
+      <div class="fighter_card">
+        <% if fighter.photo.attached?%>
+          <%= cl_image_tag fighter.photo.key%>
+        <% else %>
+          <%= image_tag "ken.jpg"%>
+        <% end %>
+        <div class="fighter_card_infos">
+          <h2 class='text-center'><%= fighter.name.capitalize %></h2>
+
+
+
+       <div class="d-flex justify-content-between">
+        <p>Level: <% fighter.level %></p>
+            <p>experience: <% fighter.experience %></p>
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <p>HP: <%= fighter.health_point %></p>
+            <p>Attack: <%= fighter.attack %></p>
+            <p>Defence: <%= fighter.defence %></p>
+            <p>Speed: <%= fighter.speed_attack %></p>
+          </div>
+          <%= link_to "Edit", edit_fighter_path(fighter), class: "edit_card" %>
+          <%= link_to "See more", fighter_path(fighter), class: "" %>
+
+
+        </div>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>
