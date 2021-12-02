@@ -7,6 +7,7 @@ class FightersController < ApplicationController
   end
 
   def show
+
   end
 
   def new

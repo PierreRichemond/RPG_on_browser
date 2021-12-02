@@ -1,19 +1,20 @@
 
 class FightsController < ApplicationController
 
+
   def create
-    @fight = Fightfighter.find(params[:id])
-    player_1 = params[:first_player]
-    player_2 = params[:second_player]
-    fight = Fighter.create!(fight_params)
+    first_fighter = Fighter.find_by(name: params[:first_fighter])
+    second_fighter = Fighter.find_by(name: params[:second_fighter])
+    red_fighter = RedFighter.create!(fighter_id: first_fighter)
+    blue_fighter = BlueFighter.create!(fighter: second_fighter)
+    fight = Fight.create!(red_fighter_id: red_fighter, blue_fighter_id: blue_fighter)
+    fight.set_up
 
-    fight_fighter = Fightfighter.new(fight, [player_1, player_2])
     binding.pry
-    if fight_fighter.valid?
-      fight_fighter.save!
-
-      fight_fighter.fight_runs
-      redirect_to fightfighter_path(fight_fighter) # show
+    if fight.valid?
+      fight.save!
+      fight.fight_runs
+      redirect_to fight_path(fight) # show
     else
       render root_path
     end

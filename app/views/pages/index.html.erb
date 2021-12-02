@@ -41,7 +41,7 @@
             <h2 class='text-center'><%= fighter.name.capitalize %></h2>
             <div class="d-flex justify-content-between">
               <p>Level: <%= fighter.level %></p>
-              <p>experience: <%= fighter.experience %> / <%= fighter.level*10 %></p>
+              <p>Fighting power: <%= fighter.health_point+ fighter.attack + fighter.defence + fighter.speed_attack%></p>
             </div>
             <div class="d-flex justify-content-between">
               <p>HP: <%= fighter.health_point %></p>

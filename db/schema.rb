@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_30_141622) do
+ActiveRecord::Schema.define(version: 2021_12_02_072000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,13 @@ ActiveRecord::Schema.define(version: 2021_11_30_141622) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "blue_fighters", force: :cascade do |t|
+    t.bigint "fighter_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["fighter_id"], name: "index_blue_fighters_on_fighter_id"
+  end
+
   create_table "fighter_gears", force: :cascade do |t|
     t.bigint "gear_id", null: false
     t.bigint "fighter_id", null: false
@@ -67,22 +74,17 @@ ActiveRecord::Schema.define(version: 2021_11_30_141622) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "fightfighters", force: :cascade do |t|
-    t.bigint "fight_id", null: false
-    t.bigint "fighter_id", null: false
+  create_table "fights", force: :cascade do |t|
+    t.bigint "blue_fighter_id", null: false
+    t.bigint "red_fighter_id", null: false
+    t.string "first_fighter"
+    t.string "second_fighter"
     t.string "turns", default: [], array: true
     t.string "winner"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["fight_id"], name: "index_fightfighters_on_fight_id"
-    t.index ["fighter_id"], name: "index_fightfighters_on_fighter_id"
-  end
-
-  create_table "fights", force: :cascade do |t|
-    t.string "first_fighter"
-    t.string "second_fighter"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.index ["blue_fighter_id"], name: "index_fights_on_blue_fighter_id"
+    t.index ["red_fighter_id"], name: "index_fights_on_red_fighter_id"
   end
 
   create_table "gears", force: :cascade do |t|
@@ -94,10 +96,19 @@ ActiveRecord::Schema.define(version: 2021_11_30_141622) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "red_fighters", force: :cascade do |t|
+    t.bigint "fighter_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["fighter_id"], name: "index_red_fighters_on_fighter_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "blue_fighters", "fighters"
   add_foreign_key "fighter_gears", "fighters"
   add_foreign_key "fighter_gears", "gears"
-  add_foreign_key "fightfighters", "fighters"
-  add_foreign_key "fightfighters", "fights"
+  add_foreign_key "fights", "blue_fighters"
+  add_foreign_key "fights", "red_fighters"
+  add_foreign_key "red_fighters", "fighters"
 end
