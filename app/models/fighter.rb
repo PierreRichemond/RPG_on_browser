@@ -1,23 +1,18 @@
 class Fighter < ApplicationRecord
   has_one_attached :photo
-  has_many :fightergears, dependent: :destroy
-  has_many :gears, through: :fightergears
-  has_many :fightfighters, dependent: :destroy
-  has_many :fights, through: :fightfighters
+  has_many :fighter_gears, dependent: :destroy
+  has_many :gears, through: :fighter_gears
+  has_many :fights_when_red, foreign_key: :red_fighter_id, dependent: :destroy, class_name: 'Fight'
+  has_many :fights_when_blue, foreign_key: :blue_fighter_id, dependent: :destroy, class_name: 'Fight'
   validates :name, uniqueness: true, presence: true
-  # has_many gears
-  # has_one_equiped gear
 
   def level_up
-    self.level += 1
+    level += 1 #multiple level ?
     stat_up
     gear = Gear.all.sample
     gear_stats(gear)
-    self.save!
-    fighter_gear = FighterGear.create!( fighter: self, gear: gear )
-    # self.gears << fighter_gear
-    gear_stats_array << fighter_gear
-    self.experience = self.experience - level * 10
+    self.gears << gear
+    self.experience -= (level - 1) * 10
   end
 
   def win_battle(opponent_level)
@@ -36,6 +31,16 @@ class Fighter < ApplicationRecord
 
   def check_level_up
     level_up if self.experience >= level * 10
+  end
+
+  def attack_with_gear
+    gear_attack = self.fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.attack || 0 }.sum
+    attack + gear_attack
+    # if equiped
+    #   self.fighter.attack += self.gear.attack if self.gear.attack.present?
+    #   self.fighter.defence += self.gear.defence if self.gear.defence.present?
+    #   self.fighter.speed_attack += self.gear.speed_attack if self.gear.speed_attack.present?
+    # end
   end
 
   def stat_up

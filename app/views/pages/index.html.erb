@@ -11,7 +11,7 @@
   <div class= form_box>
   <h1 class='text-center'>Select two players for a fight!</h1>
       <div class="form-login d-flex justify-content-center">
-        <%= simple_form_for @fight do |f| %>
+        <%= simple_form_for @fight, url: fights_path do |f| %>
           <%= f.select :first_fighter, @fighters.map { |fighter| fighter.name }, class: 'mt-5' %>
           <%= f.select :second_fighter, @fighters.map { |fighter| fighter.name }, class: 'mt-5' %>
           <%= f.submit 'Start a Fight', class: 'btn btn-success my-3 px-5', style: "border-radius: 20px;" %>

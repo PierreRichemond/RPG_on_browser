@@ -37,7 +37,6 @@ class FightersController < ApplicationController
   end
 
   def destroy
-    binding.pry
     @fighter.destroy
     redirect_to fighters_path
   end

@@ -43,13 +43,6 @@ ActiveRecord::Schema.define(version: 2021_12_02_072000) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "blue_fighters", force: :cascade do |t|
-    t.bigint "fighter_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["fighter_id"], name: "index_blue_fighters_on_fighter_id"
-  end
-
   create_table "fighter_gears", force: :cascade do |t|
     t.bigint "gear_id", null: false
     t.bigint "fighter_id", null: false
@@ -75,8 +68,8 @@ ActiveRecord::Schema.define(version: 2021_12_02_072000) do
   end
 
   create_table "fights", force: :cascade do |t|
-    t.bigint "blue_fighter_id", null: false
     t.bigint "red_fighter_id", null: false
+    t.bigint "blue_fighter_id", null: false
     t.string "first_fighter"
     t.string "second_fighter"
     t.string "turns", default: [], array: true
@@ -96,19 +89,10 @@ ActiveRecord::Schema.define(version: 2021_12_02_072000) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "red_fighters", force: :cascade do |t|
-    t.bigint "fighter_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["fighter_id"], name: "index_red_fighters_on_fighter_id"
-  end
-
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "blue_fighters", "fighters"
   add_foreign_key "fighter_gears", "fighters"
   add_foreign_key "fighter_gears", "gears"
-  add_foreign_key "fights", "blue_fighters"
-  add_foreign_key "fights", "red_fighters"
-  add_foreign_key "red_fighters", "fighters"
+  add_foreign_key "fights", "fighters", column: "blue_fighter_id"
+  add_foreign_key "fights", "fighters", column: "red_fighter_id"
 end

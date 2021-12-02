@@ -10,6 +10,11 @@
           <%= f.input :name, class: 'mt-5' %>
           <%= f.submit 'Edit your Warrior', class: 'btn btn-success my-3 px-5', style: "border-radius: 20px;" %>
         <% end %>
+
+        @fighter.fighter_gears.map do |fighter_gear|
+          fighter_gear.gear.name
+          input boolean fighter_gear.selected
+        end
       </div>
       </div>
     </div>
