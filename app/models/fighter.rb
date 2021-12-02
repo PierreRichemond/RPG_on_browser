@@ -7,21 +7,22 @@ class Fighter < ApplicationRecord
   validates :name, uniqueness: true, presence: true
   # has_many gears
   # has_one_equiped gear
-  @gear_pool = []
 
   def level_up
     self.level += 1
     stat_up
-    gear = gear.all.sample
+    gear = Gear.all.sample
     gear_stats(gear)
-    @gear_pool << FighterGear.create(self, gear)
+    self.save!
+    fighter_gear = FighterGear.create!( fighter: self, gear: gear )
+    # self.gears << fighter_gear
+    gear_stats_array << fighter_gear
+    self.experience = self.experience - level * 10
   end
 
   def win_battle(opponent_level)
     self.experience += opponent_level * 10
     check_level_up
-    gear = gear.all.sample
-    @gear_pool << FighterGear.new(self, gear)
   end
 
   def lost_battle(opponent_level)
@@ -38,7 +39,6 @@ class Fighter < ApplicationRecord
   end
 
   def stat_up
-    self.stats_up_array = []
     2.times do
       random_case = [1, 2, 3, 4].sample
        stats_up_array << "Hp +5" if random_case == 1
@@ -56,11 +56,12 @@ class Fighter < ApplicationRecord
 
   def gear_stats(gear)
     if gear.attack.present? && gear.defence.present? && gear.speed_attack.present?
-      stats_up_array << "#{gear.name}, attack #{gear.attack}, defence #{gear.defence}, Speed attack#{-gear.speed_attack}"
+      gear_stats_array << "#{gear.name}, attack #{gear.attack}, defence #{gear.defence}, Speed attack #{gear.speed_attack}"
     elsif gear.attack.present? && gear.speed_attack.present?
-      stats_up_array << "#{gear.name}, attack #{gear.attack}, Speed attack#{-gear.speed_attack}"
+      gear_stats_array << "#{gear.name}, attack #{gear.attack}, Speed attack #{gear.speed_attack}"
     elsif gear.defence.present? && gear.speed_attack.present?
-      stats_up_array << "#{gear.name}, attack #{gear.defence}, Speed attack#{-gear.speed_attack}"
+      gear_stats_array << "#{gear.name}, attack #{gear.defence}, Speed attack #{gear.speed_attack}"
     end
   end
+
 end
