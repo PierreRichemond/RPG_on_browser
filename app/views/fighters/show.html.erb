@@ -26,15 +26,13 @@
   </div>
 </div>
   <div class="form_box">
-    <h2><%= @fighter.name %>'s gears</h2>
-    <% @fighter.gear_stats_array.each do |gear|%>
-    <p><%= gear %></p>
+    <h2 class='text-center'><%= @fighter.name %>'s gears</h2>
+    <% @fighter.gear_stats_array.each_with_index do |gear, index|%>
+    <p><%=index+1%>. <%=gear %></p>
     <% end %>
   </div>
   <div class="form_box">
-    <h2><%= @fighter.name %>'s previous fights</h2>
-    <%= @fighter.fightfighters.each do |fight| %>
-    <p>Winner:<%= fight.winner %></p>
-    <% end %>
+    <h2 class='text-center' ><%= @fighter.name %>'s previous fights</h2>
+
   </div>
 </div>
