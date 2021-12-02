@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2021_11_30_141622) do
   create_table "fighter_gears", force: :cascade do |t|
     t.bigint "gear_id", null: false
     t.bigint "fighter_id", null: false
+    t.boolean "equiped", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["fighter_id"], name: "index_fighter_gears_on_fighter_id"
@@ -61,6 +62,7 @@ ActiveRecord::Schema.define(version: 2021_11_30_141622) do
     t.integer "level"
     t.integer "experience"
     t.string "stats_up_array", default: [], array: true
+    t.string "gear_stats_array", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

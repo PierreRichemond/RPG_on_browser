@@ -1,19 +1,57 @@
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://media.istockphoto.com/vectors/versus-light-battle-mma-concept-fight-night-mma-boxing-wrestling-thai-vector-id1250175973?k=20&m=1250175973&s=170667a&w=0&h=o8LRvXbDXb5FKClkyJ_9_69nvRCEx3nq8xe1NNprqu8=);">
+  <div class="container">
+  <h1 class="text-center"> Welcome to the Arena!</h1>
+  <h2 class="text-center">Here you will have a lots of fun for a while</h2>
+  <h3 class="text-center">Select existing characters or create one then have them fight! <br>
+  Each character have a different attack, defence, speed. <br>
+  Try to fight a bit, characters can also increase level and get gears!</h3>
+  </div>
+</div>
+
 <div class="container">
-<h1 class="text-center"> Welcome to the Arena!</h1>
-<h2 class="text-center">Here you will have a lots of fun for a while</h2>
-<h3 class="text-center">Select existing character or create one then have them fight! <br>
-each character have a different attack, defence, speed. <br>
-Try to fight a bit, characters can also increase level and get gears!</h3>
-
-
-<div class= form_box>
-    <h1 class='text-center'>Select the two players</h1>
-      <div class="form-login">
+  <div class= form_box>
+  <h1 class='text-center'>Select two players for a fight!</h1>
+      <div class="form-login d-flex justify-content-center">
         <%= simple_form_for @fight do |f| %>
           <%= f.select :first_fighter, @fighters.map { |fighter| fighter.name }, class: 'mt-5' %>
           <%= f.select :second_fighter, @fighters.map { |fighter| fighter.name }, class: 'mt-5' %>
           <%= f.submit 'Start a Fight', class: 'btn btn-success my-3 px-5', style: "border-radius: 20px;" %>
         <% end %>
       </div>
-    </div>
+  </div>
+
+  <div class="row">
+  <h1 class = "text-center">Our strongest challengers</h1>
+    <% @best_fighters.each do |fighter| %>
+      <div class="col-12 col-lg-4">
+      <% if @best_fighters[0] == fighter%>
+        <h3 class = "text-center">Rank 1</h3>
+        <% elsif @best_fighters[1] == fighter %>
+        <h3 class = "text-center">Rank 2</h3>
+        <% else %>
+        <h3 class = "text-center">Rank 3</h3>
+      <% end %>
+        <div class="fighter_card">
+          <% if fighter.photo.attached?%>
+            <%= cl_image_tag fighter.photo.key%>
+          <% else %>
+            <%= image_tag "ken.jpg"%>
+          <% end %>
+          <div class="fighter_card_infos">
+            <h2 class='text-center'><%= fighter.name.capitalize %></h2>
+            <div class="d-flex justify-content-between">
+              <p>Level: <%= fighter.level %></p>
+              <p>experience: <%= fighter.experience %> / <%= fighter.level*10 %></p>
+            </div>
+            <div class="d-flex justify-content-between">
+              <p>HP: <%= fighter.health_point %></p>
+              <p>Attack: <%= fighter.attack %></p>
+              <p>Defence: <%= fighter.defence %></p>
+              <p>Speed: <%= fighter.speed_attack %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

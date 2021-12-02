@@ -9,6 +9,7 @@ class CreateFighters < ActiveRecord::Migration[6.1]
       t.integer :level
       t.integer :experience
       t.string :stats_up_array, array: true, default: []
+      t.string :gear_stats_array, array: true, default: []
 
       t.timestamps
     end

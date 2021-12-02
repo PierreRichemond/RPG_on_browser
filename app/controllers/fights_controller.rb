@@ -1,7 +1,6 @@
 
 class FightsController < ApplicationController
 
-
   def create
     @fight = Fightfighter.find(params[:id])
     player_1 = params[:first_player]
