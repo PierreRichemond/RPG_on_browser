@@ -7,6 +7,7 @@ class CreateFights < ActiveRecord::Migration[6.1]
       t.string :second_fighter
       t.string :turns, array: true, default: []
       t.string :winner
+      t.string :loser
       t.timestamps
     end
   end

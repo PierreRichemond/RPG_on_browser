@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 2021_12_02_072000) do
     t.string "second_fighter"
     t.string "turns", default: [], array: true
     t.string "winner"
+    t.string "loser"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["blue_fighter_id"], name: "index_fights_on_blue_fighter_id"

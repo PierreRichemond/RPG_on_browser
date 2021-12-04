@@ -7,7 +7,7 @@ class Fighter < ApplicationRecord
   validates :name, uniqueness: true, presence: true
 
   def level_up
-    level += 1 #multiple level ?
+    self.level += 1 #multiple level ?
     stat_up
     gear = Gear.all.sample
     gear_stats(gear)
@@ -36,30 +36,41 @@ class Fighter < ApplicationRecord
   def attack_with_gear
     gear_attack = self.fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.attack || 0 }.sum
     attack + gear_attack
-    # if equiped
-    #   self.fighter.attack += self.gear.attack if self.gear.attack.present?
-    #   self.fighter.defence += self.gear.defence if self.gear.defence.present?
-    #   self.fighter.speed_attack += self.gear.speed_attack if self.gear.speed_attack.present?
-    # end
   end
+
+  def defence_with_gear
+    gear_defence = self.fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.defence || 0 }.sum
+    defence + gear_defence
+  end
+
+  def speed_attack_with_gear
+    gear_speed_attack = self.fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.speed_attack || 0 }.sum
+    speed_attack + gear_speed_attack
+  end
+
 
   def stat_up
     2.times do
       random_case = [1, 2, 3, 4].sample
-       stats_up_array << "Hp +5" if random_case == 1
-       stats_up_array << "Attack +2" if random_case == 2
-       stats_up_array << "Defence +2" if random_case == 3
-       stats_up_array << "Speed Attack +2" if random_case == 4
       case random_case
-      when 1 then self.health_point += 5
-      when 2 then self.attack += 2
-      when 3 then self.defence += 2
-      when 4 then self.speed_attack += 2
+      when 1
+        self.health_point += 5
+        stats_up_array << "Hp +5"
+      when 2
+        self.attack += 2
+        stats_up_array << "Attack +2"
+      when 3
+        self.defence += 2
+        stats_up_array << "Defence +2"
+      when 4
+        self.speed_attack += 3
+        stats_up_array << "Speed Attack +4"
       end
     end
   end
 
   def gear_stats(gear)
+    gear_stats_array = []
     if gear.attack.present? && gear.defence.present? && gear.speed_attack.present?
       gear_stats_array << "#{gear.name}, attack #{gear.attack}, defence #{gear.defence}, Speed attack #{gear.speed_attack}"
     elsif gear.attack.present? && gear.speed_attack.present?
@@ -68,5 +79,4 @@ class Fighter < ApplicationRecord
       gear_stats_array << "#{gear.name}, attack #{gear.defence}, Speed attack #{gear.speed_attack}"
     end
   end
-
 end

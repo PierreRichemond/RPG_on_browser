@@ -65,5 +65,34 @@ Gear.create!(name: "Club",
 Gear.create!(name: "Bottle of Rhum",
             attack: 3,
             speed_attack: -1)
+            Gear.create!(name: "Excalibur",
+            attack: 25,
+            speed_attack: 10)
+            Gear.create!(name: "Darth Vador laser-saber",
+            attack: 50,
+            speed_attack: 0)
+            Gear.create!(name: "Grenade",
+            attack: 15,
+            defence: 15,
+            speed_attack: 15)
+            Gear.create!(name: "Bear trap",
+            attack: 20,
+            speed_attack: 10)
+            Gear.create!(name: "AK-47",
+            attack: 100)
+            Gear.create!(name: "Police shield",
+            defence: 100)
+            Gear.create!(name: "JackHammer",
+            attack: 70,
+            defence: 25,
+            speed_attack: -30)
+            Gear.create!(name: "Overboard",
+            speed_attack: 100)
+            Gear.create!(name: "Power of love",
+            attack: 50,
+            defence: 50,
+            speed_attack: 50)
+
+
 
 puts "#{Gear.count}Gears created"

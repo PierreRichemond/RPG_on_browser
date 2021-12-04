@@ -40,13 +40,13 @@
             <h2 class='text-center'><%= fighter.name.capitalize %></h2>
             <div class="d-flex justify-content-between">
               <p>Level: <%= fighter.level %></p>
-              <p>Fighting power: <%= fighter.health_point+ fighter.attack + fighter.defence + fighter.speed_attack%></p>
+              <p>Fighting power: <%= fighter.health_point+ fighter.attack_with_gear + fighter.defence_with_gear + fighter.speed_attack_with_gear %></p>
             </div>
             <div class="d-flex justify-content-between">
               <p>HP: <%= fighter.health_point %></p>
-              <p>Attack: <%= fighter.attack %></p>
-              <p>Defence: <%= fighter.defence %></p>
-              <p>Speed: <%= fighter.speed_attack %></p>
+              <p>Attack: <%= fighter.attack_with_gear %></p>
+              <p>Defence: <%= fighter.defence_with_gear %></p>
+              <p>Speed: <%= fighter.speed_attack_with_gear %></p>
             </div>
           </div>
         </div>
