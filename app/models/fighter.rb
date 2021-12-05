@@ -6,31 +6,48 @@ class Fighter < ApplicationRecord
   has_many :fights_when_blue, foreign_key: :blue_fighter_id, dependent: :destroy, class_name: 'Fight'
   validates :name, uniqueness: true, presence: true
 
-  def level_up
-    self.level += 1 #multiple level ?
-    stat_up
-    gear = Gear.all.sample
-    gear_stats(gear)
-    self.gears << gear
-    self.experience -= (level - 1) * 10
+  def level_up(number)
+    self.level += number
+    number.times do
+      stat_up
+      gear = Gear.all.sample
+      gear_stats(gear)
+      gears << gear
+    end
+  end
+
+  def number_of_level_taken(current_level, current_experience, received_experienced)
+    count = 0
+    while received_experienced >= (current_level * 10) - current_experience
+      experience_to_next_level = ((level + count) * 10) - current_experience
+      received_experienced -= experience_to_next_level
+      current_experience = 0
+      current_level += 1
+      count += 1
+    end
+    self.experience = received_experienced
+    count
   end
 
   def win_battle(opponent_level)
-    self.experience += opponent_level * 10
-    check_level_up
+    received_experience = opponent_level * 10
+    check_level_up(received_experience)
   end
 
   def lost_battle(opponent_level)
-    self.experience += opponent_level * 2
-    check_level_up
+    received_experience = opponent_level * 2
+    check_level_up(received_experience)
   end
 
   def experience_per_level
     level * 10
   end
 
-  def check_level_up
-    level_up if self.experience >= level * 10
+  def check_level_up(received_experience)
+    return unless received_experienced >= (self.level * 10) - self.experience
+
+    number = number_of_level_taken(self.level, self.experience, received_experience)
+    level_up(number)
   end
 
   def attack_with_gear
