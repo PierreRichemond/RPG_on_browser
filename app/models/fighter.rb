@@ -12,7 +12,7 @@ class Fighter < ApplicationRecord
       stat_up
       gear = Gear.all.sample
       gear_stats(gear)
-      gears << gear
+      self.gears << gear
     end
   end
 
@@ -44,7 +44,7 @@ class Fighter < ApplicationRecord
   end
 
   def check_level_up(received_experience)
-    return unless received_experienced >= (self.level * 10) - self.experience
+    return unless received_experience >= ((self.level * 10) - self.experience)
 
     number = number_of_level_taken(self.level, self.experience, received_experience)
     level_up(number)
@@ -87,13 +87,18 @@ class Fighter < ApplicationRecord
   end
 
   def gear_stats(gear)
-    gear_stats_array = []
     if gear.attack.present? && gear.defence.present? && gear.speed_attack.present?
       gear_stats_array << "#{gear.name}, attack #{gear.attack}, defence #{gear.defence}, Speed attack #{gear.speed_attack}"
     elsif gear.attack.present? && gear.speed_attack.present?
       gear_stats_array << "#{gear.name}, attack #{gear.attack}, Speed attack #{gear.speed_attack}"
     elsif gear.defence.present? && gear.speed_attack.present?
       gear_stats_array << "#{gear.name}, attack #{gear.defence}, Speed attack #{gear.speed_attack}"
+    elsif gear.speed_attack.present?
+      gear_stats_array << "#{gear.name}, Speed attack #{gear.speed_attack}"
+    elsif gear.attack.present?
+      gear_stats_array << "#{gear.name}, attack #{gear.attack}"
+    elsif gear.defence.present?
+      gear_stats_array << "#{gear.name}, defence #{gear.defence}"
     end
   end
 end

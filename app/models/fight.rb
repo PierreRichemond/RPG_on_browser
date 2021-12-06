@@ -18,6 +18,8 @@ class Fight < ApplicationRecord
   def run
     @player.stats_up_array = []
     @opponent.stats_up_array = []
+    @player.gear_stats_array = []
+    @opponent.gear_stats_array = []
     while @players_health[@player.id] >= 0
       # if @player.speed_attack - @opponent.speed_attack < @opponent.speed_attack
       attack_defence_difference = @player.attack_with_gear - @opponent.defence_with_gear

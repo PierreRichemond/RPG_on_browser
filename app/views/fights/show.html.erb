@@ -28,61 +28,7 @@
     <% end %>
 </div>
 
-<div class= 'form_box'>
-  <h2 class='text-center'>Rewards</h2>
-
-  <div class="d-flex justify-content-between">
-
-      <% if @fighters[0].name == @fight.winner %>
-
-        <div>
-          <h3>Winner, <%= @fight.winner %></h3>
-          <h4>Experience : +<%= @fighters[1].level * 10 %></h4>
-          <% number_of_lvl_up = @fighters[0].stats_up_array.count / 2 %>
-          <% if number_of_lvl_up >= 1 %>
-            <p><%= pluralize(number_of_lvl_up, "level") %> up!</p>
-            <p><%= @fighters[0].stats_up_array %></p>
-            <p><%= @fighters[0].gear_stats_array.last(number_of_lvl_up) %></p>
-          <% end %>
-        </div>
-
-        <div>
-        <h3>Loser, <%= @fighters[1].name %></h3>
-        <h4>Experience : +<%= @fighters[0].level * 2 %></h4>
-          <% number_of_lvl_up = @fighters[1].stats_up_array.count / 2 %>
-          <% if number_of_lvl_up >= 1 %>
-            <p><%= pluralize(number_of_lvl_up, "level") %> up!</p>
-            <p><%= @fighters[0].stats_up_array %></p>
-            <p><%= @fighters[0].gear_stats_array.last(number_of_lvl_up) %></p>
-          <% end %>
-        </div>
-
-      <% else %>
-
-        <div>
-          <h3>Winner, <%= @fighters[1].name %></h3>
-          <h4>Experience : +<%= @fighters[0].level * 10 %></h4>
-          <% number_of_lvl_up = @fighters[1].stats_up_array.count / 2 %>
-          <% if number_of_lvl_up >= 1 %>
-            <p><%= pluralize(number_of_lvl_up, "level") %> up!</p>
-            <p><%= @fighters[0].stats_up_array %></p>
-            <p><%= @fighters[0].gear_stats_array.last(number_of_lvl_up) %></p>
-          <% end %>
-        </div>
-
-        <div>
-        <h3>Loser, <%= @fighters[0].name %></h3>
-        <h4>Experience : +<%= @fighters[1].level * 2 %></h4>
-          <% number_of_lvl_up = @fighters[0].stats_up_array.count / 2 %>
-          <% if number_of_lvl_up >= 1 %>
-            <p><%= pluralize(number_of_lvl_up, "level") %> up!</p>
-            <p><%= @fighters[0].stats_up_array %></p>
-            <p><%= @fighters[0].gear_stats_array.last(number_of_lvl_up) %></p>
-          <% end %>
-        </div>
-      <% end %>
-  </div>
-</div>
+  <%= render 'rewards', fighters: @fighters %>
 
 <div class= 'form_box'>
 <h2 class='text-center'>Fight summary</h2>
