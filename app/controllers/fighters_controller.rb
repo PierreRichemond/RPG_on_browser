@@ -28,7 +28,6 @@ class FightersController < ApplicationController
   end
 
   def update
-    break
     @fighter.update(fighter_params)
     if @fighter.valid?
       redirect_to fighter_path(@fighter)
