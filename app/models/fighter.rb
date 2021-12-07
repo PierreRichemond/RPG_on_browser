@@ -44,7 +44,7 @@ class Fighter < ApplicationRecord
   end
 
   def check_level_up(received_experience)
-    return unless received_experience >= ((self.level * 10) - self.experience)
+    return self.experience += received_experience unless received_experience >= ((self.level * 10) - self.experience)
 
     number = number_of_level_taken(self.level, self.experience, received_experience)
     level_up(number)

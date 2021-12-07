@@ -10,6 +10,11 @@
           <%= f.input :name, class: 'mt-5' %>
           <%= f.submit 'Edit your Warrior', class: 'btn btn-success my-3 px-5', style: "border-radius: 20px;" %>
         <% end %>
+
+
+
+
+
       <h3 class='text-center'> Choose 2 gears among <%= @fighter.name %>'s gear list</h3>
       <%= simple_form_for @fighter do |f| %>
         <% @fighter.fighter_gears.map do |fighter_gear| %>

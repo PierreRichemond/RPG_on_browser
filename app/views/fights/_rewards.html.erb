@@ -7,7 +7,8 @@
 
         <div>
           <h3>Winner, <%= @fight.winner %></h3>
-          <h4>Experience : +<%= fighters[1].level * 10 %></h4>
+          <h4>Experience from the match: +<%= fighters[1].level * 10 %></h4>
+          <p>Experience: <%= @fighters[0].experience %>/<%= @fighters[0].level * 10%></p>
           <% number_of_lvl_up = fighters[0].stats_up_array.count / 2 %>
           <% if number_of_lvl_up >= 1 %>
             <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
@@ -24,7 +25,8 @@
 
         <div>
         <h3>Loser, <%= fighters[1].name %></h3>
-        <h4>Experience : +<%= fighters[0].level * 2 %></h4>
+        <h4>Experience from the match: +<%= fighters[0].level * 2 %></h4>
+        <p>Experience: <%= @fighters[1].experience %>/<%= @fighters[1].level * 10%></p>
           <% number_of_lvl_up = fighters[1].stats_up_array.count / 2 %>
           <% if number_of_lvl_up >= 1 %>
             <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
@@ -43,7 +45,8 @@
 
         <div>
           <h3>Winner, <%= fighters[1].name %></h3>
-          <h4>Experience : +<%= fighters[0].level * 10 %></h4>
+          <h4>Experience from the match: +<%= fighters[0].level * 10 %></h4>
+          <p>Experience: <%= @fighters[1].experience %>/<%= @fighters[1].level * 10%></p>
           <% number_of_lvl_up = fighters[1].stats_up_array.count / 2 %>
           <% if number_of_lvl_up >= 1 %>
             <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
@@ -60,7 +63,8 @@
 
         <div>
         <h3>Loser, <%= fighters[0].name %></h3>
-        <h4>Experience : +<%= fighters[1].level * 2 %></h4>
+        <h4>Experience from the match: +<%= fighters[1].level * 2 %></h4>
+        <p>Experience: <%= @fighters[0].experience %>/<%= @fighters[0].level * 10%></p>
           <% number_of_lvl_up = fighters[0].stats_up_array.count / 2 %>
           <% if number_of_lvl_up >= 1 %>
             <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
