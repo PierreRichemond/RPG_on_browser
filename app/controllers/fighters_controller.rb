@@ -7,7 +7,10 @@ class FightersController < ApplicationController
   end
 
   def show
-
+    # @fights = []
+    # red_fights = Fight.where(red_fighter_id: @fighter)
+    # @fighter.fights_when_blue.each {|fight| @fights << fight}
+    # break
   end
 
   def new
@@ -16,8 +19,7 @@ class FightersController < ApplicationController
 
   def create
     @fighter = Fighter.new(fighter_params)
-    if @fighter.valid?
-      @fighter.save
+    if @fighter.save
       redirect_to fighters_path
     else
       render :new
@@ -28,8 +30,7 @@ class FightersController < ApplicationController
   end
 
   def update
-    @fighter.update(fighter_params)
-    if @fighter.valid?
+    if @fighter.update!(fighter_params)
       redirect_to fighter_path(@fighter)
     else
       render :edit
@@ -37,7 +38,7 @@ class FightersController < ApplicationController
   end
 
   def destroy
-    @fighter.destroy
+    @fighter.destroy!
     redirect_to fighters_path
   end
 

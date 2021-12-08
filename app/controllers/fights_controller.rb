@@ -7,7 +7,6 @@ class FightsController < ApplicationController
   def show
     @fight = Fight.find(params[:id])
     @fighters = [@fight.red_fighter, @fight.blue_fighter]
-
   end
 
   def create
@@ -18,7 +17,7 @@ class FightsController < ApplicationController
     @fight.setup
     @fight.run
     @fight.save!
-    redirect_to fight_path(@fight) # show
+    redirect_to fight_path(@fight)
   end
 
   private

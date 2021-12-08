@@ -10,9 +10,8 @@ class Fighter < ApplicationRecord
     self.level += number
     number.times do
       stat_up
-      gear = Gear.all.sample
+      gears << gear = Gear.all.sample
       gear_stats(gear)
-      self.gears << gear
     end
   end
 
@@ -44,32 +43,31 @@ class Fighter < ApplicationRecord
   end
 
   def check_level_up(received_experience)
-    return self.experience += received_experience unless received_experience >= ((self.level * 10) - self.experience)
+    return self.experience += received_experience unless received_experience >= ((level * 10) - experience)
 
-    number = number_of_level_taken(self.level, self.experience, received_experience)
+    number = number_of_level_taken(level, experience, received_experience)
     level_up(number)
   end
 
   def attack_with_gear
-    gear_attack = self.fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.attack || 0 }.sum
+    gear_attack = fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.attack || 0 }.sum
     attack + gear_attack
   end
 
   def defence_with_gear
-    gear_defence = self.fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.defence || 0 }.sum
+    gear_defence = fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.defence || 0 }.sum
     defence + gear_defence
   end
 
   def speed_attack_with_gear
-    gear_speed_attack = self.fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.speed_attack || 0 }.sum
+    gear_speed_attack = fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.speed_attack || 0 }.sum
     speed_attack + gear_speed_attack
   end
 
 
   def stat_up
     2.times do
-      random_case = [1, 2, 3, 4].sample
-      case random_case
+      case rand(4)
       when 1
         self.health_point += 5
         stats_up_array << "Hp +5"
