@@ -3,6 +3,7 @@
   <h4>Experience from the match: +<%= winner.level * 2 %></h4>
   <p>Experience: <%= loser.experience %>/<%= loser.level * 10%></p>
   <% number_of_lvl_up = loser.stats_up_array.count / 2 %>
+
   <% if number_of_lvl_up >= 1 %>
     <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
     <p>Hp +<%= loser.stats_up_array.select {|a| a == "Hp +5"}.count * 5%></p>

@@ -43,7 +43,7 @@ class Fighter < ApplicationRecord
   end
 
   def check_level_up(received_experience)
-    return self.experience += received_experience unless received_experience >= ((self.level * 10) - self.experience)
+    return self.experience += received_experience unless received_experience >= ((level * 10) - experience)
 
     number = number_of_level_taken(level, experience, received_experience)
     level_up(number)
@@ -67,17 +67,17 @@ class Fighter < ApplicationRecord
 
   def stat_up
     2.times do
-      case rand(4)
-      when 1
+      case rand(3)
+      when 0
         self.health_point += 5
         stats_up_array << "Hp +5"
-      when 2
+      when 1
         self.attack += 2
         stats_up_array << "Attack +2"
-      when 3
+      when 2
         self.defence += 2
         stats_up_array << "Defence +2"
-      when 4
+      when 3
         self.speed_attack += 3
         stats_up_array << "Speed Attack +4"
       end
