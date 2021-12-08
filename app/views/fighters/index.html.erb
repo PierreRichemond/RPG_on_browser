@@ -4,11 +4,7 @@
     <% @fighters.each do |fighter| %>
       <div class="col-12 col-lg-6">
         <div class="fighter_card">
-          <% if fighter.photo.attached?%>
-            <%= cl_image_tag fighter.photo.key%>
-          <% else %>
-            <%= image_tag "ken.jpg"%>
-          <% end %>
+            <%= render "photo", fighter: fighter %>
           <div class="fighter_card_infos">
             <%= render "fighter_details", fighter: fighter %>
             <%= link_to "Edit", edit_fighter_path(fighter), class: "edit_card" %>

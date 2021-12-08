@@ -1,83 +1,16 @@
 <div class= 'form_box'>
   <h2 class='text-center'>Rewards</h2>
-
   <div class="d-flex justify-content-between">
-
       <% if fighters[0].name == @fight.winner %>
 
-        <div>
-          <h3>Winner, <%= @fight.winner %></h3>
-          <h4>Experience from the match: +<%= fighters[1].level * 10 %></h4>
-          <p>Experience: <%= @fighters[0].experience %>/<%= @fighters[0].level * 10%></p>
-          <% number_of_lvl_up = fighters[0].stats_up_array.count / 2 %>
-          <% if number_of_lvl_up >= 1 %>
-            <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
-            <p>Hp +<%= fighters[0].stats_up_array.select {|a| a == "Hp +5"}.count * 5%></p>
-            <p>Attack +<%= fighters[0].stats_up_array.select {|a| a == "Attack +2"}.count  * 2%></p>
-            <p>Defence +<%= fighters[0].stats_up_array.select {|a| a == "Defence +2"}.count  * 2%></p>
-            <p>Speed attack +<%= fighters[0].stats_up_array.select {|a| a == "Speed Attack +4"}.count  * 4%></p>
-            <h4 class= "text-center">Gear to equip</h4>
-            <% fighters[0].gear_stats_array.last(number_of_lvl_up).each do |gear| %>
-              <p><%= gear %></p>
-            <% end %>
-          <% end %>
-        </div>
-
-        <div>
-        <h3>Loser, <%= fighters[1].name %></h3>
-        <h4>Experience from the match: +<%= fighters[0].level * 2 %></h4>
-        <p>Experience: <%= @fighters[1].experience %>/<%= @fighters[1].level * 10%></p>
-          <% number_of_lvl_up = fighters[1].stats_up_array.count / 2 %>
-          <% if number_of_lvl_up >= 1 %>
-            <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
-            <p>Hp +<%= fighters[1].stats_up_array.select {|a| a == "Hp +5"}.count * 5%></p>
-            <p>Attack +<%= fighters[1].stats_up_array.select {|a| a == "Attack +2"}.count  * 2%></p>
-            <p>Defence +<%= fighters[1].stats_up_array.select {|a| a == "Defence +2"}.count  * 2%></p>
-            <p>Speed attack +<%= fighters[1].stats_up_array.select {|a| a == "Speed Attack +4"}.count  * 4%></p>
-            <h4 class= "text-center">Gear to equip</h4>
-            <% fighters[1].gear_stats_array.last(number_of_lvl_up).each do |gear| %>
-            <p><%= gear %></p>
-            <% end %>
-          <% end %>
-        </div>
+<%= render "lvl_up_winner_stats", winner: fighters[0], loser: fighters[1]%>
+<%= render "lvl_up_loser_stats", winner: fighters[0], loser: fighters[1]%>
 
       <% else %>
 
-        <div>
-          <h3>Winner, <%= fighters[1].name %></h3>
-          <h4>Experience from the match: +<%= fighters[0].level * 10 %></h4>
-          <p>Experience: <%= @fighters[1].experience %>/<%= @fighters[1].level * 10%></p>
-          <% number_of_lvl_up = fighters[1].stats_up_array.count / 2 %>
-          <% if number_of_lvl_up >= 1 %>
-            <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
-            <p>Hp +<%= fighters[1].stats_up_array.select {|a| a == "Hp +5"}.count  * 5%></p>
-            <p>Attack +<%= fighters[1].stats_up_array.select {|a| a == "Attack +2"}.count  * 2%></p>
-            <p>Defence +<%= fighters[1].stats_up_array.select {|a| a == "Defence +2"}.count  * 2%></p>
-            <p>Speed attack +<%= fighters[1].stats_up_array.select {|a| a == "Speed Attack +4"}.count  * 4%></p>
-            <h4 class= "text-center">Gear to equip</h4>
-            <% fighters[1].gear_stats_array.last(number_of_lvl_up).each do |gear| %>
-            <p><%= gear %></p>
-            <% end %>
-          <% end %>
-        </div>
+<%= render "lvl_up_winner_stats", winner: fighters[1], loser: fighters[0]%>
+<%= render "lvl_up_loser_stats", winner: fighters[1], loser: fighters[0]%>
 
-        <div>
-        <h3>Loser, <%= fighters[0].name %></h3>
-        <h4>Experience from the match: +<%= fighters[1].level * 2 %></h4>
-        <p>Experience: <%= @fighters[0].experience %>/<%= @fighters[0].level * 10%></p>
-          <% number_of_lvl_up = fighters[0].stats_up_array.count / 2 %>
-          <% if number_of_lvl_up >= 1 %>
-            <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
-            <p>Hp +<%= fighters[0].stats_up_array.select {|a| a == "Hp +5"}.count  * 5%></p>
-            <p>Attack +<%= fighters[0].stats_up_array.select {|a| a == "Attack +2"}.count  * 2%></p>
-            <p>Defence +<%= fighters[0].stats_up_array.select {|a| a == "Defence +2"}.count  * 2%></p>
-            <p>Speed attack +<%= fighters[0].stats_up_array.select {|a| a == "Speed Attack +4"}.count  * 4%></p>
-            <h4 class= "text-center">Gear to equip</h4>
-            <% fighters[0].gear_stats_array.last(number_of_lvl_up).each do |gear| %>
-              <p><%= gear %></p>
-            <% end %>
-          <% end %>
-        </div>
       <% end %>
   </div>
 </div>
