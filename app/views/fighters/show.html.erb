@@ -2,7 +2,7 @@
 <div class="container">
  <div class="form_box">
 <div class="d-flex">
-<%= render "photo", fighter: fighter %>
+<%= render "photo", fighter: @fighter %>
     <div class="fighter_card_infos align-items-center">
       <%= render "fighter_details", fighter: @fighter %>
       <%= link_to "Edit", edit_fighter_path(@fighter), class: "edit_card" %>
@@ -13,8 +13,10 @@
 </div>
   <div class="form_box">
     <h2 class='text-center'><%= @fighter.name %>'s gears</h2>
-    <% @fighter.gears.each_with_index do |gear, index|%>
-    <p><%=index+1%>. <%= gear.name %> <%= gear.defence %>defence, <%= gear.attack %>attack, <%= gear.speed_attack %>speed attack.</p>
+    <% @fighter.fighter_gears.each_with_index do |fighter_gear, index|%>
+      <% gear = fighter_gear.gear %>
+      <p><%=index+1%>. <%= gear.name %> <%= gear.defence %>defence, <%= gear.attack %>attack, <%= gear.speed_attack %>speed attack.  <%= fighter_gear.equiped? ? "Equiped" : "" %></p>
+
     <% end %>
   </div>
   <div class="form_box">
