@@ -12,7 +12,7 @@
           <% end %>
         </div>
 
-        <h3 class='text-center'> Choose 2 gears among <%= @fighter.name %>'s gear list</h3>
+        <h3 class='text-center'> Choose gears to equip <%= @fighter.name %>'s gear list</h3>
         <div class="form-login">
           <%= simple_form_for @fighter do |f| %>
             <% @fighter.fighter_gears.map do |fighter_gear| %>
@@ -24,7 +24,7 @@
             <br>
             <%= f.input :custom_field, :label => false do  %>
                 <%= check_box_tag 'gear_ids[]', @fighter.fighter_gears.map {|gear| gear.id}  %>
-                Check it all<% end %>
+                Equip it all<% end %>
               <%= f.submit "Equip your Warrior's gear", class: 'btn btn-success my-3 px-5', style: "border-radius: 20px;" %>
           <% end %>
         </div>
