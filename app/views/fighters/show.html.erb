@@ -1,16 +1,16 @@
 <h1 class = 'text-center mt-5'>Here's <%= @fighter.name %>'s page</h1>
 <div class="container">
- <div class="form_box">
-<div class="d-flex">
-<%= render "photo", fighter: @fighter %>
-    <div class="fighter_card_infos align-items-center">
+  <div class="form_box">
+    <div class="d-flex">
+      <%= render "photo", fighter: @fighter %>
+      <div class="fighter_card_infos align-items-center">
       <%= render "fighter_details", fighter: @fighter %>
       <%= link_to "Edit", edit_fighter_path(@fighter), class: "edit_card" %>
       <%= link_to 'Delete', fighter_path(@fighter), method: "delete", class: 'delete_card',
        data: { confirm: "Are you sure? Delete #{@fighter.name.capitalize}?"}%>
+      </div>
     </div>
   </div>
-</div>
   <div class="form_box">
     <h2 class='text-center'><%= @fighter.name %>'s gears</h2>
     <% @fighter.fighter_gears.each_with_index do |fighter_gear, index|%>

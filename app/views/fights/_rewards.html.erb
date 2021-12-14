@@ -2,15 +2,11 @@
   <h2 class='text-center'>Rewards</h2>
   <div class="row">
       <% if fighters[0].name == @fight.winner %>
-
-<%= render "lvl_up_winner_stats", winner: fighters[0], loser: fighters[1]%>
-<%= render "lvl_up_loser_stats", winner: fighters[0], loser: fighters[1]%>
-
+        <%= render "lvl_up_winner_stats", winner: fighters[0], loser: fighters[1]%>
+        <%= render "lvl_up_loser_stats", winner: fighters[0], loser: fighters[1]%>
       <% else %>
-
-<%= render "lvl_up_loser_stats", winner: fighters[1], loser: fighters[0]%>
-<%= render "lvl_up_winner_stats", winner: fighters[1], loser: fighters[0]%>
-
+        <%= render "lvl_up_loser_stats", winner: fighters[1], loser: fighters[0]%>
+        <%= render "lvl_up_winner_stats", winner: fighters[1], loser: fighters[0]%>
       <% end %>
   </div>
 </div>

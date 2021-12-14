@@ -5,33 +5,18 @@
 <div class="row">
   <div class="col-12 col-lg-6 offset-lg-3">
     <h3 class = "text-center">Rank 1</h3>
-    <div class="fighter_card">
-      <%= render "fighters/photo", fighter: top %>
-      <div class="fighter_card_infos">
-        <%= render "./fighters/fighter_details", fighter: top %>
-      </div>
-    </div>
+    <%= render "fighter_card", fighter: top %>
   </div>
 </div>
 
 <div class="row mt-3">
   <div class="col-12 col-lg-6">
     <h3 class = "text-center">Rank 2</h3>
-    <div class="fighter_card">
-      <%= render "fighters/photo", fighter: second %>
-      <div class="fighter_card_infos">
-        <%= render "./fighters/fighter_details", fighter: second %>
-      </div>
-    </div>
+    <%= render "fighter_card", fighter: second %>
   </div>
 
   <div class="col-12 col-lg-6">
     <h3 class = "text-center">Rank 3</h3>
-    <div class="fighter_card">
-      <%= render "fighters/photo", fighter: third %>
-      <div class="fighter_card_infos">
-        <%= render "./fighters/fighter_details", fighter: third %>
-      </div>
-    </div>
+    <%= render "fighter_card", fighter: third %>
   </div>
 </div>

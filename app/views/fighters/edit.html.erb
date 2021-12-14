@@ -4,29 +4,26 @@
       <div class= form_box>
         <h1 class='text-center'>Editing page of <%= @fighter.name %></h1>
         <div class="form-login">
-        <%= simple_form_for @fighter do |f| %>
-          <%= f.input :photo, as: :file, input_html: { class: 'd-none', id: 'photo-input' },
-            label_html: {class: "upload-photo" }, label: 'Upload Profile 📷 '  %>
-          <%= f.input :name, class: 'mt-5' %>
-          <%= f.submit 'Edit your Warrior', class: 'btn btn-success my-3 px-5', style: "border-radius: 20px;" %>
-        <% end %>
-      </div>
-
-
-
-      <h3 class='text-center'> Choose 2 gears among <%= @fighter.name %>'s gear list</h3>
-      <div class="form-login">
-      <%= simple_form_for @fighter do |f| %>
-        <% @fighter.fighter_gears.map do |fighter_gear| %>
-
-          <%= f.input :custom_field, :label => false do   %>
-            <%= check_box_tag 'gear_ids[]', fighter_gear.id %>
-            <%= fighter_gear.gear.name %> <%= fighter_gear.gear.defence %>defence, <%= fighter_gear.gear.attack %>attack, <%= fighter_gear.gear.speed_attack %>speed attack.
+          <%= simple_form_for @fighter do |f| %>
+            <%= f.input :photo, as: :file, input_html: { class: 'd-none', id: 'photo-input' },
+              label_html: {class: "upload-photo" }, label: 'Upload Profile 📷 '  %>
+            <%= f.input :name, class: 'mt-5' %>
+            <%= f.submit 'Edit your Warrior', class: 'btn btn-success my-3 px-5', style: "border-radius: 20px;" %>
           <% end %>
-        <% end %>
-          <%= f.submit "Edit your Warrior's gear", class: 'btn btn-success my-3 px-5', style: "border-radius: 20px;" %>
-      <% end %>
-      </div>
+        </div>
+
+        <h3 class='text-center'> Choose 2 gears among <%= @fighter.name %>'s gear list</h3>
+        <div class="form-login">
+          <%= simple_form_for @fighter do |f| %>
+            <% @fighter.fighter_gears.map do |fighter_gear| %>
+              <%= f.input :custom_field, :label => false do  %>
+                <%= check_box_tag 'gear_ids[]', fighter_gear.id %>
+                <%= fighter_gear.gear.name %> <%= fighter_gear.gear.defence %>defence, <%= fighter_gear.gear.attack %>attack, <%= fighter_gear.gear.speed_attack %>speed attack.
+              <% end %>
+            <% end %>
+              <%= f.submit "Equip your Warrior's gear", class: 'btn btn-success my-3 px-5', style: "border-radius: 20px;" %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

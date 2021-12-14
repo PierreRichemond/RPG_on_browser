@@ -1,9 +1,9 @@
 <div class='col-12 col-lg-5 offset-lg-1'>
   <h3 class= "text-center">Winner, <%= winner.name %></h3>
   <h4>Experience from the match: +<%= experience_earned(loser, 10) %></h4>
-
   <p>Experience: <%= winner.experience %>/<%= winner.level * 10%></p>
   <% number_of_lvl_up = winner.stats_up_array.count / 2 %>
+
   <% if number_of_lvl_up >= 1 %>
     <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
     <p>Hp +<%= winner.stats_up_array.select {|a| a == "Hp +5"}.count * 5%></p>

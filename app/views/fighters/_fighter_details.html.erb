@@ -6,24 +6,22 @@
 <div class="d-flex justify-content-between">
   <p>HP: <%= fighter.health_point %></p>
   <div>
-  <p>Attack: <%= fighter.attack %></p>
-  <% if fighter.fighter_gears.where(equiped: true).count >= 1 %>
-    <p>Attack with gear: <%= fighter.attack_with_gear %></p>
-    <% else %>
-
-  <% end %>
+    <p>Attack: <%= fighter.attack %></p>
+    <% if fighter.fighter_gears.where(equiped: true).count >= 1 %>
+      <p>Attack with gear: <%= fighter.attack_with_gear %></p>
+    <% end %>
   </div>
   <div>
-  <p>Defence: <%= fighter.defence %></p>
-  <% if fighter.fighter_gears.where(equiped: true).count >= 1  %>
-    <p>Defence with gear: <%= fighter.defence_with_gear %></p>
-  <% end %>
+    <p>Defence: <%= fighter.defence %></p>
+    <% if fighter.fighter_gears.where(equiped: true).count >= 1  %>
+      <p>Defence with gear: <%= fighter.defence_with_gear %></p>
+    <% end %>
   </div>
   <div>
-  <p>Speed: <%= fighter.speed_attack %></p>
-  <% if fighter.fighter_gears.where(equiped: true).count >= 1 %>
-    <p>Speed with gear: <%= fighter.speed_attack_with_gear %></p>
-  <% end %>
+    <p>Speed: <%= fighter.speed_attack %></p>
+    <% if fighter.fighter_gears.where(equiped: true).count >= 1 %>
+      <p>Speed with gear: <%= fighter.speed_attack_with_gear %></p>
+    <% end %>
   </div>
 </div>
 <% if fighter.fighter_gears.where(equiped: true).count < 1 %>

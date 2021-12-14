@@ -7,4 +7,8 @@ module FightsHelper
     end
     experience
   end
+
+  def available_fighters(all_fighter, picked_fighter = nil)
+    all_fighter.reject { |fighter| fighter.name == picked_fighter }
+  end
 end

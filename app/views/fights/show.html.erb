@@ -1,27 +1,25 @@
 <div class='container'>
-<h1 class='text-center mt-5'><%= @fight.red_fighter.name.capitalize %> VS <%= @fight.blue_fighter.name.capitalize %></h1>
-<h2 class='text-center'>The winner is <%= @fight.winner %></h2>
-<div class="row">
-  <% @fighters.each do |fighter| %>
-    <div class="col-12 col-lg-6">
-      <div class="fighter_card">
-        <%= render "fighters/photo", fighter: fighter %>
-        <div class="fighter_card_infos">
-          <%= render "./fighters/fighter_details", fighter: fighter %>
+  <h1 class='text-center mt-5'><%= @fight.red_fighter.name.capitalize %> VS <%= @fight.blue_fighter.name.capitalize %></h1>
+  <h2 class='text-center'>The winner is <%= @fight.winner %></h2>
+  <div class="row">
+    <% @fighters.each do |fighter| %>
+      <div class="col-12 col-lg-6">
+        <div class="fighter_card">
+          <%= render "fighters/photo", fighter: fighter %>
+          <div class="fighter_card_infos">
+            <%= render "./fighters/fighter_details", fighter: fighter %>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
-</div>
-
-  <%= render 'rewards', fighters: @fighters %>
-
-<div class= 'form_box'>
-<h2 class='text-center'>Fight summary</h2>
-<ol>
-<% @fight.turns.each do |turn|%>
-<li><%= turn %></p>
-<% end %>
-</ol>
-</div>
+    <% end %>
+  </div>
+    <%= render 'rewards', fighters: @fighters %>
+  <div class= 'form_box'>
+    <h2 class='text-center'>Fight summary</h2>
+    <ol>
+    <% @fight.turns.each do |turn|%>
+      <li><%= turn %></p>
+    <% end %>
+    </ol>
+  </div>
 </div>
