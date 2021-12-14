@@ -21,36 +21,6 @@
 
   <div class="row">
   <h1 class = "text-center">Our strongest challengers</h1>
-    <% @best_fighters.each do |fighter| %>
-      <div class="col-12 col-lg-4">
-      <% if @best_fighters[0] == fighter%>
-        <h3 class = "text-center">Rank 1</h3>
-        <% elsif @best_fighters[1] == fighter %>
-        <h3 class = "text-center">Rank 2</h3>
-        <% else %>
-        <h3 class = "text-center">Rank 3</h3>
-      <% end %>
-        <div class="fighter_card">
-          <% if fighter.photo.attached?%>
-            <%= cl_image_tag fighter.photo.key%>
-          <% else %>
-            <%= image_tag "ken.jpg"%>
-          <% end %>
-          <div class="fighter_card_infos">
-            <h2 class='text-center'><%= fighter.name.capitalize %></h2>
-            <div class="d-flex justify-content-between">
-              <p>Level: <%= fighter.level %></p>
-              <p>Fighting power: <%= fighter.health_point+ fighter.attack_with_gear + fighter.defence_with_gear + fighter.speed_attack_with_gear %></p>
-            </div>
-            <div class="d-flex justify-content-between">
-              <p>HP: <%= fighter.health_point %></p>
-              <p>Attack: <%= fighter.attack_with_gear %></p>
-              <p>Defence: <%= fighter.defence_with_gear %></p>
-              <p>Speed: <%= fighter.speed_attack_with_gear %></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
+    <%= render "best_fighters", fighters: @best_fighters %>
   </div>
 </div>

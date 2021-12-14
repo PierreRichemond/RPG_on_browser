@@ -9,6 +9,8 @@
   <p>Attack: <%= fighter.attack %></p>
   <% if fighter.fighter_gears.where(equiped: true).count >= 1 %>
     <p>Attack with gear: <%= fighter.attack_with_gear %></p>
+    <% else %>
+
   <% end %>
   </div>
   <div>
@@ -24,3 +26,6 @@
   <% end %>
   </div>
 </div>
+<% if fighter.fighter_gears.where(equiped: true).count < 1 %>
+  <p class="text-center"> No gear equiped, you can equip gear from level 2 on the edit page of a fighter</p>
+<% end %>
