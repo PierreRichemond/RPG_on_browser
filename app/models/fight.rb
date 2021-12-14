@@ -8,7 +8,7 @@ class Fight < ApplicationRecord
       blue_fighter.id => blue_fighter.health_point
     }
 
-    @player = red_fighter.speed_attack > blue_fighter.speed_attack ? red_fighter : blue_fighter
+    @player = red_fighter.speed_attack_with_gear > blue_fighter.speed_attack_with_gear ? red_fighter : blue_fighter
     @opponent = (@player == red_fighter) ? blue_fighter  : red_fighter
   end
 
@@ -20,12 +20,18 @@ class Fight < ApplicationRecord
 
     while @players_health[@player.id] >= 0
       damage = @player.attack_with_gear - @opponent.defence_with_gear
-      if @player.speed_attack > @opponent.speed_attack
-        damage = @player.attack_with_gear * (@player.speed_attack / @opponent.speed_attack) - @opponent.defence_with_gear
+      if @player.speed_attack_with_gear > @opponent.speed_attack_with_gear
+        ratio = (@player.speed_attack_with_gear / @opponent.speed_attack_with_gear).floor
+        damage = (@player.attack_with_gear * ratio).floor - @opponent.defence_with_gear
       end
       damage = 1 if damage <= 1
         @players_health[@opponent.id] = @players_health[@opponent.id] - damage
-        turns << "#{@player.name} attacks, #{@opponent.name} looses #{damage}Hp, #{@players_health[@opponent.id]}Hp left for #{@opponent.name}."
+        if  @players_health[@opponent.id] <= 0
+          turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage}Hp, #{@opponent.name}."
+          switch_player
+          break
+        end
+        turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage}Hp, #{@players_health[@opponent.id]}Hp left for #{@opponent.name}."
         switch_player
     end
     win_declaration

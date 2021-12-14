@@ -69,8 +69,8 @@ class Fighter < ApplicationRecord
     2.times do
       case rand(3)
       when 0
-        self.health_point += 5
-        stats_up_array << "Hp +5"
+        self.health_point += 30
+        stats_up_array << "Hp +30"
       when 1
         self.attack += 2
         stats_up_array << "Attack +2"
@@ -78,7 +78,7 @@ class Fighter < ApplicationRecord
         self.defence += 2
         stats_up_array << "Defence +2"
       when 3
-        self.speed_attack += 3
+        self.speed_attack += 4
         stats_up_array << "Speed Attack +4"
       end
     end

@@ -21,6 +21,10 @@
                 <%= fighter_gear.gear.name %> <%= fighter_gear.gear.defence %>defence, <%= fighter_gear.gear.attack %>attack, <%= fighter_gear.gear.speed_attack %>speed attack.
               <% end %>
             <% end %>
+            <br>
+            <%= f.input :custom_field, :label => false do  %>
+                <%= check_box_tag 'gear_ids[]', @fighter.fighter_gears.map {|gear| gear.id}  %>
+                Check it all<% end %>
               <%= f.submit "Equip your Warrior's gear", class: 'btn btn-success my-3 px-5', style: "border-radius: 20px;" %>
           <% end %>
         </div>

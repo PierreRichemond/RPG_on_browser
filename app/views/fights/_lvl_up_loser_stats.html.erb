@@ -6,7 +6,7 @@
 
   <% if number_of_lvl_up >= 1 %>
     <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
-    <p>Hp +<%= loser.stats_up_array.select {|a| a == "Hp +5"}.count * 5%></p>
+    <p>Hp +<%= loser.stats_up_array.select {|a| a == "Hp +30"}.count * 30%></p>
     <p>Attack +<%= loser.stats_up_array.select {|a| a == "Attack +2"}.count  * 2%></p>
     <p>Defence +<%= loser.stats_up_array.select {|a| a == "Defence +2"}.count  * 2%></p>
     <p>Speed attack +<%= loser.stats_up_array.select {|a| a == "Speed Attack +4"}.count  * 4%></p>

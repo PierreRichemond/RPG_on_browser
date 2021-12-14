@@ -7,10 +7,6 @@ class FightersController < ApplicationController
   end
 
   def show
-    # @fights = []
-    # red_fights = Fight.where(red_fighter_id: @fighter)
-    # @fighter.fights_when_blue.each {|fight| @fights << fight}
-    # break
     @gears = @fighter.gears.where(equiped: true)
   end
 
@@ -19,7 +15,16 @@ class FightersController < ApplicationController
   end
 
   def create
-    @fighter = Fighter.new(create_fighter_params)
+    @fighter = Fighter.new(
+      name: create_fighter_params[:name],
+      photo: create_fighter_params[:photo],
+      health_point: [19, 20, 21].sample,
+      attack: [4, 5, 6, 7].sample,
+      defence: [0, 1, 2, 3].sample,
+      speed_attack: [10, 11, 12].sample,
+      level: 1,
+      experience: 0
+    )
     if @fighter.save
       redirect_to fighters_path
     else
@@ -33,10 +38,13 @@ class FightersController < ApplicationController
   def update
     if update_fighter_params.key?(:gear_ids)
       @fighter.fighter_gears.where(equiped: true).update_all(equiped: false)
-      @fighter.fighter_gears.where(id: update_fighter_params[:gear_ids]).update_all(equiped: true)
+      ids_in_array = update_fighter_params[:gear_ids].join(" ").split(" ").map {|i| i.to_i}
+      ids_in_array.each do |id|
+        FighterGear.find(id).update(equiped: true)
+      end
       redirect_to fighter_path(@fighter)
-    elsif @fighter.update!(update_fighter_params)
 
+    elsif @fighter.update!(update_fighter_params)
       redirect_to fighter_path(@fighter)
     else
       render :edit
@@ -51,7 +59,7 @@ class FightersController < ApplicationController
   private
 
   def create_fighter_params
-    params.require(:fighter).permit(:name, :health_point, :attack, :defence, :speed_attack, :level, :experience, :photo)
+    params.require(:fighter).permit(:name, :photo)
   end
 
   def update_fighter_params
