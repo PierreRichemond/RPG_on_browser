@@ -64,6 +64,9 @@ class Fighter < ApplicationRecord
     speed_attack + gear_speed_attack
   end
 
+  def overall_stats
+    attack_with_gear + defence_with_gear + speed_attack_with_gear + health_point
+  end
 
   def stat_up
     2.times do

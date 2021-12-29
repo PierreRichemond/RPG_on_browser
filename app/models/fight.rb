@@ -10,6 +10,7 @@ class Fight < ApplicationRecord
 
     @player = red_fighter.speed_attack_with_gear > blue_fighter.speed_attack_with_gear ? red_fighter : blue_fighter
     @opponent = (@player == red_fighter) ? blue_fighter  : red_fighter
+
   end
 
   def run
@@ -25,14 +26,14 @@ class Fight < ApplicationRecord
         damage = (@player.attack_with_gear * ratio).floor - @opponent.defence_with_gear
       end
       damage = 1 if damage <= 1
-        @players_health[@opponent.id] = @players_health[@opponent.id] - damage
-        if  @players_health[@opponent.id] <= 0
-          turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage}Hp, #{@opponent.name}."
-          switch_player
-          break
-        end
-        turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage}Hp, #{@players_health[@opponent.id]}Hp left for #{@opponent.name}."
+      @players_health[@opponent.id] = @players_health[@opponent.id] - damage
+      if  @players_health[@opponent.id] <= 0
+        turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage}Hp, #{@opponent.name}."
         switch_player
+        break
+      end
+      turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage}Hp, #{@players_health[@opponent.id]}Hp left for #{@opponent.name}."
+      switch_player
     end
     win_declaration
   end

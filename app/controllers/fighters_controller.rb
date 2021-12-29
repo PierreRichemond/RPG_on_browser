@@ -36,15 +36,16 @@ class FightersController < ApplicationController
   end
 
   def update
-    if update_fighter_params.key?(:gear_ids)
+    if update_gears_fighter_params.key?(:gear_ids)
       @fighter.fighter_gears.where(equiped: true).update_all(equiped: false)
-      ids_in_array = update_fighter_params[:gear_ids].join(" ").split(" ").map {|i| i.to_i}
+      ids_in_array = update_gears_fighter_params[:gear_ids].join(" ").split(" ").map {|i| i.to_i}
       ids_in_array.each do |id|
         FighterGear.find(id).update(equiped: true)
       end
       redirect_to fighter_path(@fighter)
 
-    elsif @fighter.update!(update_fighter_params)
+    elsif @fighter.valid?
+      @fighter.update!(update_fighter_params)
       redirect_to fighter_path(@fighter)
     else
       render :edit
@@ -63,7 +64,11 @@ class FightersController < ApplicationController
   end
 
   def update_fighter_params
-    params.permit(:name, :photo, gear_ids: [])
+    params.require(:fighter).permit(:name, :photo)
+  end
+
+  def update_gears_fighter_params
+    params.permit(gear_ids: [])
   end
 
   def set_fighter
