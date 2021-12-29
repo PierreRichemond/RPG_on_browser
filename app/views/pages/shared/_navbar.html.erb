@@ -1,12 +1,22 @@
 
-  <div class ="navbar">
-    <div class="nav-element">
-      <%= link_to "Home", root_path, class: "nav-link" %>
+<div class ="self-navbar">
+
+  <div class="row">
+    <div class='col-8 col-lg-3 offset-lg-1'>
+      <div class="nav-element">
+        <%= link_to "Home", root_path, class: "nav-link " %>
+      </div>
     </div>
-    <div class="nav-element">
-      <%= link_to "Hall of warriors", fighters_path, class: "nav-link" %>
+    <div class='col-8 col-lg-3'>
+      <div class="nav-element">
+        <%= link_to "Hall of warriors", fighters_path, class: "nav-link" %>
+      </div>
     </div>
-    <div class="nav-element">
-      <%= link_to "Create a new character", new_fighter_path, class: "nav-link" %>
-    </div>
+    <div class='col-8 col-lg-4'>
+      <div class="nav-element">
+        <%= link_to "Create a new character", new_fighter_path, class: "nav-link" %>
+      </div>
+     </div>
   </div>
+
+</div>

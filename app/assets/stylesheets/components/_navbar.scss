@@ -1,20 +1,18 @@
-.navbar{
-  display:flex;
-  justify-content: center;
-
+.self-navbar{
   background: rgb(155, 155, 155);
-  height: 5em;
-
   .nav-element{
     border-radius: 5px;
-    margin: 0 2em;
     padding: 10 15px;
     background-color: wheat;
     -webkit-transition: 1.5s;
+    height: 3em;
+    line-height: 0.75em;
+    margin: 2em;
     .nav-link{
     color: black;
     opacity: 0.7;
     font-size: 40px;
+    text-align: center;
     }
       &:hover {
     box-shadow: 0 1px 1px 1px rgba(rgb(71, 71, 71), 0.6);
@@ -22,5 +20,4 @@
     color: black;
     }
   }
-
 }
