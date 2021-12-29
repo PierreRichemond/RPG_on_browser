@@ -10,7 +10,6 @@ class Fight < ApplicationRecord
 
     @player = red_fighter.speed_attack_with_gear > blue_fighter.speed_attack_with_gear ? red_fighter : blue_fighter
     @opponent = (@player == red_fighter) ? blue_fighter  : red_fighter
-
   end
 
   def run

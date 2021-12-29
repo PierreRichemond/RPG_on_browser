@@ -17,7 +17,11 @@
           <%= simple_form_for @fighter do |f| %>
             <% @fighter.fighter_gears.map do |fighter_gear| %>
               <%= f.input :custom_field, :label => false do  %>
-                <%= check_box_tag 'gear_ids[]', fighter_gear.id %>
+                <% if fighter_gear.equiped %>
+                  <%= check_box_tag 'gear_ids[]', fighter_gear.id, :input_html => { :checked => true } %>
+                <% else %>
+                  <%= check_box_tag 'gear_ids[]', fighter_gear.id %>
+                <% end %>
                 <%= fighter_gear.gear.name %> <%= fighter_gear.gear.defence %>defence, <%= fighter_gear.gear.attack %>attack, <%= fighter_gear.gear.speed_attack %>speed attack.
               <% end %>
             <% end %>
