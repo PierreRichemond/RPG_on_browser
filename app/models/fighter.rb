@@ -6,6 +6,7 @@ class Fighter < ApplicationRecord
   has_many :fights_when_blue, foreign_key: :blue_fighter_id, dependent: :destroy, class_name: 'Fight'
   validates :name, uniqueness: true, presence: true
 
+
   def level_up(number)
     self.level += number
     number.times do
