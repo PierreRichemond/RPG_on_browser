@@ -44,8 +44,7 @@ class FightersController < ApplicationController
       end
       redirect_to fighter_path(@fighter)
 
-    elsif @fighter.valid?
-      @fighter.update!(update_fighter_params)
+    elsif @fighter.update(update_fighter_params)
       redirect_to fighter_path(@fighter)
     else
       render :edit
