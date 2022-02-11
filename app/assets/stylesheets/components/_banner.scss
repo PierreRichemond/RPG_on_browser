@@ -16,3 +16,31 @@
   opacity: .7;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
+
+
+
+#banner_colors {
+    -webkit-animation: bgcolor 40s infinite;
+    animation: bgcolor 20s infinite;
+    -webkit-animation-direction: alternate;
+    animation-direction: alternate;
+}
+
+
+@keyframes bgcolor {
+    0% {
+        background-color: #e59245
+    }
+
+    33% {
+        background-color: #eb670f
+    }
+
+    66% {
+        background-color: #f35
+    }
+
+    100% {
+        background-color: #ec49c38a
+    }
+}
