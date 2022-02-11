@@ -5,6 +5,21 @@
         <h1 class='text-center'>Editing page of <%= @fighter.name %></h1>
         <div class="form-login">
           <%= simple_form_for @fighter do |f| %>
+                    <% if @fighter.errors.any? %>
+        <div class="error_explanation">
+          <h2>
+            <%= pluralize(@fighter.errors.count, 'error') %>
+            prohibited this fighter from been saved:
+          </h2>
+          <div>
+            <ul>
+              <% @fighter.errors.full_messages.each do |msg|%>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
             <%= f.input :photo, as: :file, input_html: { class: 'd-none', id: 'photo-input' },
               label_html: {class: "upload-photo" }, label: 'Upload Profile 📷 '  %>
             <%= f.input :name, class: 'mt-5' %>
@@ -15,6 +30,21 @@
         <h3 class='text-center'> Choose gears to equip <%= @fighter.name %>'s gear list</h3>
         <div class="form-login">
           <%= simple_form_for @fighter do |f| %>
+                    <% if @fighter.errors.any? %>
+        <div class="error_explanation">
+          <h2>
+            <%= pluralize(@fighter.errors.count, 'error') %>
+            prohibited this fighter from been saved:
+          </h2>
+          <div>
+            <ul>
+              <% @fighter.errors.full_messages.each do |msg|%>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
             <% @fighter.fighter_gears.map do |fighter_gear| %>
               <%= f.input :custom_field, :label => false do  %>
                 <% if fighter_gear.equiped %>

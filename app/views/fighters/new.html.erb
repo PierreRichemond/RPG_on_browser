@@ -3,11 +3,26 @@
     <div class="col-xs-12 col-sm-5 col-sm-offset-4 mx-auto">
       <div class= form_box>
       <h1 class='text-center'>Create a new challenger</h1>
-        <div class="form-login">
+        <div class="form-horizontal form-control">
           <%= simple_form_for @fighter do |f| %>
-            <%= f.input :photo, as: :file, input_html: { class: 'd-none', id: 'photo-input' },
+          <% if @fighter.errors.any? %>
+        <div class="error_explanation">
+          <h2>
+            <%= pluralize(@fighter.errors.count, 'error') %>
+            prohibited this fighter from been saved:
+          </h2>
+          <div>
+            <ul>
+              <% @fighter.errors.full_messages.each do |msg|%>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+            <%= f.input :photo, as: :file, input_html: { class: 'd-none form-control', id: 'photo-input' },
               label_html: {class: "upload-photo" }, label: 'Upload Profile 📷 '  %>
-            <%= f.input :name, class: 'mt-5' %>
+            <%= f.input :name, label_html: {class: "m-1" }, label: 'Your fighter\'s name: ', placeholder: "Ken" %>
             <%= f.submit 'Create a new Warrior', class: 'btn btn-success my-3 px-5', style: "border-radius: 20px;" %>
           <% end %>
         </div>
