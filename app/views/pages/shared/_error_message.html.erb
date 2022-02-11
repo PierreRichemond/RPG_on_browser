@@ -1,0 +1,15 @@
+        <% if instance.errors.any? %>
+        <div class="error_explanation">
+          <h2>
+            <%= pluralize(instance.errors.count, 'error') %>
+            prohibited this fighter from been saved:
+          </h2>
+          <div>
+            <ul>
+              <% instance.errors.full_messages.each do |msg|%>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
