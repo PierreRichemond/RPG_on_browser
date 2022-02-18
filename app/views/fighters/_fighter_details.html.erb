@@ -1,29 +1,18 @@
-<h2 class='text-center'><%= fighter.name.capitalize %></h2>
-<div class="d-flex justify-content-between">
-  <p>Level: <%= fighter.level %></p>
-  <p>Fighting power: <%= fighter.health_point+ fighter.attack_with_gear + fighter.defence_with_gear + fighter.speed_attack_with_gear%></p>
-</div>
-<div class="d-flex justify-content-between">
-  <p>HP: <%= fighter.health_point %></p>
-  <div>
-    <p>Attack: <%= fighter.attack %></p>
-    <% if fighter.fighter_gears.where(equiped: true).count >= 1 %>
-      <p>Attack with gear: <%= fighter.attack_with_gear %></p>
-    <% end %>
+<% if fighter %>
+
+  <h2 class='text-center'><%= fighter.name.capitalize %></h2>
+  <div class="d-flex justify-content-between">
+    <p>Level: <%= fighter.level %></p>
+    <p>Fighting power: <%= fighter.stats[:overall_stats] %></p>
   </div>
-  <div>
-    <p>Defence: <%= fighter.defence %></p>
-    <% if fighter.fighter_gears.where(equiped: true).count >= 1  %>
-      <p>Defence with gear: <%= fighter.defence_with_gear %></p>
-    <% end %>
+  <div class="d-flex justify-content-between">
+    <p>❤️: <%= fighter.stats[:health_point] %></p>
+    <%= render './fighters/fighter_card_stats', fighter: fighter, keyword: '⚔️', value: fighter.stats[:attack], gear_value: fighter.stats[:gear_attack] %>
+    <%= render './fighters/fighter_card_stats', fighter: fighter, keyword: '🛡', value: fighter.stats[:defence], gear_value: fighter.stats[:gear_defence]  %>
+    <%= render './fighters/fighter_card_stats', fighter: fighter, keyword: '👟', value: fighter.stats[:speed_attack], gear_value: fighter.stats[:gear_speed_attack]  %>
   </div>
-  <div>
-    <p>Speed: <%= fighter.speed_attack %></p>
-    <% if fighter.fighter_gears.where(equiped: true).count >= 1 %>
-      <p>Speed with gear: <%= fighter.speed_attack_with_gear %></p>
-    <% end %>
-  </div>
-</div>
-<% if fighter.fighter_gears.where(equiped: true).count < 1 %>
-  <p class="text-center"> No gear equiped, you can equip gear from level 2 on the edit page of a fighter</p>
+
+  <% if fighter.fighter_gears.where(equiped: true).count < 1 %>
+  <p class='text-center'> No gear equiped, you can equip gear from level 2</p>
+  <% end %>
 <% end %>

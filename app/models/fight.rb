@@ -9,11 +9,11 @@ class Fight < ApplicationRecord
 
   def setup
     @players_health = {
-      red_fighter.id => red_fighter.health_point,
-      blue_fighter.id => blue_fighter.health_point
+      red_fighter.id => red_fighter.stats[:health_point],
+      blue_fighter.id => blue_fighter.stats[:health_point]
     }
 
-    @player = red_fighter.speed_attack_with_gear > blue_fighter.speed_attack_with_gear ? red_fighter : blue_fighter
+    @player = red_fighter.stats[:speed_attack_with_gear] > blue_fighter.stats[:speed_attack_with_gear] ? red_fighter : blue_fighter
     @opponent = (@player == red_fighter) ? blue_fighter  : red_fighter
   end
 
@@ -24,14 +24,14 @@ class Fight < ApplicationRecord
     @opponent.gear_stats_array = []
 
     while @players_health[@player.id] >= 0
-      damage = @player.attack_with_gear - @opponent.defence_with_gear
-      if @player.speed_attack_with_gear > @opponent.speed_attack_with_gear
-        ratio = (@player.speed_attack_with_gear / @opponent.speed_attack_with_gear).floor
-        damage = (@player.attack_with_gear * ratio).floor - @opponent.defence_with_gear
+      damage = @player.stats[:attack_with_gear] - @opponent.stats[:defence_with_gear]
+      if @player.stats[:speed_attack_with_gear] > @opponent.stats[:speed_attack_with_gear]
+        ratio = (@player.stats[:speed_attack_with_gear] / @opponent.stats[:speed_attack_with_gear]).floor
+        damage = (@player.stats[:attack_with_gear] * ratio).floor - @opponent.stats[:defence_with_gear]
       end
       damage = 1 if damage <= 1
       @players_health[@opponent.id] = @players_health[@opponent.id] - damage
-      if  @players_health[@opponent.id] <= 0
+      if @players_health[@opponent.id] <= 0
         turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage}Hp, #{@opponent.name}."
         switch_player
         break
@@ -53,12 +53,8 @@ class Fight < ApplicationRecord
   end
 
   def switch_player
-    if @player == blue_fighter
-      @player = red_fighter
-      @opponent = blue_fighter
-    else
-      @player = blue_fighter
-      @opponent = red_fighter
-    end
+    temporary_slot = @player
+    @player = @opponent
+    @opponent = temporary_slot
   end
 end

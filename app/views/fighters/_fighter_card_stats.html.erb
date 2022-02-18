@@ -1,0 +1,6 @@
+  <div>
+    <p><%= keyword %>: <%= value %></p>
+    <% if fighter.fighter_gears.where(equiped: true).count >= 1 %>
+      <p><%= keyword %> with gear: <%= gear_value %></p>
+    <% end %>
+  </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_02_072000) do
+ActiveRecord::Schema.define(version: 2022_02_18_081009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,16 +55,13 @@ ActiveRecord::Schema.define(version: 2021_12_02_072000) do
 
   create_table "fighters", force: :cascade do |t|
     t.string "name"
-    t.integer "health_point"
-    t.integer "attack"
-    t.integer "defence"
-    t.integer "speed_attack"
     t.integer "level"
     t.integer "experience"
     t.string "stats_up_array", default: [], array: true
     t.string "gear_stats_array", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "stats"
   end
 
   create_table "fights", force: :cascade do |t|

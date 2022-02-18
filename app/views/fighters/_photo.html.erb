@@ -1,5 +1,7 @@
+<% if fighter %>
 <% if fighter.photo.attached?%>
   <%= cl_image_tag fighter.photo.key%>
 <% else %>
   <%= image_tag "ken.jpg"%>
+<% end %>
 <% end %>

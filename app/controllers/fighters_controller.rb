@@ -11,17 +11,44 @@ class FightersController < ApplicationController
   end
 
   def new
-    @fighter = Fighter.new
+    @fighter = Fighter.new(stats: {
+        health_point: 20,
+        attack: 5,
+        gear_attack: 5,
+        defence: 1,
+        gear_defence: 5,
+        speed_attack: 1, # critical hit as well
+        gear_speed_attack: 1,
+        # from here will depend on the fighter's speciality
+        intelligence: 5, # mana , spell critical hit
+        spell_resistance: 1,
+        dodge_rate: 10,
+        hitting_rate: 80,
+        regen: 1,
+        overall_stats: 31
+      })
   end
 
   def create
     @fighter = Fighter.new(
+      stats: {
+        health_point: 20,
+        attack: 5,
+        gear_attack: 5,
+        defence: 1,
+        gear_defence: 5,
+        speed_attack: 1, # critical hit as well
+        gear_speed_attack: 1,
+        # from here will depend on the fighter's speciality
+        intelligence: 5, # mana , spell critical hit
+        spell_resistance: 1,
+        dodge_rate: 10,
+        hitting_rate: 80,
+        regen: 1,
+        overall_stats: 31
+      },
       name: create_fighter_params[:name],
       photo: create_fighter_params[:photo],
-      health_point: [19, 20, 21].sample,
-      attack: [4, 5, 6, 7].sample,
-      defence: [0, 1, 2, 3].sample,
-      speed_attack: [10, 11, 12].sample,
       level: 1,
       experience: 0
     )

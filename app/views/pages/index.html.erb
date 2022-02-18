@@ -17,7 +17,6 @@
 
           <%= f.select :first_fighter, available_fighters(@fighters).map { |fighter| fighter.name },
                         class: 'm-5', id: 'first-fighter'  %>
-                        <%# lvl, hp, attack, defence, speed, fighting_power, image %>
           <%= f.select :second_fighter, available_fighters(@fighters).map { |fighter| fighter.name }, class: 'm-5' %>
           <%= f.submit 'Start a Fight', class: 'btn btn-success my-3 px-5', style: "border-radius: 20px;" %>
         <% end %>

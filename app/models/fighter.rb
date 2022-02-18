@@ -5,6 +5,7 @@ class Fighter < ApplicationRecord
   has_many :fights_when_red, foreign_key: :red_fighter_id, dependent: :destroy, class_name: 'Fight'
   has_many :fights_when_blue, foreign_key: :blue_fighter_id, dependent: :destroy, class_name: 'Fight'
   validates :name, uniqueness: true, presence: true
+  serialize :stats, Hash
 
   def experience_per_level
     level * 10
@@ -21,7 +22,7 @@ class Fighter < ApplicationRecord
   end
 
   def check_level_up(received_experience)
-    return self.experience += received_experience unless received_experience >= ((level * 10) - experience)
+    return experience += received_experience unless received_experience >= ((level * 10) - experience)
 
     number = number_of_level_taken(level, experience, received_experience)
     level_up(number)
@@ -36,32 +37,28 @@ class Fighter < ApplicationRecord
       current_level += 1
       count += 1
     end
-    self.experience = received_experienced
+    experience = received_experienced
     count
   end
 
   def level_up(number)
-    self.level += number
+    level += number
     number.times do
       stat_up
       gears << gear = Gear.all.sample
       gear_stats(gear)
     end
+    set_overall_stats
   end
 
-  def attack_with_gear
+  def edit_stats_on_gear_equiped
     gear_attack = fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.attack || 0 }.sum
-    attack + gear_attack
-  end
-
-  def defence_with_gear
+    @stats[:gear_attack] = @stats[:attack] + gear_attack
     gear_defence = fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.defence || 0 }.sum
-    defence + gear_defence
-  end
-
-  def speed_attack_with_gear
+    @stats[:gear_defence] = @stats[:defence] + gear_defence
     gear_speed_attack = fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.speed_attack || 0 }.sum
-    speed_attack + gear_speed_attack
+    @stats[:gear_speed_attack] = @stats[:speed_attack] + gear_speed_attack
+    set_overall_stats
   end
 
   def gear_stats(gear)
@@ -74,16 +71,19 @@ class Fighter < ApplicationRecord
   def stat_up
     2.times do
       case rand(3)
-      when 0 then self.health_point += 30; stats_up_array << "Hp +30"
-      when 1 then self.attack += 2; stats_up_array << "Attack +2"
-      when 2 then self.defence += 2; stats_up_array << "Defence +2"
-      when 3 then self.speed_attack += 4; stats_up_array << "Speed Attack +4"
+      when 0 then @stats[:health_point] += 4; stats_up_array << "Hp +30"
+      when 1 then @stats[:attack] += 2; stats_up_array << "Attack +2"
+      when 2 then @stats[:defence] += 2; stats_up_array << "Defence +2"
+      when 3 then @stats[:speed_attack] += 2; stats_up_array << "Speed Attack +4"
       end
     end
   end
 
-  def overall_stats
-    attack_with_gear + defence_with_gear + speed_attack_with_gear + health_point
+  def set_overall_stats
+    if stats != {}
+    stats[:overall_stats] = stats[:gear_speed_attack] + stats[:gear_attack] + stats[:gear_defence]
+    + stats[:health_point] + stats[:intelligence] + stats[:regen]
+    end
   end
 end
 
@@ -101,6 +101,7 @@ end
 #           dodge_rate = '',
 #           hitting_rate = '',
 #           intelligence = '',
+          # spell_resistance = ''
 #           regen = ''
 # }
 
@@ -112,7 +113,7 @@ end
 # ------------- gear categories-----------
 # change item winning system only even-level, and 20% chance to get one when winning
 # item per level, unlock per level ; a lvl 2 cant get a grenade ...
-# get an item within [self.lvl-6..self.level]
+# get an item within [lvl-6..level]
 # increase number of items
 # weapon or clothes
 
