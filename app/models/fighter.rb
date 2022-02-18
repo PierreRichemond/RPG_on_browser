@@ -6,27 +6,8 @@ class Fighter < ApplicationRecord
   has_many :fights_when_blue, foreign_key: :blue_fighter_id, dependent: :destroy, class_name: 'Fight'
   validates :name, uniqueness: true, presence: true
 
-
-  def level_up(number)
-    self.level += number
-    number.times do
-      stat_up
-      gears << gear = Gear.all.sample
-      gear_stats(gear)
-    end
-  end
-
-  def number_of_level_taken(current_level, current_experience, received_experienced)
-    count = 0
-    while received_experienced >= (current_level * 10) - current_experience
-      experience_to_next_level = ((level + count) * 10) - current_experience
-      received_experienced -= experience_to_next_level
-      current_experience = 0
-      current_level += 1
-      count += 1
-    end
-    self.experience = received_experienced
-    count
+  def experience_per_level
+    level * 10
   end
 
   def win_battle(opponent_level)
@@ -39,15 +20,33 @@ class Fighter < ApplicationRecord
     check_level_up(received_experience)
   end
 
-  def experience_per_level
-    level * 10
-  end
-
   def check_level_up(received_experience)
     return self.experience += received_experience unless received_experience >= ((level * 10) - experience)
 
     number = number_of_level_taken(level, experience, received_experience)
     level_up(number)
+  end
+
+  def number_of_level_taken(current_level, current_experience, received_experienced)
+    count = 0
+    experience_to_next_level = (current_level * 10) - current_experience
+    while received_experienced >= experience_to_next_level
+      received_experienced -= experience_to_next_level
+      current_experience = 0
+      current_level += 1
+      count += 1
+    end
+    self.experience = received_experienced
+    count
+  end
+
+  def level_up(number)
+    self.level += number
+    number.times do
+      stat_up
+      gears << gear = Gear.all.sample
+      gear_stats(gear)
+    end
   end
 
   def attack_with_gear
@@ -65,42 +64,82 @@ class Fighter < ApplicationRecord
     speed_attack + gear_speed_attack
   end
 
-  def overall_stats
-    attack_with_gear + defence_with_gear + speed_attack_with_gear + health_point
+  def gear_stats(gear)
+    attack = "Attack: #{gear.attack}" if gear.attack.present?
+    defence = "Defence: #{gear.defence}" if gear.defence.present?
+    speed_attack = "Speed Attack: #{gear.speed_attack}" if gear.speed_attack.present?
+    gear_stats_array << "#{gear.name}," + attack + defence + speed_attack
   end
 
   def stat_up
     2.times do
       case rand(3)
-      when 0
-        self.health_point += 30
-        stats_up_array << "Hp +30"
-      when 1
-        self.attack += 2
-        stats_up_array << "Attack +2"
-      when 2
-        self.defence += 2
-        stats_up_array << "Defence +2"
-      when 3
-        self.speed_attack += 4
-        stats_up_array << "Speed Attack +4"
+      when 0 then self.health_point += 30; stats_up_array << "Hp +30"
+      when 1 then self.attack += 2; stats_up_array << "Attack +2"
+      when 2 then self.defence += 2; stats_up_array << "Defence +2"
+      when 3 then self.speed_attack += 4; stats_up_array << "Speed Attack +4"
       end
     end
   end
 
-  def gear_stats(gear)
-    if gear.attack.present? && gear.defence.present? && gear.speed_attack.present?
-      gear_stats_array << "#{gear.name}, attack #{gear.attack}, defence #{gear.defence}, Speed attack #{gear.speed_attack}"
-    elsif gear.attack.present? && gear.speed_attack.present?
-      gear_stats_array << "#{gear.name}, attack #{gear.attack}, Speed attack #{gear.speed_attack}"
-    elsif gear.defence.present? && gear.speed_attack.present?
-      gear_stats_array << "#{gear.name}, attack #{gear.defence}, Speed attack #{gear.speed_attack}"
-    elsif gear.speed_attack.present?
-      gear_stats_array << "#{gear.name}, Speed attack #{gear.speed_attack}"
-    elsif gear.attack.present?
-      gear_stats_array << "#{gear.name}, attack #{gear.attack}"
-    elsif gear.defence.present?
-      gear_stats_array << "#{gear.name}, defence #{gear.defence}"
-    end
+  def overall_stats
+    attack_with_gear + defence_with_gear + speed_attack_with_gear + health_point
   end
 end
+
+
+# TODO
+# top level => 20
+# Refacto stats into a hash
+# refacto item stats into a hash
+
+
+# stats = { attack = '',
+#           defence = '',
+#           speed_attack = '',
+#           health_point = '',
+#           dodge_rate = '',
+#           hitting_rate = '',
+#           intelligence = '',
+#           regen = ''
+# }
+
+# ------------objects-------------
+# players have objects, limit of 20
+# potions, scrolls ect
+
+
+# ------------- gear categories-----------
+# change item winning system only even-level, and 20% chance to get one when winning
+# item per level, unlock per level ; a lvl 2 cant get a grenade ...
+# get an item within [self.lvl-6..self.level]
+# increase number of items
+# weapon or clothes
+
+# ---------------fighters ----------------
+# ------weapon_user ; warrior and an archer-----
+# 1/2 weapon / 1 shield / 1 bow, 5clothes(gloves, shoes, pants, shirt, head)
+# weapon_user have energy and does regular kick when no more energy
+# energy regenerate over turns depending on regen_ability
+# life regenerate over turns depending on regen_ability
+# 2; + 1 attack every 2 level, TOTAL 4 attacks
+
+
+# casters ; mage and priest
+# caster can have 1 weapon, 5clothes(gloves, shoes, pants, shirt, head)
+# caster have spells and regular kick when no more mana
+# mana regenerate over turns depending on regen_ability
+# life regenerate over turns depending on regen_ability
+# 2; + 1 attack every 2 level, TOTAL 4 attacks
+
+
+# ------------------------HTML---------------------
+# need one more view for the fight
+# fight is a turn by turn where we have the option to :
+#   - choose an attack amongst 2; + 1 attack every 2 level, TOTAL 4 attacks
+#   - use an item to boost ourselves or deminish the opponent s stats
+#   - run away ; meaning loosing
+
+# change the New form to create a fighter with specificity
+#   - mage / priest / warrior / archer
+# #
