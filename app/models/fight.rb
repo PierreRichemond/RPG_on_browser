@@ -13,7 +13,7 @@ class Fight < ApplicationRecord
       blue_fighter.id => blue_fighter.stats[:health_point]
     }
 
-    @player = red_fighter.stats[:speed_attack_with_gear] > blue_fighter.stats[:speed_attack_with_gear] ? red_fighter : blue_fighter
+    @player = red_fighter.stats[:gear_speed_attack] > blue_fighter.stats[:gear_speed_attack] ? red_fighter : blue_fighter
     @opponent = (@player == red_fighter) ? blue_fighter  : red_fighter
   end
 
@@ -24,10 +24,10 @@ class Fight < ApplicationRecord
     @opponent.gear_stats_array = []
 
     while @players_health[@player.id] >= 0
-      damage = @player.stats[:attack_with_gear] - @opponent.stats[:defence_with_gear]
-      if @player.stats[:speed_attack_with_gear] > @opponent.stats[:speed_attack_with_gear]
-        ratio = (@player.stats[:speed_attack_with_gear] / @opponent.stats[:speed_attack_with_gear]).floor
-        damage = (@player.stats[:attack_with_gear] * ratio).floor - @opponent.stats[:defence_with_gear]
+      damage = @player.stats[:gear_attack] - @opponent.stats[:gear_defence]
+      if @player.stats[:gear_speed_attack] > @opponent.stats[:gear_speed_attack]
+        ratio = (@player.stats[:gear_speed_attack] / @opponent.stats[:gear_speed_attack]).floor
+        damage = (@player.stats[:gear_attack] * ratio).floor - @opponent.stats[:gear_defence]
       end
       damage = 1 if damage <= 1
       @players_health[@opponent.id] = @players_health[@opponent.id] - damage

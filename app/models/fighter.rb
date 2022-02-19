@@ -5,6 +5,7 @@ class Fighter < ApplicationRecord
   has_many :fights_when_red, foreign_key: :red_fighter_id, dependent: :destroy, class_name: 'Fight'
   has_many :fights_when_blue, foreign_key: :blue_fighter_id, dependent: :destroy, class_name: 'Fight'
   validates :name, uniqueness: true, presence: true
+  validates :level, numericality: { less_than_or_equal_to: 20,  only_integer: true }
   serialize :stats, Hash
 
   def experience_per_level
@@ -12,52 +13,73 @@ class Fighter < ApplicationRecord
   end
 
   def win_battle(opponent_level)
+    # 30%chance of wwinning a new item if winning
+    return gears_on_level_max(30) if self.level == 20
     received_experience = opponent_level * 10
     check_level_up(received_experience)
   end
 
   def lost_battle(opponent_level)
+    # 15% chance of wwinning a new item if winning
+    return gears_on_level_max(15) if self.level == 20
     received_experience = opponent_level * 2
     check_level_up(received_experience)
   end
 
-  def check_level_up(received_experience)
-    return experience += received_experience unless received_experience >= ((level * 10) - experience)
+  def gears_on_level_max(rate)
+    if rand(0..100) <= rate
+      gears << gear = Gear.all.select{ |potential_gear| potential_gear.level <= self.level && potential_gear.level > self.level - 6 }.sample
+      gear_stats(gear)
+    end
+  end
 
-    number = number_of_level_taken(level, experience, received_experience)
+  def check_level_up(received_experience)
+    return self.experience += received_experience unless received_experience >= ((level * 10) - self.experience)
+
+    number = number_of_level_taken(level, self.experience, received_experience)
     level_up(number)
   end
 
   def number_of_level_taken(current_level, current_experience, received_experienced)
     count = 0
+    return count if current_level == 20
     experience_to_next_level = (current_level * 10) - current_experience
     while received_experienced >= experience_to_next_level
       received_experienced -= experience_to_next_level
       current_experience = 0
       current_level += 1
       count += 1
+      received_experienced = 0 if current_level == 20
+      break if current_level == 20
     end
-    experience = received_experienced
+    self.experience = received_experienced
     count
   end
 
   def level_up(number)
-    level += number
+    level_before_fight = level
+    self.level += number
+    # receive gear only on even level
+    (level_before_fight..self.level).each do |level_taken|
+      if level_taken.even?
+        # select only gears nearby the fighter's level (-6..current level)
+        gears << gear = Gear.all.select{ |potential_gear| potential_gear.level <= self.level && potential_gear.level > self.level - 6 }.sample
+        gear_stats(gear)
+      end
+    end
     number.times do
       stat_up
-      gears << gear = Gear.all.sample
-      gear_stats(gear)
     end
     set_overall_stats
   end
 
   def edit_stats_on_gear_equiped
     gear_attack = fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.attack || 0 }.sum
-    @stats[:gear_attack] = @stats[:attack] + gear_attack
+    stats[:gear_attack] = stats[:attack] + gear_attack
     gear_defence = fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.defence || 0 }.sum
-    @stats[:gear_defence] = @stats[:defence] + gear_defence
+    stats[:gear_defence] = stats[:defence] + gear_defence
     gear_speed_attack = fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.speed_attack || 0 }.sum
-    @stats[:gear_speed_attack] = @stats[:speed_attack] + gear_speed_attack
+    stats[:gear_speed_attack] = stats[:speed_attack] + gear_speed_attack
     set_overall_stats
   end
 
@@ -71,10 +93,10 @@ class Fighter < ApplicationRecord
   def stat_up
     2.times do
       case rand(3)
-      when 0 then @stats[:health_point] += 4; stats_up_array << "Hp +30"
-      when 1 then @stats[:attack] += 2; stats_up_array << "Attack +2"
-      when 2 then @stats[:defence] += 2; stats_up_array << "Defence +2"
-      when 3 then @stats[:speed_attack] += 2; stats_up_array << "Speed Attack +4"
+      when 0 then stats[:health_point] += 4; stats_up_array << "Hp +30"
+      when 1 then stats[:attack] += 2; stats_up_array << "Attack +2"
+      when 2 then stats[:defence] += 2; stats_up_array << "Defence +2"
+      when 3 then stats[:speed_attack] += 2; stats_up_array << "Speed Attack +4"
       end
     end
   end
