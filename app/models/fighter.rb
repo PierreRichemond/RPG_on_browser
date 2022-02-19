@@ -7,6 +7,7 @@ class Fighter < ApplicationRecord
   validates :name, uniqueness: true, presence: true
   validates :level, numericality: { less_than_or_equal_to: 20,  only_integer: true }
   serialize :stats, Hash
+  serialize :stats_up_hash, Hash
 
   def experience_per_level
     level * 10
@@ -95,10 +96,10 @@ class Fighter < ApplicationRecord
   def stat_up
     2.times do
       case rand(3)
-      when 0 then stats[:health_point] += 4; stats_up_array << "Hp +30"
-      when 1 then stats[:attack] += 2; stats_up_array << "Attack +2"
-      when 2 then stats[:defence] += 2; stats_up_array << "Defence +2"
-      when 3 then stats[:speed_attack] += 2; stats_up_array << "Speed Attack +4"
+      when 0 then stats[:health_point] += 4; stats_up_hash[:hp] += 1
+      when 1 then stats[:attack] += 2; stats_up_hash[:attack] += 1
+      when 2 then stats[:defence] += 2; stats_up_hash[:defence] += 1
+      when 3 then stats[:speed_attack] += 2; stats_up_hash[:speed] += 1
       end
     end
   end

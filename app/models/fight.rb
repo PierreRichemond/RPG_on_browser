@@ -18,8 +18,8 @@ class Fight < ApplicationRecord
   end
 
   def run
-    @player.stats_up_array = []
-    @opponent.stats_up_array = []
+    @player.stats_up_hash = {}
+    @opponent.stats_up_hash = {}
     @player.gear_stats_array = []
     @opponent.gear_stats_array = []
 

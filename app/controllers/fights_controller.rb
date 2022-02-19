@@ -11,6 +11,7 @@ class FightsController < ApplicationController
   def create
     @first_fighter = Fighter.find_by(name: params[:fight][:first_fighter])
     @second_fighter = Fighter.find_by(name: params[:fight][:second_fighter])
+
     @fight = Fight.create!(red_fighter: @first_fighter, blue_fighter: @second_fighter)
     if @first_fighter == @second_fighter
       redirect_to root_path
