@@ -28,9 +28,13 @@ class Fighter < ApplicationRecord
 
   def gears_on_level_max(rate)
     if rand(0..100) <= rate
-      gears << gear = Gear.all.select{ |potential_gear| potential_gear.level <= self.level && potential_gear.level > self.level - 6 }.sample
-      gear_stats(gear)
+      get_gear
     end
+  end
+
+  def get_gear
+    gears << gear = Gear.all.select{ |potential_gear| potential_gear.level <= self.level && potential_gear.level > self.level - 6 }.sample
+    gear_stats(gear)
   end
 
   def check_level_up(received_experience)
@@ -62,9 +66,7 @@ class Fighter < ApplicationRecord
     # receive gear only on even level
     (level_before_fight..self.level).each do |level_taken|
       if level_taken.even?
-        # select only gears nearby the fighter's level (-6..current level)
-        gears << gear = Gear.all.select{ |potential_gear| potential_gear.level <= self.level && potential_gear.level > self.level - 6 }.sample
-        gear_stats(gear)
+        get_gear
       end
     end
     number.times do
@@ -111,8 +113,8 @@ end
 
 
 # TODO
-# top level => 20
-# Refacto stats into a hash
+# top level => 20   ==========================> OK
+# Refacto stats into a hash    ==============================+>  ok
 # refacto item stats into a hash
 
 
@@ -128,14 +130,14 @@ end
 # }
 
 # ------------objects-------------
-# players have objects, limit of 20
+# players have objects, limit of 20 ====================++> OK
 # potions, scrolls ect
 
 
 # ------------- gear categories-----------
-# change item winning system only even-level, and 20% chance to get one when winning
-# item per level, unlock per level ; a lvl 2 cant get a grenade ...
-# get an item within [lvl-6..level]
+# change item winning system only even-level, and 20% chance to get one when winning ===========> ok
+# item per level, unlock per level ; a lvl 2 cant get a grenade ... ====================>   OK
+# get an item within [lvl-6..level]   ===========================> ok
 # increase number of items
 # weapon or clothes
 
