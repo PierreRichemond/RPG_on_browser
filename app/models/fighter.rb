@@ -8,6 +8,7 @@ class Fighter < ApplicationRecord
   validates :level, numericality: { less_than_or_equal_to: 20,  only_integer: true }
   serialize :stats, Hash
   serialize :stats_up_hash, Hash
+  #single table inheritance
 
   def experience_per_level
     level * 10
