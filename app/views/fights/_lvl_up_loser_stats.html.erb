@@ -1,15 +1,15 @@
 <div class='col-12 col-lg-5 offset-lg-1'>
   <h3 class="text-center">Loser, <%= loser.name %></h3>
   <h4>Experience from the match: +<%= experience_earned(winner, 2) %></h4>
-  <p>Experience: <%= loser.experience %>/<%= loser.level * 10%></p>
-  <% number_of_lvl_up = loser.stats_up_array.count / 2 %>
+  <p>Experience: <%= show_current_experience(loser) %></p>
+  <% number_of_lvl_up = number_of_level_up(loser) %>
 
   <% if number_of_lvl_up >= 1 %>
     <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
-    <p>Hp +<%= loser.stats_up_array.select {|a| a == "Hp +30"}.count * 30%></p>
-    <p>Attack +<%= loser.stats_up_array.select {|a| a == "Attack +2"}.count  * 2%></p>
-    <p>Defence +<%= loser.stats_up_array.select {|a| a == "Defence +2"}.count  * 2%></p>
-    <p>Speed attack +<%= loser.stats_up_array.select {|a| a == "Speed Attack +4"}.count  * 4%></p>
+    <p>❤️ +<%= show_stats_up_array_details(loser, :hp)%> </p>
+    <p>⚔️ +<%= show_stats_up_array_details(loser, :attack)%></p>
+    <p>🛡 +<%= show_stats_up_array_details(loser, :defence)%></p>
+    <p>👟 +<%= show_stats_up_array_details(loser, :speed_attack)%></p>
     <h4 class= "text-center">Gear to equip</h4>
     <% loser.gear_stats_array.last(number_of_lvl_up).each do |gear| %>
       <p><%= gear %></p>

@@ -14,8 +14,16 @@ class FightService
   end
 
   def run
-    @player.stats_up_hash = {}
-    @opponent.stats_up_hash = {}
+    @player.stats_up_hash = { hp: 0,
+                              attack: 0,
+                              defence: 0,
+                              speed: 0
+                            }
+    @opponent.stats_up_hash = {hp: 0,
+                              attack: 0,
+                              defence: 0,
+                              speed: 0
+                            }
     @player.gear_stats_array = []
     @opponent.gear_stats_array = []
 
@@ -28,11 +36,11 @@ class FightService
       damage = 1 if damage <= 1
       @players_health[@opponent.id] = @players_health[@opponent.id] - damage
       if @players_health[@opponent.id] <= 0
-        fight.turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage}Hp, #{@opponent.name}."
+        @fight.turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage}❤️, #{@opponent.name}."
         switch_player
         break
       end
-      fight.turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage}Hp, #{@players_health[@opponent.id]}Hp left for #{@opponent.name}."
+      @fight.turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage}❤️, #{@players_health[@opponent.id]}Hp left for #{@opponent.name}."
       switch_player
     end
     win_declaration
@@ -46,8 +54,8 @@ class FightService
     @player.lost_battle(@opponent.level)
     @player.save!
     @opponent.save!
+    @fight.turns << "Congratulation, #{@fight.winner} wins!"
     @fight.save!
-    fight.turns << "Congratulation, #{@fight.winner} wins!"
   end
 
   def switch_player

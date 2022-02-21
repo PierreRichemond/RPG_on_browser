@@ -16,7 +16,7 @@ class FightersController < ApplicationController
         attack: 5,
         gear_attack: 5,
         defence: 1,
-        gear_defence: 5,
+        gear_defence: 1,
         speed_attack: 1, # critical hit as well
         gear_speed_attack: 1,
         # from here will depend on the fighter's speciality
@@ -36,7 +36,7 @@ class FightersController < ApplicationController
         attack: 5,
         gear_attack: 5,
         defence: 1,
-        gear_defence: 5,
+        gear_defence: 1,
         speed_attack: 1, # critical hit as well
         gear_speed_attack: 1,
         # from here will depend on the fighter's speciality

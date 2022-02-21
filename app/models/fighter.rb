@@ -5,7 +5,7 @@ class Fighter < ApplicationRecord
   has_many :fights_when_red, foreign_key: :red_fighter_id, dependent: :destroy, class_name: 'Fight'
   has_many :fights_when_blue, foreign_key: :blue_fighter_id, dependent: :destroy, class_name: 'Fight'
   validates :name, uniqueness: true, presence: true
-  validates :level, numericality: { less_than_or_equal_to: 20,  only_integer: true }
+  validates :level, numericality: { less_than_or_equal_to: 20, only_integer: true }
   serialize :stats, Hash
   serialize :stats_up_hash, Hash
   #single table inheritance
@@ -35,7 +35,7 @@ class Fighter < ApplicationRecord
   end
 
   def get_gear
-    gears << gear = Gear.all.select{ |potential_gear| potential_gear.level <= self.level && potential_gear.level > self.level - 6 }.sample
+    gears << gear = Gear.all.select { |potential_gear| potential_gear.level <= self.level && potential_gear.level > self.level - 6 }.sample
     gear_stats(gear)
   end
 
@@ -77,7 +77,7 @@ class Fighter < ApplicationRecord
     set_overall_stats
   end
 
-  def edit_stats_on_gear_equiped
+  def edit_character_stats
     gear_attack = fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.attack || 0 }.sum
     stats[:gear_attack] = stats[:attack] + gear_attack
     gear_defence = fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.defence || 0 }.sum
@@ -91,7 +91,7 @@ class Fighter < ApplicationRecord
     attack = "Attack: #{gear.attack}" if gear.attack.present?
     defence = "Defence: #{gear.defence}" if gear.defence.present?
     speed_attack = "Speed Attack: #{gear.speed_attack}" if gear.speed_attack.present?
-    gear_stats_array << "#{gear.name}," + attack + defence + speed_attack
+    gear_stats_array << "#{gear.name}: ⚔ #{attack}, 🛡 #{defence}, 👟 #{speed_attack}"
   end
 
   def stat_up
@@ -103,12 +103,14 @@ class Fighter < ApplicationRecord
       when 3 then stats[:speed_attack] += 2; stats_up_hash[:speed] += 1
       end
     end
+    edit_character_stats
+    set_overall_stats
   end
 
   def set_overall_stats
     if stats != {}
-    stats[:overall_stats] = stats[:gear_speed_attack] + stats[:gear_attack] + stats[:gear_defence]
-    + stats[:health_point] + stats[:intelligence] + stats[:regen]
+      stats[:overall_stats] = stats[:gear_speed_attack] + stats[:gear_attack] + stats[:gear_defence]
+      + stats[:health_point] + stats[:intelligence] + stats[:regen]
     end
   end
 end
@@ -169,4 +171,4 @@ end
 
 # change the New form to create a fighter with specificity
 #   - mage / priest / warrior / archer
-# #
+# '⚔️🛡👟'

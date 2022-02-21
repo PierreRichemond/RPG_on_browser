@@ -15,7 +15,7 @@
     <h2 class='text-center'><%= @fighter.name %>'s gears</h2>
     <% @fighter.fighter_gears.each_with_index do |fighter_gear, index|%>
       <% gear = fighter_gear.gear %>
-      <p><%=index+1%>. <%= gear.name %> <%= gear.defence %>defence, <%= gear.attack %>attack, <%= gear.speed_attack %>speed attack.  <%= fighter_gear.equiped? ? "-------------> Equiped" : "" %></p>
-    <% end %>
+      <p><%=index+1%>. <%= gear.name %> <%= gear.defence %>🛡, <%= gear.attack %>⚔️, <%= gear.speed_attack %>👟.  <%= fighter_gear.equiped? ? "-------------> Equiped" : "" %></p>
+    <% end %>'⚔️''🛡''👟'
   </div>
 </div>

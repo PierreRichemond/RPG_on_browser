@@ -4,8 +4,8 @@ class Fight < ApplicationRecord
   validate :cant_fight_self
 
   def cant_fight_self
-    if red_fighter != blue_fighter
-      errors.add(:fighter_gear, 'One fighter can\'t fight itself.')
+    if red_fighter == blue_fighter
+      errors.add(:fight, 'One fighter can\'t fight itself.')
     end
   end
 end
