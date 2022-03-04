@@ -52,9 +52,11 @@ class Fighter < ApplicationRecord
     experience_to_next_level = (current_level * 10) - current_experience
     while received_experienced >= experience_to_next_level
       received_experienced -= experience_to_next_level
-      current_experience = 0
+
+      self.experience = 0
       current_level += 1
       count += 1
+      experience_to_next_level = (current_level * 10)
       received_experienced = 0 if current_level == 20
       break if current_level == 20
     end
@@ -96,11 +98,11 @@ class Fighter < ApplicationRecord
 
   def stat_up
     2.times do
-      case rand(3)
+      case rand(4)
       when 0 then stats[:health_point] += 4; stats_up_hash[:hp] += 1
       when 1 then stats[:attack] += 2; stats_up_hash[:attack] += 1
       when 2 then stats[:defence] += 2; stats_up_hash[:defence] += 1
-      when 3 then stats[:speed_attack] += 2; stats_up_hash[:speed] += 1
+      when 3 then stats[:speed_attack] += 2; stats_up_hash[:speed_attack] += 1
       end
     end
     edit_character_stats

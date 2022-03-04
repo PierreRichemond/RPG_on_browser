@@ -17,12 +17,12 @@ class FightService
     @player.stats_up_hash = { hp: 0,
                               attack: 0,
                               defence: 0,
-                              speed: 0
+                              speed_attack: 0
                             }
     @opponent.stats_up_hash = {hp: 0,
                               attack: 0,
                               defence: 0,
-                              speed: 0
+                              speed_attack: 0
                             }
     @player.gear_stats_array = []
     @opponent.gear_stats_array = []

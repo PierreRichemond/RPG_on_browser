@@ -68,6 +68,8 @@ class FightersController < ApplicationController
       ids_in_array = update_gears_fighter_params[:gear_ids].join(" ").split(" ").map {|i| i.to_i}
       ids_in_array.each do |id|
         FighterGear.find(id).update(equiped: true)
+        @fighter.edit_character_stats
+        @fighter.save
       end
       redirect_to fighter_path(@fighter)
 
