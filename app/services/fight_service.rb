@@ -19,7 +19,7 @@ class FightService
       damage = @player.stats[:gear_attack] - @opponent.stats[:gear_defence]
       if @player.stats[:gear_speed_attack] > @opponent.stats[:gear_speed_attack]
         ratio = (@player.stats[:gear_speed_attack] / @opponent.stats[:gear_speed_attack].to_f)
-        damage = (@player.stats[:gear_attack] * ratio).floor - @opponent.stats[:gear_defence]
+        damage = ((@player.stats[:gear_attack] - @opponent.stats[:gear_defence]) * ratio).floor
       end
       damage = 1 if damage <= 1
       if @players_health[@opponent.id] - damage <= 0
@@ -39,7 +39,6 @@ class FightService
   end
 
   def win_declaration
-    binding.pry
     @fight.winner = @player.name
     @fight.loser = @opponent.name
     @player.win_battle(@opponent.level)

@@ -17,14 +17,21 @@
         <div class="form-login">
           <%= simple_form_for @fighter do |f| %>
 
-            <% @fighter.fighter_gears.map do |fighter_gear| %>
+            <% @sorted_gears.map do |fighter_gear| %>
               <%= f.input :custom_field, :label => false do  %>
                 <% if fighter_gear.equiped %>
-                  <%= check_box_tag 'gear_ids[]', fighter_gear.id, :input_html => { :checked => true } %>
+                  <div class="d-flex justify-content-between">
+                    <div><%= check_box_tag 'gear_ids[]', fighter_gear.id, :input_html => { :checked => true } %><%= fighter_gear.gear.name %></div>
+                    <div>Item level: <%=fighter_gear.gear.level  %>, 🛡<%= fighter_gear.gear.defence %>, ⚔️<%= fighter_gear.gear.attack %>, 👟<%= fighter_gear.gear.speed_attack %>.</div>
+                  </div>
                 <% else %>
-                  <%= check_box_tag 'gear_ids[]', fighter_gear.id %>
+                  <div class="d-flex justify-content-between">
+                    <div><%= check_box_tag 'gear_ids[]', fighter_gear.id %><%= fighter_gear.gear.name %></div>
+                    <div>Item level: <%=fighter_gear.gear.level  %>, 🛡<%= fighter_gear.gear.defence %>, ⚔️<%= fighter_gear.gear.attack %>, 👟<%= fighter_gear.gear.speed_attack %>.</div>
+                  </div>
                 <% end %>
-                <%= fighter_gear.gear.name %> <%= fighter_gear.gear.defence %>defence, <%= fighter_gear.gear.attack %>attack, <%= fighter_gear.gear.speed_attack %>speed attack.
+
+
               <% end %>
             <% end %>
             <br>

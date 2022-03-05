@@ -61,6 +61,7 @@ class FightersController < ApplicationController
   end
 
   def edit
+    @sorted_gears = @fighter.fighter_gears.sort_by{|fighter_gear| Gear.find(fighter_gear.gear.id).level}
   end
 
   def update

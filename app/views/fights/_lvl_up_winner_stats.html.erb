@@ -1,23 +1,18 @@
 <div class='col-12 col-lg-5 offset-lg-1'>
-  <h3 class= "text-center">Winner, <%= winner.name %></h3>
-  <h4>Experience from the match: +<%= experience_earned(loser, 10) %></h4>
-  <p>Experience: <%= show_current_experience(winner) %></p>
-  <% number_of_lvl_up = number_of_level_up(winner) %>
-  <% if winner.leveled_up? && gain_any_even_level?(winner.level, number_of_lvl_up)%>
-    <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
-    <p>❤️ +<%= show_stats_up_array_details(winner, :hp)%> </p>
-    <p>⚔️ +<%= show_stats_up_array_details(winner, :attack)%></p>
-    <p>🛡 +<%= show_stats_up_array_details(winner, :defence)%></p>
-    <p>👟 +<%= show_stats_up_array_details(winner, :speed_attack)%></p>
-    <h4 class= "text-center">Gear to equip</h4>
-    <% winner.new_gear_stats_array.last(number_of_lvl_up).each do |gear| %>
-      <p><%= gear %></p>
+  <% if loser.level == 20 %>
+    <h3 class="text-center">Loser, <%= loser.name %></h3>
+    <h4><%= loser.name %> is max level and does not gain experience anymore.</h4>
+  <% else %>
+    <h3 class= "text-center">Winner, <%= winner.name %></h3>
+    <h4>Experience from the match: +<%= experience_earned(loser, 10) %></h4>
+    <p>Experience: <%= show_current_experience(winner) %></p>
+    <% number_of_lvl_up = number_of_level_up(winner) %>
+
+    <% if winner.leveled_up? && gain_any_even_level?(winner.level, number_of_lvl_up)%>
+      <%= render "lvl_up_details", fighter: winner %>
+      <%= render "lvl_up_gear_details", fighter: winner %>
+    <% elsif winner.leveled_up? %>
+      <%= render "lvl_up_details", fighter: winner %>
     <% end %>
-  <% elsif winner.leveled_up? %>
-    <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
-    <p>❤️ +<%= show_stats_up_array_details(winner, :hp)%> </p>
-    <p>⚔️ +<%= show_stats_up_array_details(winner, :attack)%></p>
-    <p>🛡 +<%= show_stats_up_array_details(winner, :defence)%></p>
-    <p>👟 +<%= show_stats_up_array_details(winner, :speed_attack)%></p>
   <% end %>
 </div>

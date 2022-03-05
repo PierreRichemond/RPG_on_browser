@@ -1,33 +1,18 @@
 <div class='col-12 col-lg-5 offset-lg-1'>
-  <% unless loser.level == 20 %>
-
+  <% if loser.level == 20 %>
+    <h3 class="text-center">Loser, <%= loser.name %></h3>
+    <h4><%= loser.name %> is max level and does not gain experience anymore.</h4>
+  <% else %>
     <h3 class="text-center">Loser, <%= loser.name %></h3>
     <h4>Experience from the match: +<%= experience_earned(winner, 2) %></h4>
     <p>Experience: <%= show_current_experience(loser) %></p>
     <% number_of_lvl_up = number_of_level_up(loser) %>
 
     <% if loser.leveled_up? && gain_any_even_level?(loser.level, number_of_lvl_up)%>
-      <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
-      <p>❤️ +<%= show_stats_up_array_details(loser, :hp)%> </p>
-      <p>⚔️ +<%= show_stats_up_array_details(loser, :attack)%></p>
-      <p>🛡 +<%= show_stats_up_array_details(loser, :defence)%></p>
-      <p>👟 +<%= show_stats_up_array_details(loser, :speed_attack)%></p>
-      <h4 class= "text-center">Gear to equip</h4>
-      <% loser.new_gear_stats_array.last(number_of_lvl_up).each do |gear| %>
-        <p><%= gear %></p>
-      <% end %>
+      <%= render "lvl_up_details", fighter: loser %>
+      <%= render "lvl_up_gear_details", fighter: loser %>
     <% elsif loser.leveled_up? %>
-      <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
-      <p>❤️ +<%= show_stats_up_array_details(loser, :hp)%> </p>
-      <p>⚔️ +<%= show_stats_up_array_details(loser, :attack)%></p>
-      <p>🛡 +<%= show_stats_up_array_details(loser, :defence)%></p>
-      <p>👟 +<%= show_stats_up_array_details(loser, :speed_attack)%></p>
+      <%= render "lvl_up_details", fighter: loser %>
     <% end %>
-
-  <% else %>
-
-    <h3 class="text-center">Loser, <%= loser.name %></h3>
-    <h4><%= loser.name %> is max level and does not gain experience anymore.</h4>
-
   <% end %>
 </div>

@@ -10,8 +10,8 @@ class Fighter < ApplicationRecord
   serialize :stats_up_hash, Hash
   #single table inheritance
 
-  @leveled_up = false
-  @received_gear = false
+    @leveled_up = false
+    @received_gear = false
 
   def received_gear?
     @received_gear
