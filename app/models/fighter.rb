@@ -120,7 +120,7 @@ class Fighter < ApplicationRecord
     attack = "#{gear.attack}" if gear.attack.present?
     defence = "#{gear.defence}" if gear.defence.present?
     speed_attack = "#{gear.speed_attack}" if gear.speed_attack.present?
-    gear_stats_array << "#{gear.name}: ⚔ #{attack}, 🛡 #{defence}, 👟 #{speed_attack}, Gear level: #{gear.level}"
+    new_gear_stats_array << "#{gear.name}: ⚔ #{attack}, 🛡 #{defence}, 👟 #{speed_attack}, Gear level: #{gear.level}"
   end
 
   def stat_up

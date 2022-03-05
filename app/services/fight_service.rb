@@ -18,16 +18,20 @@ class FightService
     while @players_health[@player.id] >= 0
       damage = @player.stats[:gear_attack] - @opponent.stats[:gear_defence]
       if @player.stats[:gear_speed_attack] > @opponent.stats[:gear_speed_attack]
-        ratio = (@player.stats[:gear_speed_attack] / @opponent.stats[:gear_speed_attack])
+        ratio = (@player.stats[:gear_speed_attack] / @opponent.stats[:gear_speed_attack].to_f)
         damage = (@player.stats[:gear_attack] * ratio).floor - @opponent.stats[:gear_defence]
       end
       damage = 1 if damage <= 1
-      @players_health[@opponent.id] = @players_health[@opponent.id] - damage
-      if @players_health[@opponent.id] <= 0
-        @fight.turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage + @players_health[@opponent.id]}❤️, #{@opponent.name} dies horribly."
+      if @players_health[@opponent.id] - damage <= 0
+        damage = damage - @players_health[@opponent.id] == 0 ? damage : damage - @players_health[@opponent.id]
+        @players_health[@opponent.id] -= damage
+        @fight.turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage}❤️,
+        #{@opponent.name} dies horribly."
         break
       end
-      @fight.turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage}❤️, #{@players_health[@opponent.id]}Hp left for #{@opponent.name}."
+      @players_health[@opponent.id] -= damage
+      @fight.turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage}❤️,
+       #{@players_health[@opponent.id]}Hp left for #{@opponent.name}."
       switch_player
     end
     win_declaration
