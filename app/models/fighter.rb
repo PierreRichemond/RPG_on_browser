@@ -138,8 +138,7 @@ class Fighter < ApplicationRecord
 
   def set_overall_stats
     if stats != {}
-      stats[:overall_stats] = stats[:gear_speed_attack] + stats[:gear_attack] + stats[:gear_defence]
-      + stats[:health_point] + stats[:intelligence] + stats[:regen]
+      stats[:overall_stats] = stats[:gear_speed_attack] + stats[:gear_attack] + stats[:gear_defence] + stats[:health_point] + stats[:intelligence] + stats[:regen]
     end
   end
 end

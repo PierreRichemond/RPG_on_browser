@@ -39,6 +39,7 @@ class FightService
   end
 
   def win_declaration
+    binding.pry
     @fight.winner = @player.name
     @fight.loser = @opponent.name
     @player.win_battle(@opponent.level)
