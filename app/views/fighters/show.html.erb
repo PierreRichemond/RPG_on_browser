@@ -13,9 +13,9 @@
   </div>
   <div class="form_box">
     <h2 class='text-center'><%= @fighter.name %>'s gears</h2>
-    <% @fighter.fighter_gears.each_with_index do |fighter_gear, index|%>
+    <% @sorted_gears.each_with_index do |fighter_gear, index|%>
       <% gear = fighter_gear.gear %>
-      <p><%=index+1%>. <%= gear.name %> <%= gear.defence %>🛡, <%= gear.attack %>⚔️, <%= gear.speed_attack %>👟.  <%= fighter_gear.equiped? ? "-------------> Equiped" : "" %></p>
-    <% end %>'⚔️''🛡''👟'
+      <p><%=index+1%>. <%= gear.name %> <%= gear.defence %>🛡, <%= gear.attack %>⚔️, <%= gear.speed_attack %>👟, Item level: <%= gear.level %>.  <%= fighter_gear.equiped? ? "-------------> Equiped" : "" %></p>
+    <% end %>
   </div>
 </div>

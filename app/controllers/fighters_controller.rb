@@ -8,6 +8,7 @@ class FightersController < ApplicationController
 
   def show
     @gears = @fighter.gears.where(equiped: true)
+    @sorted_gears = @fighter.fighter_gears.sort_by{|fighter_gear| Gear.find(fighter_gear.gear.id).level}
   end
 
   def new

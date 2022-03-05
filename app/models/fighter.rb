@@ -10,6 +10,33 @@ class Fighter < ApplicationRecord
   serialize :stats_up_hash, Hash
   #single table inheritance
 
+  @leveled_up = false
+  @received_gear = false
+
+  def received_gear?
+    @received_gear
+  end
+
+  def received_gear!
+    @received_gear = true
+  end
+
+  def reset_received_gear
+    @received_gear = false
+  end
+
+  def leveled_up?
+    @leveled_up
+  end
+
+  def leveled_up!
+    @leveled_up = true
+  end
+
+  def reset_leveled_up
+    @leveled_up = false
+  end
+
   def experience_per_level
     level * 10
   end
@@ -29,13 +56,15 @@ class Fighter < ApplicationRecord
   end
 
   def gears_on_level_max(rate)
-    if rand(0..100) <= rate
+    if rate >= rand(0..100)
       get_gear
     end
   end
 
   def get_gear
-    gears << gear = Gear.all.select { |potential_gear| potential_gear.level <= self.level && potential_gear.level > self.level - 6 }.sample
+    gear = Gear.all.select { |potential_gear| potential_gear.level <= self.level && potential_gear.level > self.level - 6 }.sample
+    FighterGear.create!(gear_id: gear.id, fighter_id: id, equiped: false)
+    received_gear!
     gear_stats(gear)
   end
 
@@ -43,12 +72,12 @@ class Fighter < ApplicationRecord
     return self.experience += received_experience unless received_experience >= ((level * 10) - self.experience)
 
     number = number_of_level_taken(level, self.experience, received_experience)
+    leveled_up!
     level_up(number)
   end
 
   def number_of_level_taken(current_level, current_experience, received_experienced)
     count = 0
-    return count if current_level == 20
     experience_to_next_level = (current_level * 10) - current_experience
     while received_experienced >= experience_to_next_level
       received_experienced -= experience_to_next_level
@@ -65,13 +94,11 @@ class Fighter < ApplicationRecord
   end
 
   def level_up(number)
-    level_before_fight = level
+    first_level_gained_this_fight = level + 1
     self.level += number
     # receive gear only on even level
-    (level_before_fight..self.level).each do |level_taken|
-      if level_taken.even?
-        get_gear
-      end
+    (first_level_gained_this_fight..self.level).each do |level_taken|
+      get_gear if level_taken.even?
     end
     number.times do
       stat_up
@@ -90,10 +117,10 @@ class Fighter < ApplicationRecord
   end
 
   def gear_stats(gear)
-    attack = "Attack: #{gear.attack}" if gear.attack.present?
-    defence = "Defence: #{gear.defence}" if gear.defence.present?
-    speed_attack = "Speed Attack: #{gear.speed_attack}" if gear.speed_attack.present?
-    gear_stats_array << "#{gear.name}: ⚔ #{attack}, 🛡 #{defence}, 👟 #{speed_attack}"
+    attack = "#{gear.attack}" if gear.attack.present?
+    defence = "#{gear.defence}" if gear.defence.present?
+    speed_attack = "#{gear.speed_attack}" if gear.speed_attack.present?
+    gear_stats_array << "#{gear.name}: ⚔ #{attack}, 🛡 #{defence}, 👟 #{speed_attack}, Gear level: #{gear.level}"
   end
 
   def stat_up
@@ -136,7 +163,7 @@ end
 # }
 
 # ------------objects-------------
-# players have objects, limit of 20 ====================++> OK
+# players have objects, limit of 20
 # potions, scrolls ect
 
 

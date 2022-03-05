@@ -4,7 +4,7 @@
   <p>Experience: <%= show_current_experience(winner) %></p>
   <% number_of_lvl_up = number_of_level_up(winner) %>
 
-  <% if number_of_lvl_up >= 1 %>
+  <% if winner.leveled_up? && gain_any_even_level?(winner.level, number_of_lvl_up)%>
     <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
     <p>❤️ +<%= show_stats_up_array_details(winner, :hp)%> </p>
     <p>⚔️ +<%= show_stats_up_array_details(winner, :attack)%></p>
@@ -14,5 +14,11 @@
     <% winner.gear_stats_array.last(number_of_lvl_up).each do |gear| %>
       <p><%= gear %></p>
     <% end %>
+  <% elsif winner.leveled_up? %>
+    <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
+    <p>❤️ +<%= show_stats_up_array_details(winner, :hp)%> </p>
+    <p>⚔️ +<%= show_stats_up_array_details(winner, :attack)%></p>
+    <p>🛡 +<%= show_stats_up_array_details(winner, :defence)%></p>
+    <p>👟 +<%= show_stats_up_array_details(winner, :speed_attack)%></p>
   <% end %>
 </div>

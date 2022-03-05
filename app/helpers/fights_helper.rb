@@ -27,4 +27,9 @@ module FightsHelper
     return fighter.stats_up_hash[stat] * 4 if stat == :hp
     fighter.stats_up_hash[stat] * 2
   end
+
+  def gain_any_even_level?(level, number_of_level_up)
+    return false if level.odd? && number_of_level_up < 2
+    true
+  end
 end

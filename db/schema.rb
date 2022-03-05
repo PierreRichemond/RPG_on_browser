@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2022_02_19_122032) do
     t.integer "level"
     t.integer "experience"
     t.string "stats_up_hash"
-    t.string "gear_stats_array", default: [], array: true
+    t.string "new_gear_stats_array", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "stats"

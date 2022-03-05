@@ -10,34 +10,21 @@ class FightService
     }
 
     @player = first_fighter.stats[:gear_speed_attack] > second_fighter.stats[:gear_speed_attack] ? first_fighter : second_fighter
-    @opponent = (@player == first_fighter) ? second_fighter  : first_fighter
+    @opponent = (@player == first_fighter) ? second_fighter : first_fighter
+    reset_previous_stats_from_last_fight
   end
 
   def run
-    @player.stats_up_hash = { hp: 0,
-                              attack: 0,
-                              defence: 0,
-                              speed_attack: 0
-                            }
-    @opponent.stats_up_hash = {hp: 0,
-                              attack: 0,
-                              defence: 0,
-                              speed_attack: 0
-                            }
-    @player.gear_stats_array = []
-    @opponent.gear_stats_array = []
-
     while @players_health[@player.id] >= 0
       damage = @player.stats[:gear_attack] - @opponent.stats[:gear_defence]
       if @player.stats[:gear_speed_attack] > @opponent.stats[:gear_speed_attack]
-        ratio = (@player.stats[:gear_speed_attack] / @opponent.stats[:gear_speed_attack]).floor
+        ratio = (@player.stats[:gear_speed_attack] / @opponent.stats[:gear_speed_attack])
         damage = (@player.stats[:gear_attack] * ratio).floor - @opponent.stats[:gear_defence]
       end
       damage = 1 if damage <= 1
       @players_health[@opponent.id] = @players_health[@opponent.id] - damage
       if @players_health[@opponent.id] <= 0
-        @fight.turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage}❤️, #{@opponent.name}."
-        switch_player
+        @fight.turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage + @players_health[@opponent.id]}❤️, #{@opponent.name} dies horribly."
         break
       end
       @fight.turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage}❤️, #{@players_health[@opponent.id]}Hp left for #{@opponent.name}."
@@ -48,12 +35,12 @@ class FightService
   end
 
   def win_declaration
-    @fight.winner = @opponent.name
-    @fight.loser = @player.name
-    @opponent.win_battle(@player.level)
-    @player.lost_battle(@opponent.level)
-    @player.save!
+    @fight.winner = @player.name
+    @fight.loser = @opponent.name
+    @player.win_battle(@opponent.level)
+    @opponent.lost_battle(@player.level)
     @opponent.save!
+    @player.save!
     @fight.turns << "Congratulation, #{@fight.winner} wins!"
     @fight.save!
   end
@@ -62,5 +49,25 @@ class FightService
     temporary_slot = @player
     @player = @opponent
     @opponent = temporary_slot
+  end
+
+  def reset_previous_stats_from_last_fight
+    @player.stats_up_hash = { hp: 0,
+                              attack: 0,
+                              defence: 0,
+                              speed_attack: 0
+                            }
+    @player.new_gear_stats_array = []
+    @player.reset_received_gear
+    @player.reset_leveled_up
+
+    @opponent.stats_up_hash = {hp: 0,
+                              attack: 0,
+                              defence: 0,
+                              speed_attack: 0
+                            }
+    @opponent.new_gear_stats_array = []
+    @opponent.reset_received_gear
+    @opponent.reset_leveled_up
   end
 end
