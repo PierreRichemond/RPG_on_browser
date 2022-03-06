@@ -27,3 +27,12 @@ class FightsController < ApplicationController
     params.require(:fight).permit(:first_fighter, :second_fighter)
   end
 end
+
+
+# history
+
+
+# fight 123 -> ken barbie
+#   barbie leveled up
+# fight 456 -> ken barbie
+#   ken leveled up

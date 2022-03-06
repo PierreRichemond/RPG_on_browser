@@ -6,12 +6,18 @@ class FightService
     @fight = Fight.create(red_fighter: first_fighter, blue_fighter: second_fighter)
 
     #keep tabs on the 2 fighter's health
-    @players_health = {
-      first_fighter.id => first_fighter.stats[:health_point],
-      second_fighter.id => second_fighter.stats[:health_point]
+    @players = {
+      first_fighter.id => {
+        health: first_fighter.stats[:health_point],
+        damage: calculate_player_damage(first_fighter, second_fighter)
+      },
+      second_fighter.id => {
+        health: second_fighter.stats[:health_point],
+        damage: calculate_player_damage(second_fighter, first_fighter)
+      }
     }
 
-    # the fastest player will attack first here
+    # the fighter with the highest speed_attack will attack first here
     @player = first_fighter.stats[:gear_speed_attack] > second_fighter.stats[:gear_speed_attack] ? first_fighter : second_fighter
     @opponent = (@player == first_fighter) ? second_fighter : first_fighter
 
@@ -21,31 +27,21 @@ class FightService
 
   def run
     # loop until one fighter is defeated
-    until @players_health[@player.id] <= 0
+    until @players[@opponent.id][:health] <= 0
       # setup the fighter's damage in turns
-      damage = @player.stats[:gear_attack] - @opponent.stats[:gear_defence]
-      if @player.stats[:gear_speed_attack] > @opponent.stats[:gear_speed_attack]
-        #Only if the player's speed attack is higher than the opponent's it gets a bonus for the attack
-        ratio = (@player.stats[:gear_speed_attack] / @opponent.stats[:gear_speed_attack].to_f)
-        damage = ((@player.stats[:gear_attack] - @opponent.stats[:gear_defence]) * ratio).floor
+      player_damage = @players[@player.id][:damage]
+      remaining_health = [(@players[@opponent.id][:health] - player_damage), 0].max
+      @players[@opponent.id][:health] = remaining_health
+      #turns keep track of the fight for the view to show
+      turn_description = "#{@player.name} attacks, #{@opponent.name} loses #{player_damage}❤️, "
+      if @players[@opponent.id][:health].zero?
+        turn_description += "#{@opponent.name} dies horribly."
+      else
+        turn_description += "#{@players[@opponent.id][:health]}Hp left for #{@opponent.name}."
+        # switch the players each turn to attack
+        switch_player
       end
-      # the damage should not be equal to 0 or less
-      damage = 1 if damage <= 1
-      if @players_health[@opponent.id] - damage <= 0
-        # if opponent dies this turn inflict only the remaining healthpoint as damage
-        damage = damage - @players_health[@opponent.id] == 0 ? damage : damage - @players_health[@opponent.id]
-        @players_health[@opponent.id] -= damage
-        #turns keep track of the fight for the view to show
-        @fight.turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage}❤️,
-        #{@opponent.name} dies horribly."
-        break
-      end
-      @players_health[@opponent.id] -= damage
-      #turns keeps track of the fight's details for the view to show
-      @fight.turns << "#{@player.name} attacks, #{@opponent.name} loses #{damage}❤️,
-       #{@players_health[@opponent.id]}Hp left for #{@opponent.name}."
-      # switch the players each turn to attack
-      switch_player
+      @fight.turns << turn_description
     end
     #Setup the winner and the loser of the fight
     win_declaration
@@ -56,8 +52,8 @@ class FightService
   def win_declaration
     @fight.winner = @player.name
     @fight.loser = @opponent.name
-    @player.win_battle(@opponent.level)
-    @opponent.lost_battle(@player.level)
+    FighterService.win_battle(@player, @opponent)
+    FighterService.lost_battle(@opponent, @player)
     @opponent.save!
     @player.save!
     @fight.turns << "Congratulation, #{@fight.winner} wins!"
@@ -88,5 +84,13 @@ class FightService
     @opponent.new_gear_stats_array = []
     @opponent.reset_received_gear
     @opponent.reset_leveled_up
+  end
+
+  def calculate_player_damage(player, opponent)
+    # We lock the speed to be minimum 1
+    ratio = [(player.stats[:gear_speed_attack] / opponent.stats[:gear_speed_attack].to_f), 1].max
+    damage = ((player.stats[:gear_attack] - opponent.stats[:gear_defence]) * ratio).floor
+    # We lock the damage to be minimum 1
+    [damage, 1].max
   end
 end

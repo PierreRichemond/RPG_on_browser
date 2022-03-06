@@ -8,52 +8,16 @@ class FightersController < ApplicationController
 
   def show
     @gears = @fighter.gears.where(equiped: true)
-    @sorted_gears = @fighter.fighter_gears.sort_by{|fighter_gear| Gear.find(fighter_gear.gear.id).level}
+    @sorted_gears = @fighter.fighter_gears.sort_by_level
   end
 
   def new
-    @fighter = Fighter.new(stats: {
-        health_point: 20,
-        attack: 5,
-        gear_attack: 5,
-        defence: 1,
-        gear_defence: 1,
-        speed_attack: 1, # critical hit as well
-        gear_speed_attack: 1,
-        # from here will depend on the fighter's speciality
-        intelligence: 5, # mana , spell critical hit
-        spell_resistance: 1,
-        dodge_rate: 10,
-        hitting_rate: 80,
-        regen: 1,
-        overall_stats: 31
-      })
+    @fighter = Fighter.new
   end
 
   def create
-    @fighter = Fighter.new(
-      stats: {
-        health_point: 20,
-        attack: 5,
-        gear_attack: 5,
-        defence: 1,
-        gear_defence: 1,
-        speed_attack: 1, # critical hit as well
-        gear_speed_attack: 1,
-        # from here will depend on the fighter's speciality
-        intelligence: 5, # mana , spell critical hit
-        spell_resistance: 1,
-        dodge_rate: 10,
-        hitting_rate: 80,
-        regen: 1,
-        overall_stats: 31
-      },
-      name: create_fighter_params[:name],
-      photo: create_fighter_params[:photo],
-      level: 1,
-      experience: 0
-    )
-    if @fighter.save
+    @fighter = FighterService.create_fighter(create_fighter_params[:name], create_fighter_params[:photo])
+    if @fighter.valid?
       flash[:notice] = 'Fighter has been created'
       redirect_to fighters_path
     else
@@ -63,17 +27,17 @@ class FightersController < ApplicationController
   end
 
   def edit
-    @sorted_gears = @fighter.fighter_gears.sort_by { |fighter_gear| Gear.find(fighter_gear.gear.id).level }
+    @sorted_gears = @fighter.gear_sorting
   end
 
   def update
     if update_gears_fighter_params.key?(:gear_ids)
-      @fighter.fighter_gears.where(equiped: true).update_all(equiped: false)
       ids_in_array = update_gears_fighter_params[:gear_ids].join(" ").split(" ").map {|i| i.to_i}
       if ids_in_array.size >= 3
         flash[:danger] = 'Fighter\'s gears has not been updated'
-        render :edit, collection: @fighter
+        render :edit
       else
+        FighterService.unequiped_all(fighter)
         ids_in_array.each do |id|
           FighterGear.find(id).update(equiped: true)
           @fighter.edit_character_stats

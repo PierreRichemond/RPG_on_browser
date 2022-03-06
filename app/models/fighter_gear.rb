@@ -23,11 +23,23 @@ class FighterGear < ApplicationRecord
   belongs_to :gear
   belongs_to :fighter
 
+  scope :sort_by_level, -> do
+    includes(:gear).order('gears.level asc')
+  end
+
+  # Retrieve all fighter gear for fighter id 1
+  # fighter.fighter_gears
+  # FighterGear.execute_sql("Select * From FighterGear where fighter_id = 1");
+
+  # Retrieve all fighter gear for fighter id 1 with order by gear level
+  # fighter.fighter_gears.sort_by_level
+  # FighterGear.execute_sql("SELECT * FROM FighterGear as fighter_gear JOIN Gear as gear WHERE gear.id = fighter_gear.gear_id AND fighter_gear.fighter_id = 1 ORDER gear.level");
+
   validate :number_of_gear_equiped_lower_than_two
 
   def number_of_gear_equiped_lower_than_two
-     if FighterGear.where(fighter: fighter, equiped: true).count > 1
-        errors.add(:fighter_gear, 'Only 2 gears can be equiped.')
-     end
+    if FighterGear.where(fighter: fighter, equiped: true).count > 2
+      errors.add(:fighter_gear, 'Only 2 gears can be equiped.')
+    end
   end
 end

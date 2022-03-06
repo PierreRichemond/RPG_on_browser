@@ -23,6 +23,22 @@
 #  fk_rails_...  (blue_fighter_id => fighters.id)
 #  fk_rails_...  (red_fighter_id => fighters.id)
 #
+
+# ideas
+# fight_result  :string
+# fight_result = {
+#   blue_fighter_id => {
+#     won: true,
+#     stats_up: stats_up_hash,
+#     levels: 2
+#   },
+#   red_fighter_id => {
+#     won: false,
+#     stats_up: stats_up_hash,
+#     levels: 0
+#   }
+# }
+
 class Fight < ApplicationRecord
   belongs_to :red_fighter, class_name: "Fighter"
   belongs_to :blue_fighter, class_name: "Fighter"
