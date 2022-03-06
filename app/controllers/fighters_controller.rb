@@ -54,36 +54,46 @@ class FightersController < ApplicationController
       experience: 0
     )
     if @fighter.save
+      flash[:notice] = 'Fighter has been created'
       redirect_to fighters_path
     else
+      flash.now[:danger] = 'Fighter has not been created'
       render :new
     end
   end
 
   def edit
-    @sorted_gears = @fighter.fighter_gears.sort_by{|fighter_gear| Gear.find(fighter_gear.gear.id).level}
+    @sorted_gears = @fighter.fighter_gears.sort_by { |fighter_gear| Gear.find(fighter_gear.gear.id).level }
   end
 
   def update
     if update_gears_fighter_params.key?(:gear_ids)
       @fighter.fighter_gears.where(equiped: true).update_all(equiped: false)
       ids_in_array = update_gears_fighter_params[:gear_ids].join(" ").split(" ").map {|i| i.to_i}
-      ids_in_array.each do |id|
-        FighterGear.find(id).update(equiped: true)
-        @fighter.edit_character_stats
-        @fighter.save
+      if ids_in_array.size >= 3
+        flash[:danger] = 'Fighter\'s gears has not been updated'
+        render :edit, collection: @fighter
+      else
+        ids_in_array.each do |id|
+          FighterGear.find(id).update(equiped: true)
+          @fighter.edit_character_stats
+        end
+        flash[:notice] = 'Fighter\'s gears has been updated'
+        redirect_to fighter_path(@fighter)
       end
-      redirect_to fighter_path(@fighter)
 
     elsif @fighter.update(update_fighter_params)
+      flash[:notice] = 'Fighter\'s infos has been updated'
       redirect_to fighter_path(@fighter)
     else
+      flash[:danger] = 'Fighter\'s details has not been updated'
       render :edit
     end
   end
 
   def destroy
     @fighter.destroy!
+    flash[:notice] = 'Fighter has been deleted properly'
     redirect_to fighters_path
   end
 

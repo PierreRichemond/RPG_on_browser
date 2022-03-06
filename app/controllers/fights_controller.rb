@@ -13,6 +13,7 @@ class FightsController < ApplicationController
     second_fighter = Fighter.find_by(name: params[:fight][:second_fighter])
 
     if first_fighter == second_fighter
+      flash[:danger] = 'Fighters has to be different'
       redirect_to root_path
     else
       fight = FightService.new(first_fighter, second_fighter).run

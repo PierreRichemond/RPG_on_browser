@@ -1,7 +1,5 @@
-<% if fighter %>
-<% if fighter.photo.attached?%>
+<% if fighter && fighter.photo.attached?%>
   <%= cl_image_tag fighter.photo.key%>
-<% else %>
+<% elsif fighter %>
   <%= image_tag "ken.jpg"%>
-<% end %>
 <% end %>

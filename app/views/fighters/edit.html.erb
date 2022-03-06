@@ -13,35 +13,36 @@
           <% end %>
         </div>
 
-        <h3 class='text-center'> Choose 2 gears to equip <%= @fighter.name %>'s gear list</h3>
-        <div class="form-login">
-          <%= simple_form_for @fighter do |f| %>
-
-            <% @sorted_gears.map do |fighter_gear| %>
-              <%= f.input :custom_field, :label => false do  %>
-                <% if fighter_gear.equiped %>
-                  <div class="d-flex justify-content-between">
-                    <div><%= check_box_tag 'gear_ids[]', fighter_gear.id, :input_html => { :checked => true } %><%= fighter_gear.gear.name %></div>
-                    <div>Item level: <%=fighter_gear.gear.level  %>, 🛡<%= fighter_gear.gear.defence %>, ⚔️<%= fighter_gear.gear.attack %>, 👟<%= fighter_gear.gear.speed_attack %>.</div>
-                  </div>
-                <% else %>
-                  <div class="d-flex justify-content-between">
-                    <div><%= check_box_tag 'gear_ids[]', fighter_gear.id %><%= fighter_gear.gear.name %></div>
-                    <div>Item level: <%=fighter_gear.gear.level  %>, 🛡<%= fighter_gear.gear.defence %>, ⚔️<%= fighter_gear.gear.attack %>, 👟<%= fighter_gear.gear.speed_attack %>.</div>
-                  </div>
+        <% unless @sorted_gears.nil? %>
+          <h3 class='text-center'> Choose 2 gears to equip <%= @fighter.name %>'s gear list</h3>
+          <div class="form-login">
+            <%= simple_form_for @fighter do |f| %>
+            <%= render "./pages/shared/error_message", instance: @fighter %>
+              <% @sorted_gears.map do |fighter_gear| %>
+                <%= f.input :custom_field, :label => false do  %>
+                  <% if fighter_gear.equiped %>
+                    <div class="d-flex justify-content-between">
+                      <div><%= check_box_tag 'gear_ids[]', fighter_gear.id, :input_html => { :checked => true } %><%= fighter_gear.gear.name %></div>
+                      <div>Item level: <%=fighter_gear.gear.level  %>, 🛡<%= fighter_gear.gear.defence %>, ⚔️<%= fighter_gear.gear.attack %>, 👟<%= fighter_gear.gear.speed_attack %>.</div>
+                    </div>
+                  <% else %>
+                    <div class="d-flex justify-content-between">
+                      <div><%= check_box_tag 'gear_ids[]', fighter_gear.id %><%= fighter_gear.gear.name %></div>
+                      <div>Item level: <%=fighter_gear.gear.level  %>, 🛡<%= fighter_gear.gear.defence %>, ⚔️<%= fighter_gear.gear.attack %>, 👟<%= fighter_gear.gear.speed_attack %>.</div>
+                    </div>
+                  <% end %>
                 <% end %>
-
-
               <% end %>
+              <br>
+              <%= f.input :custom_field, :label => false do  %>
+                <%= check_box_tag 'gear_ids[]', @fighter.fighter_gears.map {|gear| gear.id}.sample(2) %>
+                Equip 2 random items
+              <% end %>
+              <%= f.submit "Equip your Warrior's gear", class: 'btn btn-success my-3 px-5', style: "border-radius: 20px;" %>
+
             <% end %>
-            <br>
-            <%= f.input :custom_field, :label => false do  %>
-              <%= check_box_tag 'gear_ids[]', @fighter.fighter_gears.map {|gear| gear.id}.sample(2) %>
-              Equip 2 random items
-            <% end %>
-            <%= f.submit "Equip your Warrior's gear", class: 'btn btn-success my-3 px-5', style: "border-radius: 20px;" %>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
