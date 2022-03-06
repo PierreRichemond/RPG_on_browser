@@ -159,6 +159,7 @@ class Fighter < ApplicationRecord
   end
 
   def edit_character_stats
+    # edit the stats adding the value of the 1-2 equiped gears
     gear_attack = fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.attack || 0 }.sum
     stats[:gear_attack] = stats[:attack] + gear_attack
     gear_defence = fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.defence || 0 }.sum
@@ -169,6 +170,7 @@ class Fighter < ApplicationRecord
   end
 
   def gear_stats(gear)
+    # Create a string with a gear's details
     attack = "#{gear.attack}" if gear.attack.present?
     defence = "#{gear.defence}" if gear.defence.present?
     speed_attack = "#{gear.speed_attack}" if gear.speed_attack.present?
@@ -176,6 +178,7 @@ class Fighter < ApplicationRecord
   end
 
   def stat_up
+    # Each level, a fighter's stats increase from here
     2.times do
       case rand(4)
       when 0 then stats[:health_point] += 4; stats_up_hash[:hp] += 1
