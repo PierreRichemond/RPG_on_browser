@@ -27,7 +27,7 @@ class FightersController < ApplicationController
   end
 
   def edit
-    @sorted_gears = @fighter.gear_sorting
+    @sorted_gears = @fighter.fighter_gears.sort_by_level
   end
 
   def update
