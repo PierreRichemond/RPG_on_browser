@@ -2,6 +2,10 @@
   <% if winner.level == 20 %>
     <h3 class="text-center">Winner, <%= winner.name %></h3>
     <h5 class= 'text-center'><%= winner.name %> is max level and does not gain experience anymore.</h5>
+    <h5 class= 'text-center'>Any winner can has 30% chance to get an item on max level.</h5>
+    <% if !winner.new_gear_stats_array.empty? %>
+      <%= render "lvl_up_gear_details", fighter: winner %>
+    <% end %>
   <% else %>
     <h3 class= "text-center">Winner, <%= winner.name %></h3>
     <h4>Experience from the match: +<%= experience_earned(winner, loser, 10) %></h4>

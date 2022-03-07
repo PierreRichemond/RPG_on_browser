@@ -106,10 +106,9 @@ class FighterService
       gear_stats(fighter, gear)
     end
 
-                              # 19         100
     def number_of_level_taken(fighter, received_experienced)
-      current_level = fighter.level #19
-      current_experience = fighter.experience #400
+      current_level = fighter.level
+      current_experience = fighter.experience
       #counts how many level the fighter gets
       count = 0
       experience_to_next_level = experience_per_level(current_level) - current_experience

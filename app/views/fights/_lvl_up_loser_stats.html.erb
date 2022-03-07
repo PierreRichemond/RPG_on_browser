@@ -1,7 +1,11 @@
 <div class='col-12 col-lg-5 offset-lg-1'>
   <% if loser.level == 20 %>
     <h3 class="text-center">Loser, <%= loser.name %></h3>
-    <h4><%= loser.name %> is max level and does not gain experience anymore.</h4>
+    <h5><%= loser.name %> is max level and does not gain experience anymore.</h5>
+    <h5>Any loser can has 15% chance to get an item on max level</h5>
+    <% if !loser.new_gear_stats_array.empty? %>
+      <%= render "lvl_up_gear_details", fighter: loser %>
+    <% end %>
   <% else %>
     <h3 class="text-center">Loser, <%= loser.name %></h3>
     <h4>Experience from the match: +<%= experience_earned(loser, winner, 2) %></h4>

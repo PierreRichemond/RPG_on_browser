@@ -1,4 +1,8 @@
 <h4 class= "text-center">Gear to equip</h4>
-<% fighter.new_gear_stats_array.last(number_of_level_up(fighter)).each do |gear| %>
-  <p><%= gear %></p>
+<% if fighter.level == 20  %>
+  <p><%= fighter.new_gear_stats_array.last %></p>
+<% else %>
+  <% fighter.new_gear_stats_array.last(number_of_level_up(fighter)).each do |gear| %>
+    <p><%= gear %></p>
+  <% end %>
 <% end %>
