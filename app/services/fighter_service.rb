@@ -27,16 +27,22 @@ class FighterService
 
     def win_battle(fighter, opponent)
       # 30% chance of getting an item when winning on max level(20)
-      return gears_on_level_max(fighter, 30) if fighter.level == 20
-      received_experience = calculates_experience_from_fight(fighter, opponent)
-      check_level_up(fighter, received_experience)
+      if fighter.level == 20
+        gears_on_level_max(fighter, 30)
+      else
+        received_experience = calculates_experience_from_fight(fighter, opponent, 10)
+        check_level_up(fighter, received_experience)
+      end
     end
 
     def lost_battle(fighter, opponent)
       # 15% chance of getting an item when winning on max level(20)
-      return gears_on_level_max(fighter, 15) if fighter.level == 20
-      received_experience = calculates_experience_from_fight(fighter, opponent)
-      check_level_up(fighter, received_experience)
+      if fighter.level == 20
+        gears_on_level_max(fighter, 15)
+      else
+        received_experience = calculates_experience_from_fight(fighter, opponent, 2)
+        check_level_up(fighter, received_experience)
+      end
     end
 
     def edit_character_stats(fighter)
@@ -54,36 +60,39 @@ class FighterService
       fighter.fighter_gears.where(equiped: true).update_all(equiped: false)
     end
 
-private
+    def gears_on_level_max(fighter, rate)
+      get_gear(fighter) if rate >= rand(0..100)
+    end
 
-  # TODO Need to use this method
-    def experience_per_level(fighter)
+    def experience_per_level(level)
       # Experience a fighter needs to reach each level to level up
-      if (1..5).includes?(fighter.level)
-        (fighter.level * 10)
-      elsif (6..10).includes?(fighter.level)
-        (fighter.level * 10) * 1.5
-      elsif (11..15).includes?(fighter.level)
-        (fighter.level * 10) * 2
-      else
-        (fighter.level * 10) * 2.5
+      case level
+      when 1..5 then (level * 10)
+      when 6..10 then ((level * 10) * 1.5).to_i
+      when 11..15 then (level * 10) * 2
+      when 16..20 then ((level * 10) * 2.5).to_i
       end
     end
 
-    def calculates_experience_from_fight(fighter, opponent)
+    private
+
+    def check_level_up(fighter, received_experience)
+      # add experience and return if no level up
+      return fighter.experience += received_experience if received_experience <= (experience_per_level(fighter.level) - fighter.experience)
+      # finds how many level the fighter gets for the fight
+      number = number_of_level_taken(fighter, received_experience)
+      # when we get a level, have the leveled_up? method returning true
+      # gives the fighter number of levels taken this fight
+      level_up(fighter, number)
+    end
+
+    def calculates_experience_from_fight(fighter, opponent, rate)
       #create a ratio of power difference between the fighters
       experience_ratio = opponent.stats[:overall_stats] / fighter.stats[:overall_stats].to_f
       # finds out the experience with the ratio
-      received_experience = (opponent.level * 10) * experience_ratio
+      received_experience = (opponent.level * rate) * experience_ratio
       # setup a minimum experience from a fight
-      received_experience = 10 if received_experience <= 10
-      received_experience
-    end
-
-    def gears_on_level_max(fighter, rate)
-      if rate >= rand(0..100)
-        get_gear(fighter)
-      end
+      [received_experience, rate / 2].max.floor
     end
 
     def get_gear(fighter)
@@ -97,32 +106,24 @@ private
       gear_stats(fighter, gear)
     end
 
-    def check_level_up(fighter, received_experience)
-      # add experience and return if no level up
-      return fighter.experience += received_experience unless received_experience >= ((fighter.level * 10) - fighter.experience)
-      # finds how many level the fighter gets for the fight
-      number = number_of_level_taken(fighter, received_experience)
-      # when we get a level, have the leveled_up? method returning true
-      fighter.leveled_up!
-      # gives the fighter number of levels taken this fight
-      level_up(fighter, number)
-    end
-
+                              # 19         100
     def number_of_level_taken(fighter, received_experienced)
-      current_level = fighter.level
-      current_experience = fighter.experience
+      current_level = fighter.level #19
+      current_experience = fighter.experience #400
       #counts how many level the fighter gets
       count = 0
-      experience_to_next_level = (current_level * 10) - current_experience
-      while received_experienced >= experience_to_next_level || current_level == 20
+      experience_to_next_level = experience_per_level(current_level) - current_experience
+
+      while received_experienced >= experience_to_next_level && current_level < 20
         received_experienced -= experience_to_next_level
         # when level up, the figther's experience gots to 0 to easily see the amount of experience he needs to get to the next level
         fighter.experience = 0
         # current_level is a value within the loop only, level gets up in level_up() method
         current_level += 1
+
         #counts keeps track of level numbers
         count += 1
-        experience_to_next_level = (current_level * 10)
+        experience_to_next_level = experience_per_level(current_level)
       end
       fighter.experience = received_experienced
       count
@@ -136,10 +137,8 @@ private
         # receive gear only on even level
         get_gear(fighter) if level_taken.even?
       end
-      number.times do
-        # increase stats each level
-        stat_up(fighter)
-      end
+      # increase stats each level
+      stat_up(fighter, number)
       # adjust the overall stats with the freshly received new stats
       set_overall_stats(fighter)
     end
@@ -152,14 +151,14 @@ private
       fighter.new_gear_stats_array << "#{gear.name}: ⚔ #{attack}, 🛡 #{defence}, 👟 #{speed_attack}, Gear level: #{gear.level}"
     end
 
-    def stat_up(fighter)
+    def stat_up(fighter, number)
       # Each level, a fighter's stats increase from here
-      2.times do
+      ( number * 2 ).times do
         case rand(4)
-        when 0 then fighter.stats[:health_point] += 4; fighter.stats_up_hash[:hp] += 1
-        when 1 then fighter.stats[:attack] += 2; fighter.stats_up_hash[:attack] += 1
-        when 2 then fighter.stats[:defence] += 2; fighter.stats_up_hash[:defence] += 1
-        when 3 then fighter.stats[:speed_attack] += 2; fighter.stats_up_hash[:speed_attack] += 1
+        when 0 then fighter.stats[:health_point] += 4; fighter.stats_up_hash[:hp] += 4
+        when 1 then fighter.stats[:attack] += 2; fighter.stats_up_hash[:attack] += 2
+        when 2 then fighter.stats[:defence] += 2; fighter.stats_up_hash[:defence] += 2
+        when 3 then fighter.stats[:speed_attack] += 2; fighter.stats_up_hash[:speed_attack] += 2
         end
       end
       edit_character_stats(fighter)

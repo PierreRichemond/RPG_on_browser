@@ -1,17 +1,17 @@
 <div class='col-12 col-lg-5 offset-lg-1'>
-  <% if loser.level == 20 %>
-    <h3 class="text-center">Loser, <%= loser.name %></h3>
-    <h4><%= loser.name %> is max level and does not gain experience anymore.</h4>
+  <% if winner.level == 20 %>
+    <h3 class="text-center">Winner, <%= winner.name %></h3>
+    <h5 class= 'text-center'><%= winner.name %> is max level and does not gain experience anymore.</h5>
   <% else %>
     <h3 class= "text-center">Winner, <%= winner.name %></h3>
-    <h4>Experience from the match: +<%= experience_earned(loser, 10) %></h4>
-    <p>Experience: <%= show_current_experience(winner) %></p>
-    <% number_of_lvl_up = number_of_level_up(winner) %>
+    <h4>Experience from the match: +<%= experience_earned(winner, loser, 10) %></h4>
 
-    <% if winner.leveled_up? && gain_any_even_level?(winner.level, number_of_lvl_up)%>
+    <p>Experience: <%= show_current_experience(winner) %></p>
+
+    <% if number_of_level_up(winner) > 0 && gain_any_even_level?(winner.level, number_of_level_up(winner))%>
       <%= render "lvl_up_details", fighter: winner %>
       <%= render "lvl_up_gear_details", fighter: winner %>
-    <% elsif winner.leveled_up? %>
+    <% elsif number_of_level_up(winner) > 0 %>
       <%= render "lvl_up_details", fighter: winner %>
     <% end %>
   <% end %>

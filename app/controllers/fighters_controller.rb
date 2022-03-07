@@ -37,10 +37,10 @@ class FightersController < ApplicationController
         flash[:danger] = 'Fighter\'s gears has not been updated'
         render :edit
       else
-        FighterService.unequiped_all(fighter)
+        FighterService.unequiped_all(@fighter)
         ids_in_array.each do |id|
           FighterGear.find(id).update(equiped: true)
-          @fighter.edit_character_stats
+          FighterService.edit_character_stats(@fighter)
         end
         flash[:notice] = 'Fighter\'s gears has been updated'
         redirect_to fighter_path(@fighter)

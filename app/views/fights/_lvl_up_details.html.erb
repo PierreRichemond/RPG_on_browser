@@ -1,5 +1,5 @@
-      <h4 class= "text-center"><%= pluralize(number_of_lvl_up, "level") %> up!</h4>
-      <p>❤️ +<%= show_stats_up_array_details(fighter, :hp)%> </p>
-      <p>⚔️ +<%= show_stats_up_array_details(fighter, :attack)%></p>
-      <p>🛡 +<%= show_stats_up_array_details(fighter, :defence)%></p>
-      <p>👟 +<%= show_stats_up_array_details(fighter, :speed_attack)%></p>
+      <h4 class= "text-center"><%= pluralize(number_of_level_up(fighter), "level") %> up!</h4>
+      <p><%= show_stats_up_array_details(fighter, :hp)%> </p>
+      <p><%= show_stats_up_array_details(fighter, :attack)%></p>
+      <p><%= show_stats_up_array_details(fighter, :defence)%></p>
+      <p><%= show_stats_up_array_details(fighter, :speed_attack)%></p>

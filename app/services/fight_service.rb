@@ -28,16 +28,16 @@ class FightService
   def run
     # loop until one fighter is defeated
     until @players[@opponent.id][:health] <= 0
-      # setup the fighter's damage in turns
       player_damage = @players[@player.id][:damage]
       remaining_health = [(@players[@opponent.id][:health] - player_damage), 0].max
       @players[@opponent.id][:health] = remaining_health
+      player_damage = [player_damage - (player_damage - remaining_health), player_damage].max if remaining_health <= player_damage
       #turns keep track of the fight for the view to show
       turn_description = "#{@player.name} attacks, #{@opponent.name} loses #{player_damage}❤️, "
       if @players[@opponent.id][:health].zero?
         turn_description += "#{@opponent.name} dies horribly."
       else
-        turn_description += "#{@players[@opponent.id][:health]}Hp left for #{@opponent.name}."
+        turn_description += "#{remaining_health}Hp left for #{@opponent.name}."
         # switch the players each turn to attack
         switch_player
       end

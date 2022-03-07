@@ -1,21 +1,25 @@
 module FightsHelper
 
-  def experience_earned(opponent, number)
-    experience = opponent.level * number
-    if opponent.stats_up_hash.values.sum >= 2
-      level_taken_by_opponent = number_of_level_up(opponent)
-      experience = (opponent.level - level_taken_by_opponent) * number
-      # experience taken from the original opponent level(before fight)
-    end
-    experience
+  def experience_earned(current_fighter, opponent, rate)
+  #create a ratio of power difference between the fighters
+      experience_ratio = opponent.stats[:overall_stats] / current_fighter.stats[:overall_stats].to_f
+      # finds out the experience with the ratio
+      received_experience = (opponent.level * rate) * experience_ratio
+      # setup a minimum experience from a fight
+      [received_experience.floor, rate / 2].max
   end
 
   def number_of_level_up(fighter)
-    fighter.stats_up_hash.values.sum / 2
+    count = 0
+    fighter.stats_up_hash.each do |key, value|
+      number_of_stats_gotten = key == :hp ? value / 4 : value / 2
+      count += number_of_stats_gotten / 2.0
+    end
+    count.to_i
   end
 
   def show_current_experience(fighter)
-    "#{fighter.experience} / #{fighter.level * 10}"
+    "#{fighter.experience} / #{FighterService.experience_per_level(fighter.level)}"
   end
 
   def available_fighters(all_fighter, picked_fighter = nil)
@@ -23,13 +27,16 @@ module FightsHelper
   end
 
   def show_stats_up_array_details(fighter, stat)
-    return '0' if fighter.stats_up_hash[stat] == nil
-    return fighter.stats_up_hash[stat] * 4 if stat == :hp
-    fighter.stats_up_hash[stat] * 2
+    case stat
+      when :hp then "❤️ + #{fighter.stats_up_hash[stat]}"
+      when :attack then "⚔️ + #{fighter.stats_up_hash[stat]}"
+      when :defence then "🛡 + #{fighter.stats_up_hash[stat]}"
+      when :speed_attack then "👟 + #{fighter.stats_up_hash[stat]}"
+    end
   end
 
   def gain_any_even_level?(level, number_of_level_up)
-    return false if level.odd? && number_of_level_up < 2
+    return false if level.odd? && number_of_level_up <= 2
     true
   end
 end
