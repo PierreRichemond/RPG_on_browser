@@ -73,8 +73,6 @@ class FightService
                               speed_attack: 0
                             }
     @player.new_gear_stats_array = []
-    @player.reset_received_gear
-    @player.reset_leveled_up
 
     @opponent.stats_up_hash = {hp: 0,
                               attack: 0,
@@ -82,8 +80,6 @@ class FightService
                               speed_attack: 0
                             }
     @opponent.new_gear_stats_array = []
-    @opponent.reset_received_gear
-    @opponent.reset_leveled_up
   end
 
   def calculate_player_damage(player, opponent)

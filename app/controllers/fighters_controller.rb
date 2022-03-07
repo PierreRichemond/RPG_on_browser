@@ -35,12 +35,13 @@ class FightersController < ApplicationController
       ids_in_array = update_gears_fighter_params[:gear_ids].join(" ").split(" ").map {|i| i.to_i}
       if ids_in_array.size >= 3
         flash[:danger] = 'Fighter\'s gears has not been updated'
-        render :edit
+        redirect_to fighter_path(@fighter)
       else
         FighterService.unequiped_all(@fighter)
         ids_in_array.each do |id|
           FighterGear.find(id).update(equiped: true)
           FighterService.edit_character_stats(@fighter)
+          @fighter.save
         end
         flash[:notice] = 'Fighter\'s gears has been updated'
         redirect_to fighter_path(@fighter)
@@ -51,7 +52,7 @@ class FightersController < ApplicationController
       redirect_to fighter_path(@fighter)
     else
       flash[:danger] = 'Fighter\'s details has not been updated'
-      render :edit
+      redirect_to fighter_path(@fighter)
     end
   end
 
