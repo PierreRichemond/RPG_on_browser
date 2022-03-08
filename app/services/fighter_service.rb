@@ -1,5 +1,5 @@
 class FighterService
-  class << self
+  class << self # implement all method of the class as a Class method self.method_name
     def create_fighter(name, photo)
       Fighter.create(
         stats: {
@@ -8,10 +8,10 @@ class FighterService
           gear_attack: 5,
           defence: 1,
           gear_defence: 1,
-          speed_attack: 1, # critical hit as well
+          speed_attack: 1, # critical hit as well (later on)
           gear_speed_attack: 1,
-          # from here will depend on the fighter's speciality
-          intelligence: 5, # mana , spell critical hit
+          # from here will depend on the fighter's speciality:  mana , spell critical hit... (later on)
+          intelligence: 5,
           spell_resistance: 1,
           dodge_rate: 10,
           hitting_rate: 80,
@@ -81,7 +81,6 @@ class FighterService
       return fighter.experience += received_experience if received_experience <= (experience_per_level(fighter.level) - fighter.experience)
       # finds how many level the fighter gets for the fight
       number = number_of_level_taken(fighter, received_experience)
-      # when we get a level, have the leveled_up? method returning true
       # gives the fighter number of levels taken this fight
       level_up(fighter, number)
     end
@@ -100,8 +99,6 @@ class FighterService
       gear = Gear.all.select { |potential_gear| potential_gear.level <= fighter.level && potential_gear.level > fighter.level - 6 }.sample
       # assign the gear to the fighter
       FighterGear.create!(gear_id: gear.id, fighter_id: fighter.id, equiped: false)
-      # when we get gear, have the received_gear? method returning true
-      fighter.received_gear!
       #describe the gear's stats and store in in an array
       gear_stats(fighter, gear)
     end

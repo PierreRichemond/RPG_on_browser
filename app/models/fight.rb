@@ -22,10 +22,13 @@
 #
 #  fk_rails_...  (blue_fighter_id => fighters.id)
 #  fk_rails_...  (red_fighter_id => fighters.id)
-#
 
-# ideas
-# fight_result  :string
+#   -----------------------------------------
+
+# TODO Ideas
+
+# Fight
+# fight_result  :string           serialize :fight_result, Hash
 # fight_result = {
 #   blue_fighter_id => {
 #     won: true,
@@ -38,6 +41,24 @@
 #     levels: 0
 #   }
 # }
+
+# Add history of fights
+# fight 123 -> ken barbie
+#   barbie leveled up
+# fight 456 -> ken barbie
+#   ken leveled up
+
+
+# remove from Fight
+
+#  winner           :string
+#  loser           :string
+#  first_fighter   :string
+#  second_fighter   :string
+
+# remove from Figther
+
+#  stats_up: stats_up_hash
 
 class Fight < ApplicationRecord
   belongs_to :red_fighter, class_name: "Fighter"

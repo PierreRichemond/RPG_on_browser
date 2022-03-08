@@ -2,7 +2,7 @@
   <% if loser.level == 20 %>
     <h3 class="text-center">Loser, <%= loser.name %></h3>
     <h5 class="text-center"><%= loser.name %> is max level and does not gain experience anymore.</h5>
-    <h5 class="text-center">Any loser can has 15% chance to get an item on max level</h5>
+    <h5 class="text-center">Any loser has 15% chance to get an item on max level</h5>
     <% if !loser.new_gear_stats_array.empty? %>
       <%= render "lvl_up_gear_details", fighter: loser %>
     <% end %>

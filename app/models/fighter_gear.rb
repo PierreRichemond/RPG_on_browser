@@ -23,16 +23,12 @@ class FighterGear < ApplicationRecord
   belongs_to :gear
   belongs_to :fighter
 
+  # fighter.fighter_gears.sort_by_level
+  # Retrieve all fighter gear for fighter id 1 with order by gear level
   scope :sort_by_level, -> do
     includes(:gear).order('gears.level asc')
   end
-
-  # Retrieve all fighter gear for fighter id 1
-  # fighter.fighter_gears
-  # FighterGear.execute_sql("Select * From FighterGear where fighter_id = 1");
-
-  # Retrieve all fighter gear for fighter id 1 with order by gear level
-  # fighter.fighter_gears.sort_by_level
+  # This scope does this SQL request
   # FighterGear.execute_sql("SELECT * FROM FighterGear as fighter_gear JOIN Gear as gear WHERE gear.id = fighter_gear.gear_id AND fighter_gear.fighter_id = 1 ORDER gear.level");
 
   validate :number_of_gear_equiped_lower_than_two

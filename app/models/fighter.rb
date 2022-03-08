@@ -24,41 +24,13 @@ class Fighter < ApplicationRecord
   serialize :stats_up_hash, Hash
   #single table inheritance to create mage, priest, warriors, ninja...
 
-  # TODO check to make it a be nicer
+  # ideas
   # def gear_attack
   #   @combined_attack ||= begin
   #     gear_attack = fighter.fighter_gears.where(equiped: true).map { |fighter_gear| fighter_gear.gear.attack || 0 }.sum
   #     fighter.stats[:attack] + gear_attack
   #   end
   # end
-
-    # received_gear? and leveled_up? return boolean values therefore
-    # I prefer to keep the method here with a ? than a column in the DB
-  def received_gear?
-    @received_gear
-  end
-
-  def received_gear!
-    @received_gear = true
-  end
-
-  def reset_received_gear
-    # reset @received_gear to false each beginning of a fight
-    @received_gear = false
-  end
-
-  def leveled_up?
-    @leveled_up
-  end
-
-  def leveled_up!
-    @leveled_up = true
-  end
-
-  def reset_leveled_up
-    # reset @leveled_up to false each beginning of a fight
-    @leveled_up = false
-  end
 end
 
 
