@@ -12,8 +12,8 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #
-require_relative "../../app/models/fighter.rb"
 
+require 'rails_helper'
 RSpec.describe Fighter do
   # describe '#level_up' do
   #   subject { fighter.level_up(number) }
