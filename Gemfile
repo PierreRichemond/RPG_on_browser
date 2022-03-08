@@ -45,7 +45,7 @@ group :development, :test do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
-
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -56,10 +56,12 @@ group :development do
   gem 'web-console', '>= 4.1.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-cucumber'
 end
 
 group :test do
-  gem 'rspec-rails'
   gem 'capybara'
 end
 
