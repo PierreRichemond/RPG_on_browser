@@ -1,5 +1,5 @@
 <% if fighter && fighter.photo.attached?%>
   <%= cl_image_tag fighter.photo.key, class: 'fighter-photo'%>
 <% elsif fighter %>
-  <%= image_tag "ken.jpg", class: 'fighter-photo'%>
+  <%= image_tag "profile.png", class: 'fighter-photo'%>
 <% end %>

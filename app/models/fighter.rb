@@ -7,8 +7,8 @@
 #  level                :integer
 #  name                 :string
 #  new_gear_stats_array :string           default([]), is an Array
-#  stats                :string           serialize :stats, Hash
-#  stats_up_hash        :string           serialize :stats_up_hash, Hash
+#  stats                :string
+#  stats_up_hash        :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #

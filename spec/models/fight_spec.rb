@@ -22,4 +22,5 @@
 #
 #  fk_rails_...  (blue_fighter_id => fighters.id)
 #  fk_rails_...  (red_fighter_id => fighters.id)
-#
+# switch_player
+# calculate_player_damage(player, opponent)
