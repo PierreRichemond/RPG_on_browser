@@ -16,9 +16,9 @@ class FighterService
           dodge_rate: 10,
           hitting_rate: 80,
           regen: 1,
-          overall_stats: 31
+          overall_stats: 21
         },
-        name: name,
+        name: name.capitalize,
         photo: photo,
         level: 1,
         experience: 0
@@ -162,7 +162,7 @@ class FighterService
 
     def set_overall_stats(fighter)
       if fighter.stats != {}
-        fighter.stats[:overall_stats] = fighter.stats[:gear_speed_attack] + fighter.stats[:gear_attack] + fighter.stats[:gear_defence] + fighter.stats[:health_point] + fighter.stats[:intelligence] + fighter.stats[:regen]
+        fighter.stats[:overall_stats] = fighter.stats[:gear_speed_attack] + fighter.stats[:gear_attack] + fighter.stats[:gear_defence] + fighter.stats[:health_point]/2 + fighter.stats[:intelligence] + fighter.stats[:regen]
       end
     end
   end
