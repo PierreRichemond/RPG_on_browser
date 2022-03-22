@@ -32,7 +32,6 @@ class FightersController < ApplicationController
 
   def update
     if update_gears_fighter_params.key?(:gear_ids)
-      binding.pry
       ids_in_array = update_gears_fighter_params[:gear_ids].join(" ").split(" ").map {|i| i.to_i}
       if ids_in_array.size >= 3
         flash[:danger] = 'Fighter\'s gears has not been updated'
