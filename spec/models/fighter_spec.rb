@@ -200,6 +200,12 @@ RSpec.describe FighterService, :type => :service do
       end
     end
 
+    describe '#unequiped_all' do
+      subject {FighterService.unequiped_all(fighter_1)}
+      let(:unequiped) { FighterGear.where(fighter: fighter_1, equiped: false).count}
+      it {expect(subject).to eq(unequiped)}
+    end
+
     # describe '#get_gear' do
     #   subject {FighterService.get_gear(fighter_1, gear)}
     #   it 'gets a random gear to the fighter' do
@@ -207,18 +213,12 @@ RSpec.describe FighterService, :type => :service do
     #   end
     # end
 
-    describe '#unequiped_all' do
-      subject {FighterService.unequiped_all(fighter_1)}
-      let(:unequiped) { FighterGear.where(fighter: fighter_1, equiped: false).count}
-      it {expect(subject).to eq(unequiped)}
-    end
-
-    # describe '#level_up' do
-
-    # end
 
     # describe '#stat_up' do
-
+    #   let(:fighter_1) { Fighter.new('Joe', stats: {attack: 0, defence: 0, health_point: 0, speed_attack: 0}) }
+    #   subject {FighterService.stat_up(fighter_1, 1)}
+    #   let(:unequiped) { FighterGear.where(fighter: fighter_1, equiped: false).count}
+    #   it {expect{subject}.to change { fighter_1.stats }.by(2) or(4)}
     # end
 
     # describe '#set_overall_stats' do
@@ -227,6 +227,11 @@ RSpec.describe FighterService, :type => :service do
 
     # describe '#edit_character_stats' do
 
+    # end
+
+    # describe '#level_up' do
+      # is calling #get_gear
+      # is calling #set_overall_stats
     # end
   end
 end
