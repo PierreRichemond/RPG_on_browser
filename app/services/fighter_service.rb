@@ -74,8 +74,6 @@ class FighterService
       end
     end
 
-    private
-
     def check_level_up(fighter, received_experience)
       # add experience and return if no level up
       return fighter.experience += received_experience if received_experience <= (experience_per_level(fighter.level) - fighter.experience)
