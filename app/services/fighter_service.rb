@@ -92,7 +92,7 @@ class FighterService
       [received_experience, rate / 2].max.floor
     end
 
-    def get_gear(fighter)
+    def get_gear(fighter, gear = nil)
       # find a gear having a level close from the fighter
       gear = Gear.all.select { |potential_gear| potential_gear.level <= fighter.level && potential_gear.level > fighter.level - 6 }.sample
       # assign the gear to the fighter
@@ -160,7 +160,7 @@ class FighterService
 
     def set_overall_stats(fighter)
       if fighter.stats != {}
-        fighter.stats[:overall_stats] = fighter.stats[:gear_speed_attack] + fighter.stats[:gear_attack] + fighter.stats[:gear_defence] + fighter.stats[:health_point]/2 + fighter.stats[:intelligence] + fighter.stats[:regen]
+        fighter.stats[:overall_stats] = fighter.stats[:gear_speed_attack] + fighter.stats[:gear_attack] + fighter.stats[:gear_defence] + fighter.stats[:health_point]/2
       end
     end
   end

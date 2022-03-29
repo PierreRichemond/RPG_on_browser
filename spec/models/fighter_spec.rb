@@ -1,3 +1,4 @@
+
 # == Schema Information
 #
 # Table name: fighters
@@ -45,8 +46,18 @@ RSpec.describe Fighter, :type => :model do
       expect(fighter).to_not be_valid
     end
   end
+end
 
-  context 'Check Fighter\'s experience gain' do
+RSpec.describe FighterService, :type => :service do
+  describe '#create_fighter' do
+    subject { fighter }
+    let(:fighter) { FighterService.create_fighter('bob', nil) }
+
+    it {expect(subject).to be_an_instance_of(Fighter)}
+    it {expect(subject).to be_valid}
+  end
+
+   context 'Check Fighter\'s experience gain' do
     let(:fighter_1) { FighterService.create_fighter('Joe', nil) }
     let(:fighter_2) { FighterService.create_fighter('bobby', nil) }
     describe '#experience_per_level' do
@@ -176,14 +187,46 @@ RSpec.describe Fighter, :type => :model do
       end
     end
   end
-end
 
-RSpec.describe FighterService, :type => :service do
-  describe '#create_fighter' do
-    subject { fighter }
-    let(:fighter) { FighterService.create_fighter('bob', nil) }
+  context 'gears' do
+    let(:gear) { Gear.create!(name: "Ring", attack: 4, defence: 1, speed_attack: 1, level: 2)}
+    let(:fighter_1) { FighterService.create_fighter('Joe', nil) }
+    let(:fighter_2) { FighterService.create_fighter('bobby', nil) }
 
-    it {expect(subject).to be_an_instance_of(Fighter)}
-    it {expect(subject).to be_valid}
+    describe '#gear_stats' do
+      subject {FighterService.gear_stats(fighter_1, gear)}
+      it 'adds in the new_gear_stats_array' do
+        expect{subject}.to change { fighter_1.new_gear_stats_array.length }.by(1)
+      end
+    end
+
+    # describe '#get_gear' do
+    #   subject {FighterService.get_gear(fighter_1, gear)}
+    #   it 'gets a random gear to the fighter' do
+    #     expect{subject}.to change { fighter_1.new_gear_stats_array.length }.by(1)
+    #   end
+    # end
+
+    describe '#unequiped_all' do
+      subject {FighterService.unequiped_all(fighter_1)}
+      let(:unequiped) { FighterGear.where(fighter: fighter_1, equiped: false).count}
+      it {expect(subject).to eq(unequiped)}
+    end
+
+    # describe '#level_up' do
+
+    # end
+
+    # describe '#stat_up' do
+
+    # end
+
+    # describe '#set_overall_stats' do
+
+    # end
+
+    # describe '#edit_character_stats' do
+
+    # end
   end
 end
