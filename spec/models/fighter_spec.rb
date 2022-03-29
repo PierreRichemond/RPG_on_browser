@@ -147,6 +147,34 @@ RSpec.describe Fighter, :type => :model do
         end
       end
     end
+    describe '#calculates_experience_from_fight' do
+      let(:fighter_3) { Fighter.new(name: 'name', level: 5, stats: {overall_stats: 60}) }
+      let(:fighter_4) { Fighter.new(name: 'namo', level: 1, stats: {overall_stats: 30}) }
+
+      describe 'for a' do
+        describe 'level 1 wins to a level 1' do
+          it {expect(FighterService.calculates_experience_from_fight(fighter_1, fighter_2, 10)).to eq(10)}
+        end
+        describe 'level 1 wins to a level 5' do
+          it {expect(FighterService.calculates_experience_from_fight(fighter_4, fighter_3, 10)).to eq(100)}
+        end
+        describe 'level 5 wins to a level 1' do
+          it {expect(FighterService.calculates_experience_from_fight(fighter_3, fighter_4, 10)).to eq(5)}
+        end
+      end
+
+      describe 'for a' do
+        describe 'level 1 loses to a level 1' do
+          it {expect(FighterService.calculates_experience_from_fight(fighter_1, fighter_2, 2)).to eq(2)}
+        end
+        describe 'level 1 loses to a level 5' do
+          it {expect(FighterService.calculates_experience_from_fight(fighter_4, fighter_3, 2)).to eq(20)}
+        end
+        describe 'level 5 loses to a level 1' do
+          it {expect(FighterService.calculates_experience_from_fight(fighter_3, fighter_4, 2)).to eq(1)}
+        end
+      end
+    end
   end
 end
 
