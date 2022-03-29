@@ -33,7 +33,6 @@ RSpec.describe Fight, :type => :model do
   let(:fighter_2) { FighterService.create_fighter('bobby', nil) }
 
   context 'Check validations' do
-
     it "is not valid without both fighter" do
       subject {Fight.new(fighter_1)}
       expect(subject).to_not be_valid
@@ -48,5 +47,25 @@ RSpec.describe Fight, :type => :model do
       subject {Fight.new(fighter_1, fighter_1)}
       expect(subject).to_not be_valid
     end
+
+    # it "is valid if fighters are different" do
+    #   subject {Fight.create!(red_fighter: fighter_1, blue_fighter: fighter_2)}
+    #   expect(subject).to be_valid
+    # end
   end
+
+  # context '#calculate_player_damage' do
+
+  #   describe "a strong player" do
+  #     fighter_1.stats[gear_speed_attack] = 3
+  #     fighter_1.stats[gear_attack] = 10
+  #     fighter_1.stats[gear_defence] = 5
+  #     fighter_2.stats[gear_speed_attack] = 2
+  #     fighter_2.stats[gear_attack] = 6
+  #     fighter_2.stats[gear_defence] = 2
+
+  #     it expect(calculate_player_damage(fighter_1, fighter_2)).to eq(5)
+  #     it expect(calculate_player_damage(fighter_2, fighter_1)).to eq(5)
+  #   end
+  # end
 end

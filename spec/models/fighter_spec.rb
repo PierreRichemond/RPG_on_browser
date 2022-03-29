@@ -215,18 +215,31 @@ RSpec.describe FighterService, :type => :service do
 
 
     # describe '#stat_up' do
-    #   let(:fighter_1) { Fighter.new('Joe', stats: {attack: 0, defence: 0, health_point: 0, speed_attack: 0}) }
-    #   subject {FighterService.stat_up(fighter_1, 1)}
-    #   let(:unequiped) { FighterGear.where(fighter: fighter_1, equiped: false).count}
-    #   it {expect{subject}.to change { fighter_1.stats }.by(2) or(4)}
+    #   let(:fighter_1) { Fighter.new(name: 'Joe') }
+    #   it 'adds stats' do
+    #     fighter_1.stats = {attack: 0, defence: 0, health_point: 0, speed_attack: 0, overall_stats: 0, gear_attack: 0, gear_defence: 0, gear_speed_attack: 0}
+    #     prev_stats = fighter_1.stats
+    #     subject { FighterService(fighter_1, 1)}
+    #     expect(fighter_1.stats).not_to eq(prev_stats)
+    #   end
     # end
 
     # describe '#set_overall_stats' do
-
+    #   let(:fighter_1) { Fighter.new(name: 'Joe') }
+    #   it 'adds stats' do
+    #     fighter_1.stats = {attack: 2, defence: 0, health_point: 0, speed_attack: 0, overall_stats: 0, gear_attack: 0, gear_defence: 0, gear_speed_attack: 0}
+    #     prev_stats = fighter_1.stats
+    #     subject { FighterService.set_overall_stats(fighter_1)}
+    #     expect(fighter_1.stats).not_to eq(prev_stats)
+    #   end
     # end
 
     # describe '#edit_character_stats' do
-
+    #   it 'edits stats' do
+    #     fighter_1.stats = {attack: 0, defence: 0, health_point: 0, speed_attack: 0, overall_stats: 0}
+    #     prev_stats = fighter_1.stats
+    #     expect(fighter_1.stat_up).not_to eq(prev_stats)
+    #   end
     # end
 
     # describe '#level_up' do

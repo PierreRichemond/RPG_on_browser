@@ -94,7 +94,9 @@ class FighterService
 
     def get_gear(fighter, gear = nil)
       # find a gear having a level close from the fighter
-      gear = Gear.all.select { |potential_gear| potential_gear.level <= fighter.level && potential_gear.level > fighter.level - 6 }.sample
+      gear = Gear.all.select do |potential_gear|
+        potential_gear.level <= fighter.level && potential_gear.level > fighter.level - 6
+      end.sample
       # assign the gear to the fighter
       FighterGear.create!(gear_id: gear.id, fighter_id: fighter.id, equiped: false)
       #describe the gear's stats and store in in an array
