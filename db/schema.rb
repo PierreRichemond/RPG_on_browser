@@ -67,11 +67,13 @@ ActiveRecord::Schema.define(version: 2022_02_19_122032) do
   create_table "fights", force: :cascade do |t|
     t.bigint "red_fighter_id", null: false
     t.bigint "blue_fighter_id", null: false
-    t.string "first_fighter"
-    t.string "second_fighter"
+    # t.string "first_fighter"
+    # t.string "second_fighter"
+    # need to remove
     t.string "turns", default: [], array: true
-    t.string "winner"
-    t.string "loser"
+    # t.string "winner"
+    # t.string "loser"
+    # organize to boolean
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["blue_fighter_id"], name: "index_fights_on_blue_fighter_id"
@@ -80,9 +82,10 @@ ActiveRecord::Schema.define(version: 2022_02_19_122032) do
 
   create_table "gears", force: :cascade do |t|
     t.string "name"
-    t.integer "attack"
-    t.integer "defence"
-    t.integer "speed_attack"
+    # t.integer "attack"
+    # t.integer "defence"
+    # t.integer "speed_attack"
+    # put a stats hash instead
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "level"
