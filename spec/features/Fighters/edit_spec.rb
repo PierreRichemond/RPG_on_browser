@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'fighter"s index' do
   before do
-    @pikachu = Fighter.create(name: 'Pikachu', level:4, stats: {overall_stats: 32})
+    @pikachu = Fighter.create(name: 'Pikachu', level:4)
   end
 
   scenario 'show one fighter\'s details' do
