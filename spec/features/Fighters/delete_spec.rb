@@ -1,7 +1,7 @@
 
 require 'rails_helper'
 
-RSpec.feature 'fighter"s index' do
+RSpec.feature 'fighter\'s index' do
   before do
     @pikachu = Fighter.create(name: 'Pikachu', level:4)
   end

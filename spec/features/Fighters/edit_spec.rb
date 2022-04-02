@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'fighter"s index' do
+RSpec.feature 'fighter\'s index' do
   before do
     @pikachu = Fighter.create(name: 'Pikachu', level:4)
   end
@@ -10,7 +10,9 @@ RSpec.feature 'fighter"s index' do
     click_link 'Hall of warriors'
     expect(page).to have_content('Pikachu')
 
-    click_link 'Edit'
+    path = "/fighters/#{@pikachu.id}/edit"
+    link = "a[href = \'#{path}\']"
+    find(link).click
     expect(page).to have_content('Editing page of Pikachu')
 
     fill_in "Name", with: 'Tom'
