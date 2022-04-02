@@ -5,6 +5,7 @@ RSpec.describe FightsController, type: :controller do
     let(:first_fighter) { FighterService.create_fighter('Joe', nil) }
     let(:second_fighter) { FighterService.create_fighter('bobby', nil) }
   end
+
   # context 'GET #index' do
   #   it 'returns a success response' do
   #     get :index
@@ -16,13 +17,17 @@ RSpec.describe FightsController, type: :controller do
     it 'returns a success response' do
       fight = Fight.create!(red_fighter: first_fighter, blue_fighter: second_fighter)
       get :show, params: { id: fight.to_param}
+      expect(fight).to be_an_instance_of Fight
       expect(response).to be_success
+      expect(response).to redirect_to(fighter_path(fight))
     end
 
     it 'returns a failure response' do
       fight = Fight.create!(red_fighter: first_fighter, blue_fighter: first_fighter)
       get :show, params: { id: fight.to_param}
       expect(response).not_to be_success
+      expect(response).not_to redirect_to(fighter_path(fight))
+      expect(response).to redirect_to(root_path)
     end
   end
 
@@ -38,10 +43,10 @@ RSpec.describe FightsController, type: :controller do
       }.to change(Fighter, :count).by(1)
     end
 
-    it 'not to assign a new fight to @fight while invalid params' do
+    it 'does not to assign a new fight to @fight while invalid params' do
       let(:invalid_params) { {'fight' => {
         red_fighter_id: first_fighter.id,
-        blue_fighter_id: second_fighter.id,} }
+        blue_fighter_id: first_fighter.id,} }
       post :create
       expect(assigns(:fight)).not_to be_a_new(Fight)
       expect {

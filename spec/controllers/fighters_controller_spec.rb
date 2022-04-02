@@ -24,10 +24,17 @@ RSpec.describe FightersController, type: :controller do
   end
 
   context 'GET #create' do
+    let(:valid_params) { {'fighter' => {name: 'Bob'} }
     it 'creates a new Fighter' do
-      expect {
-        post :create, valid_params
-      }.to change(Fighter, :count).by(1)
+      expect {post :create, valid_params}.to change(Fighter, :count).by(1)
+    end
+  end
+
+  describe "DELETE #destroy" do
+    let(:valid_params) { {'fighter' => {name: 'Bob'} }
+    it 'deletes a fighter' do
+      expect {delete :destroy, valid_params}.to change(Fighter, :count).by(-1)
+      expect(response).to redirect_to(fighters_path)
     end
   end
 end
