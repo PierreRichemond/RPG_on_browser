@@ -9,7 +9,6 @@ class FightsController < ApplicationController
   end
 
   def create
-
     first_fighter = Fighter.find_by(name: params[:fight][:first_fighter].split(' ').first)
     second_fighter = Fighter.find_by(name: params[:fight][:second_fighter].split(' ').first)
 

@@ -13,7 +13,10 @@ RSpec.feature 'Creating fighter' do
     expect(page).to have_content('Fighter has been created')
     fighter = Fighter.last
     expect(current_path).to eq('/fighters')
-    expect(page).to have_content(fighter.name)
+
+    it 'ensure creation of fighter' do
+      expect(fighter).to be_truthy
+    end
 
   end
 
@@ -21,6 +24,10 @@ RSpec.feature 'Creating fighter' do
     fill_in 'Name', with: ''
     click_button 'Create a new Warrior'
 
+    it 'ensure creation of fighter' do
+      fighter = Fighter.new(name: '')
+      expect(fighter).to be(false)
+    end
    expect(page).to have_content("Fighter has not been created")
    expect(page).to have_content("Name date can't be blank")
   end
