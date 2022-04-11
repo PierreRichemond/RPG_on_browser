@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'fighter\'s index' do
   before do
-    @pikachu = Fighter.create(name: 'Pikachu', level:4)
+    @pikachu = Fighter.create(name: 'Pikachu', level: 4)
   end
 
   scenario 'show one fighter\'s details' do
@@ -13,7 +13,7 @@ RSpec.feature 'fighter\'s index' do
     path = "/fighters/#{@pikachu.id}/edit"
     link = "a[href = \'#{path}\']"
     find(link).click
-    expect(page).to have_content('Editing page of Pikachu')
+    expect(page).to have_content("Editing page of Pikachu")
 
     fill_in "Name", with: 'Tom'
     click_button "Edit your Warrior"

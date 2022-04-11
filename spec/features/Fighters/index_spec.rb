@@ -14,26 +14,26 @@ RSpec.feature 'fighter\'s index' do
 
     expect(page).to have_content('Welcome to the Hall of Heroes')
 
-    Fighter.all.each |fighter| do
-      expect(page).to have_content(fighter.name)
-      expect(page).to have_content(fighter.level)
-      expect(page).to have_content(fighter.stats[:overall_stats])
-    end
-    # expect(page).to have_content(@pikachu.name)
-    # expect(page).to have_content(@pikachu.level)
-    # expect(page).to have_content(@pikachu.stats[:overall_stats])
+    # Fighter.all.each |fighter| do
+    #   expect(page).to have_content(fighter.name)
+    #   expect(page).to have_content(fighter.level)
+    #   expect(page).to have_content(fighter.stats[:overall_stats])
+    # end
+    expect(page).to have_content(@pikachu.name)
+    expect(page).to have_content(@pikachu.level)
+    expect(page).to have_content(@pikachu.stats[:overall_stats])
 
-    # expect(page).to have_content(@ryu.name)
-    # expect(page).to have_content(@ryu.level)
-    # expect(page).to have_content(@ryu.stats[:overall_stats])
+    expect(page).to have_content(@ryu.name)
+    expect(page).to have_content(@ryu.level)
+    expect(page).to have_content(@ryu.stats[:overall_stats])
 
-    # expect(page).to have_content(@ken.name)
-    # expect(page).to have_content(@ken.level)
-    # expect(page).to have_content(@ken.stats[:overall_stats])
+    expect(page).to have_content(@ken.name)
+    expect(page).to have_content(@ken.level)
+    expect(page).to have_content(@ken.stats[:overall_stats])
 
-    # expect(page).to have_content(@barbie.name)
-    # expect(page).to have_content(@barbie.level)
-    # expect(page).to have_content(@barbie.stats[:overall_stats])
+    expect(page).to have_content(@barbie.name)
+    expect(page).to have_content(@barbie.level)
+    expect(page).to have_content(@barbie.stats[:overall_stats])
 
   end
 end

@@ -92,7 +92,7 @@ class FighterService
       [received_experience, rate / 2].max.floor
     end
 
-    def get_gear(fighter, gear = nil)
+    def get_gear(fighter)
       # find a gear having a level close from the fighter
       gear = Gear.all.select do |potential_gear|
         potential_gear.level <= fighter.level && potential_gear.level > fighter.level - 6
