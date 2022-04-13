@@ -39,13 +39,11 @@ RSpec.describe Fight, :type => :model do
     end
 
     it "is not valid without a fighter" do
-      fighter = Fight.new
-      expect(fighter).to_not be_valid
+      expect(Fight.new).to_not be_valid
     end
 
     it "is not valid if both are the same fighter" do
-      subject {Fight.new(fighter_1, fighter_1)}
-      expect(subject).to_not be_valid
+      expect{ FightService.new(fighter_1, fighter_1)}.to raise_error
     end
 
     # it "is valid if fighters are different" do
