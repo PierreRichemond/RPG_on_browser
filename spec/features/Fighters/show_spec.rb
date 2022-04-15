@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.feature 'fighter\'s index' do
+RSpec.feature 'fighter\'s show' do
   before do
-    @pikachu = Fighter.create(name: 'Pikachu', level:4, stats: {overall_stats: 32})
+    @pikachu = Fighter.create(name: 'Pikachu', level: 4, stats: { overall_stats: 32})
   end
 
-  scenario 'show one fighter\'s details' do
+  scenario 'one fighter\'s details' do
     visit '/'
     click_link 'Hall of warriors'
     click_link 'See more'

@@ -8,7 +8,7 @@ RSpec.feature 'Listing home\'s fighters' do
     @barbie = Fighter.create(name: 'Barbie', level: 1, stats: {overall_stats: 21})
   end
 
-  scenario 'the 3 strongest fighters' do
+  scenario 'list the 3 strongest fighters' do
     visit '/'
     expect(page).to have_content('Our strongest challengers')
 
@@ -23,10 +23,11 @@ RSpec.feature 'Listing home\'s fighters' do
     expect(page).to have_content(@ken.name)
     expect(page).to have_content(@ken.level)
     expect(page).to have_content(@ken.stats[:overall_stats])
+  end
 
-    expect(page).not_to have_content(@barbie.name)
-    expect(page).not_to have_content(@barbie.level)
-    expect(page).not_to have_content(@barbie.stats[:overall_stats])
-
+  scenario 'does not show the 4th fighter' do
+    visit '/'
+    expect(page).not_to have_content("level: #{@barbie.level}")
+    expect(page).not_to have_content("Fighting power: #{@barbie.stats[:overall_stats]}")
   end
 end

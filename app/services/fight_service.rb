@@ -1,5 +1,5 @@
 class FightService
-
+  attr_reader :fight
   def initialize(first_fighter, second_fighter)
     #Create the fight
     @fight = Fight.create(red_fighter: first_fighter, blue_fighter: second_fighter)

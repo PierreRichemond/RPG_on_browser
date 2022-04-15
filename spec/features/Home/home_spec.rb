@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Listing homes basic features' do
-  scenario 'Shows presence of links and h1', js: true do
+  scenario 'Shows presence of links and h1' do
     visit '/'
     expect(page).to have_content('Welcome to the Arena!')
     expect(page).to have_link('Home')

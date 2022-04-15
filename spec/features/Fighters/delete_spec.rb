@@ -1,21 +1,18 @@
 
 require 'rails_helper'
 
-RSpec.feature 'fighter\'s index' do
+RSpec.feature 'fighter\'s delete' do
   before do
     @pikachu = Fighter.create(name: 'Pikachu', level: 4)
   end
 
-  scenario 'show one fighter\'s details' do
+  scenario 'one fighter\'s details' do
     visit '/'
     click_link 'Hall of warriors'
     expect(page).to have_content('Pikachu')
 
     click_link 'See more'
-
-    path = "/fighters/#{@pikachu.id}"
-    link = "//a[contains(@href, \'#{path}\') and .//text()='Destroy']"
-    find(:xpath, link).click
+    click_link "Delete"
 
     expect(page).to have_content("Fighter has been deleted properly")
   end
