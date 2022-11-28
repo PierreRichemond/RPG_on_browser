@@ -167,38 +167,58 @@ RSpec.describe FighterService, :type => :service do
       end
     end
 
+    describe '#stat_up' do
+      it 'adds stats' do
+        prev_overall_stats = fighter_1.stats[:overall_stats]
+        fighter_1.stats_up_hash = {
+          speed_attack: 0,
+          attack: 0,
+          defence: 0,
+          hp: 0
+        }
+        FighterService.stat_up(fighter_1, 1)
 
-    # describe '#stat_up' do
-    #   let(:fighter_1) { Fighter.new(name: 'Joe') }
-    #   it 'adds stats' do
-    #     fighter_1.stats = {attack: 0, defence: 0, health_point: 0, speed_attack: 0, overall_stats: 0, gear_attack: 0, gear_defence: 0, gear_speed_attack: 0}
-    #     prev_stats = fighter_1.stats
-    #     subject { FighterService(fighter_1, 1)}
-    #     expect(fighter_1.stats).not_to eq(prev_stats)
-    #   end
-    # end
+        new_overall_stats = fighter_1.stats[:overall_stats]
+        expect(new_overall_stats).to be > prev_overall_stats
+      end
+    end
 
-    # describe '#set_overall_stats' do
-    #   let(:fighter_1) { Fighter.new(name: 'Joe') }
-    #   it 'adds stats' do
-    #     fighter_1.stats = {attack: 2, defence: 0, health_point: 0, speed_attack: 0, overall_stats: 0, gear_attack: 0, gear_defence: 0, gear_speed_attack: 0}
-    #     prev_stats = fighter_1.stats
-    #     subject { FighterService.set_overall_stats(fighter_1)}
-    #     expect(fighter_1.stats).not_to eq(prev_stats)
-    #   end
-    # end
+    describe '#set_overall_stats' do
+      it 'adds stats' do
+        prev_stats = fighter_1.stats[:overall_stats]
+        fighter_1.stats[:attack] = 10
+        FighterService.set_overall_stats(fighter_1)
+        new_stats = fighter_1.stats[:overall_stats]
+        expect(new_stats).not_to eq(prev_stats)
+         expect(new_stats).to be > prev_stats
+      end
+    end
 
-    # describe '#edit_character_stats' do
-    #   it 'edits stats' do
-    #     fighter_1.stats = {attack: 0, defence: 0, health_point: 0, speed_attack: 0, overall_stats: 0}
-    #     prev_stats = fighter_1.stats
-    #     expect(fighter_1.stat_up).not_to eq(prev_stats)
-    #   end
-    # end
+    describe '#edit_character_stats' do
+      it 'edits stats' do
+        prev_stats = fighter_1.stats[:overall_stats]
+        fighter_1.stats[:attack] = 10
+        FighterService.edit_character_stats(fighter_1)
+        new_stats = fighter_1.stats[:overall_stats]
+        expect(new_stats).not_to eq(prev_stats)
+        expect(new_stats).to be > prev_stats
+      end
+    end
 
-    # describe '#level_up' do
-      # is calling #get_gear
-      # is calling #set_overall_stats
-    # end
+    describe '#level_up' do
+      it 'checks level up' do
+        fighter_1.stats_up_hash = {
+          speed_attack: 0,
+          attack: 0,
+          defence: 0,
+          hp: 0
+          }
+        prev_level = fighter_1.level
+        FighterService.level_up(fighter_1, 3)
+        new_level = fighter_1.level
+        expect(new_level).not_to eq(prev_level)
+        expect(new_level).to be > prev_level
+      end
+    end
   end
 end

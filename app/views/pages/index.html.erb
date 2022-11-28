@@ -15,9 +15,9 @@
         <%= simple_form_for @fight, url: fights_path do |f| %>
           <%= render "./pages/shared/error_message", instance: @fight %>
 
-          <%= f.select :first_fighter, available_fighters(@fighters).map { |fighter| "#{fighter.name} Power: #{fighter.stats[:overall_stats]}"},
+          <%= f.select :first_fighter, @fighters.pluck(:name, :id),
                         class: 'm-5', id: 'first-fighter'  %>
-          <%= f.select :second_fighter, available_fighters(@fighters).map { |fighter| "#{fighter.name} Power: #{fighter.stats[:overall_stats]}" }, class: 'm-5' %>
+          <%= f.select :second_fighter, @fighters.pluck(:name, :id), class: 'm-5' %>
           <%= f.submit 'Start a Fight', class: 'btn btn-success my-3 px-5', style: "border-radius: 20px;" %>
         <% end %>
       </div>

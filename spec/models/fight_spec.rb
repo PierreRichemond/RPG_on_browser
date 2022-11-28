@@ -33,6 +33,12 @@ RSpec.describe Fight, :type => :model do
   let(:fighter_2) { FighterService.create_fighter('bobby', nil) }
 
   describe '#valid?' do
+    it "is valid if fighters are different" do
+      expect( FightService.new(fighter_1, fighter_2).fight ).to be_valid
+    end
+  end
+
+  describe '#not_valid?' do
     it "is not valid without both fighter" do
       expect{ FightService.new(fighter_1).fight }.to raise_error(ArgumentError)
     end
@@ -44,23 +50,5 @@ RSpec.describe Fight, :type => :model do
     it "is not valid if both are the same fighter" do
       expect( FightService.new(fighter_1, fighter_1).fight ).not_to be_valid
     end
-
-    it "is valid if fighters are different" do
-      expect( FightService.new(fighter_1, fighter_2).fight ).to be_valid
-    end
-    # context '#calculate_player_damage' do
-
-    #   describe "a strong player" do
-    #     fighter_1.stats[:gear_speed_attack] = 3
-    #     fighter_1.stats[:gear_attack] = 10
-    #     fighter_1.stats[:gear_defence] = 5
-    #     fighter_2.stats[:gear_speed_attack] = 2
-    #     fighter_2.stats[:gear_attack] = 6
-    #     fighter_2.stats[:gear_defence] = 2
-
-    #     it expect(calculate_player_damage(fighter_1, fighter_2)).to eq(5)
-    #     it expect(calculate_player_damage(fighter_2, fighter_1)).to eq(5)
-    #   end
-    # end
   end
 end
