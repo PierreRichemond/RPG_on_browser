@@ -9,8 +9,8 @@ class FightsController < ApplicationController
   end
 
   def create
-    first_fighter = Fighter.find_by(name: params[:fight][:first_fighter].split(' ').first)
-    second_fighter = Fighter.find_by(name: params[:fight][:second_fighter].split(' ').first)
+    first_fighter = Fighter.find(fight_params[:first_fighter])
+    second_fighter = Fighter.find(fight_params[:second_fighter])
 
     if first_fighter == second_fighter
       flash[:danger] = 'Fighters has to be different'

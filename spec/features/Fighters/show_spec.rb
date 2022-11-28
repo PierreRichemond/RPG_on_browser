@@ -17,6 +17,5 @@ RSpec.feature 'fighter\'s show' do
     expect(page).to have_link('Delete')
     expect(page).to have_link('Edit')
     expect(page).not_to have_link('See more')
-
   end
 end
