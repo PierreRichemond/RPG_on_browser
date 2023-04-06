@@ -11,6 +11,7 @@ gem 'rails', '~> 6.1.3'
 gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -66,3 +67,11 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+
+gem "dockerfile-rails", ">= 1.2", :group => :development
+
+gem "net-smtp", "~> 0.3.3", :require => false
+
+gem "net-imap", "~> 0.3.4", :require => false
+
+gem "net-pop", "~> 0.1.2", :require => false

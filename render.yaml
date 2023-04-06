@@ -1,18 +1,18 @@
 databases:
-  - name: postgresql
-    databaseName: rpg_on_browser_production
-    user: postgresql
+  - name: rpg
+    databaseName: dpg-cgnci67dvk4k011h2ebg-a
+    user: rpg_ahhs_user
 
 services:
   - type: web
-    name: RPG_ON_BROWSER
+    name: RPG-on-browser
     env: ruby
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: rpg_on_browser_production
+          name: rpg
           property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
