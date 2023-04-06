@@ -9,14 +9,14 @@ default: &default
 
 development:
   <<: *default
-  database: Jobs_development
+  database: rpg_on_browser_development
 
 test:
   <<: *default
-  database: Jobs_test
+  database: rpg_on_browser_test
 
 production:
   <<: *default
-  database: Jobs_production
+  database: rpg_on_browser_production
   url: <%= ENV['DATABASE_URL'] %>
   password: <%= ENV['MYSITE_DATABASE_PASSWORD'] %>
