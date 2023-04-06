@@ -18,5 +18,3 @@ test:
 production:
   <<: *default
   database: rpg_on_browser_production
-  url: <%= ENV['DATABASE_URL'] %>
-  password: <%= ENV['MYSITE_DATABASE_PASSWORD'] %>
