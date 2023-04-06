@@ -1,9 +1,0 @@
-{
-  "database": {
-    "rules": "database.rules.json"
-  },
-  "hosting": {
-    "site": "f1ghter",
-    "public": "public"
-  }
-}

@@ -1,0 +1,18 @@
+databases:
+  - name: RPG_ON_BROWSER
+    databaseName: RPG_ON_BROWSER
+    user: RPG_ON_BROWSER
+
+services:
+  - type: web
+    name: RPG_ON_BROWSER
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: RPG_ON_BROWSER
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
