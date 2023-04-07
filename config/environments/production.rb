@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 require 'active_support/core_ext/integer/time'
+# // Import
+require 'cloudinary'
+require 'cloudinary/uploader'
+require 'cloudinary/utils'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -118,4 +122,12 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+end
+
+# // Config
+Cloudinary.config do |config|
+  config.cloud_name = ENV['CLOUD_NAME']
+  config.api_key = ENV['CLOUDINARY_API_KEY']
+  config.api_secret = ENV['CLOUDINARY_API_SECRET']
+  config.secure = true
 end
